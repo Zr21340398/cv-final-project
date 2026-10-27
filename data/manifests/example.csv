@@ -1,0 +1,5 @@
+id,image,reference,split
+object_001,../rendered/object_001/view-000.png,../rendered/object_001/reference_normalized.glb,dev
+object_002,../rendered/object_002/view-000.png,../rendered/object_002/reference_normalized.glb,test
+photo_001,../raw/photo_001.png,,real
+

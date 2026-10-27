@@ -1,0 +1,6 @@
+extends: trellis2.yaml
+name: trellis2_smoke
+generation:
+  pipeline_type: '512'
+texture:
+  texture_size: 1024

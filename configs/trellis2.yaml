@@ -1,0 +1,30 @@
+name: trellis2
+backend: trellis2
+model:
+  repo_id: microsoft/TRELLIS.2-4B
+  revision: af44b45f2e35a493886929c6d786e563ec68364d
+  code_revision: 75fbf0183001ed9876c8dbb35de6b68552ee08bd
+  local_files_only: true
+  auxiliary:
+    sparse_decoder:
+      repo_id: microsoft/TRELLIS-image-large
+      revision: 25e0d31ffbebe4b5a97464dd851910efc3002d96
+    image_encoder:
+      repo_id: facebook/dinov3-vitl16-pretrain-lvd1689m
+      revision: ea8dc2863c51be0a264bab82070e3e8836b02d51
+    background:
+      repo_id: briaai/RMBG-2.0
+      revision: 2fd7b4b0f2393ddb39a267fb62df6c010928a6c6
+preprocess:
+  background: keep
+  size: 1024
+  padding: 0.05
+generation:
+  pipeline_type: 1024_cascade
+  max_num_tokens: 49152
+  low_vram: true
+texture:
+  enabled: true
+  texture_size: 2048
+  decimation_target: 1000000
+  remesh: false

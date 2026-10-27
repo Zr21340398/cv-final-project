@@ -1,0 +1,5 @@
+extends: baseline.yaml
+name: fast
+shape:
+  steps: 20
+
