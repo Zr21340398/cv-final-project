@@ -1,36 +1,41 @@
-# 实验协议
+# GSO 正式实验协议
+
+更新：2026-11-06。数据来源已确定，模型与正式参数待预实验结束后冻结。
+选样、下载、渲染和清单模板见 [GSO_DATASET.md](GSO_DATASET.md)。
 
 ## 对象与划分
 
-从 [Google Scanned Objects](https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/) 选择约 30 个对象并记录来源/许可。手动下载所选对象，保留原始贴图、材质路径，不下载整个数据集作为默认操作。目标为 10 个开发对象、20 个测试对象，再加 5–10 个真实照片案例。
+本轮正式评估仅使用 GSO：10 个开发对象、20 个测试对象。按简单实体、细结构或孔洞、非对称、明显图案、复杂形状五类分层，各类 2 个开发对象和 4 个测试对象。
+对象 ID 尚待筛选；来源与清单模板均为空表头。ABO、Toys4K 和实拍案例暂不加入本轮正式统计。
 
 每个对象渲染 8 个固定视角，**只将 view-000.png 作为生成输入**；其他图用于视觉检查。`asset3d render` 输出归一化参考 mesh、PNG 与相机矩阵。旋转轴采用 Blender 的 Z-up；Hunyuan 输出轴约定需在开发集上校准。
 
 ```bash
-asset3d render --mesh data/raw/object_001/model.obj --output data/rendered/object_001
+asset3d render --mesh data/raw/gso/object_001/model.obj --output data/rendered/gso-formal-v1/object_001 --views 8 --resolution 1024
 ```
 
 建立清单（路径相对于 CSV 所在目录），`id` 只允许字母、数字、下划线和短横线，同一物体只出现一次：
 
 ```csv
 id,image,reference,split
-object_001,../rendered/object_001/view-000.png,../rendered/object_001/reference_normalized.glb,dev
-object_002,../rendered/object_002/view-000.png,../rendered/object_002/reference_normalized.glb,test
-photo_001,../raw/photo_001.png,,real
+object_001,../rendered/gso-formal-v1/object_001/view-000.png,../rendered/gso-formal-v1/object_001/reference_normalized.glb,dev
+object_002,../rendered/gso-formal-v1/object_002/view-000.png,../rendered/gso-formal-v1/object_002/reference_normalized.glb,test
 ```
 
-也可建立 `id,image,reference` 三列 catalog 后使用 `asset3d split-data --catalog ... --output ... --dev-count 10`。输出采用本机绝对路径，所以在服务器生成或迁移后重新整理路径。开发/测试按物体划分，不能把同一物体不同视角随机分开。预训练数据可能重叠，不声称测试对象从未被基础模型见过。
+将完整清单保存为 data/manifests/gso-formal-v1.csv，手动核对每类数量及近似重复组。当前 split-data 为简单随机划分，本轮按类别和 duplicate_group 审核后的划分填写清单。相似对象整组放在同一划分。预训练数据可能与 GSO 重叠，报告说明这一背景。
 
 ## 主要对比
 
-基线 50 步、中档 30 步、快速 20 步，其他参数固定。对所有对象使用相同的两个形状 seed，例如 42、123。纹理步骤与种子由固定上游实现决定；这组实验不改变纹理配置。先在开发集验证三档参数确实可运行，再冻结配置做正式测试。
+模型选定后，在开发集确定正式参数与资源预算，再冻结测试方案。
+候选方向为输入规范化或质量/成本权衡。混元可研究形状推理步数，TRELLIS.2 可研究生成分辨率。
+同一轮控制一个变量，配置数量按实测耗时确定，种子暂拟 42 和 123。
 
-```bash
-asset3d batch --manifest data/manifests/objects.csv --split dev --seeds 42 --output results/dev01
-asset3d batch --manifest data/manifests/objects.csv --split test --seeds 42 123 --output results/test01
-```
+现有 baseline/medium/fast 配置与 slurm/experiments.sbatch 是混元 50/30/20 步旧方案。
+本轮暂不提交该脚本。若最终选混元，可在确认后沿用；选 TRELLIS.2 则更新配置、GPU 环境和批处理入口。
+最终提交命令随模型选型后的代码一起更新。
 
-批处理计划会在开始前保存完整矩阵；如果失败或任务未跑完，汇总仍保留相应条目，成功率分母不缩小。测试失败不能通过删除目录/数据清单而从报告中消失。配置、输入和源码变更应建立新实验。
+正式矩阵例如 20 个测试对象 × 2 配置 × 2 种子为 80 次生成。失败和未完成条目保留在完整矩阵中。
+在开发集上完成单例、坐标校准与参数选择后，再运行测试集。配置、图片、源码变更时建立新实验。
 
 ## 几何评价
 

@@ -1,9 +1,13 @@
-# 单图 3D 资产生成：模型选型预实验
+# 单图 3D 资产生成：模型选型与 GSO 正式数据准备
 
 当前目标：比较 **TRELLIS.2 与混元 3D 2.0 的官方单图流程**，用相同五个物体、
 两个随机种子的小规模实验确定后续主线。无需先生成六视角图。
 
-**从 [预实验实操说明](docs/PILOT_GUIDE.md) 开始。**
+**正式数据已确定为 GSO：阅读 [GSO 数据准备与选样说明](docs/GSO_DATASET.md)。**
+当前准备 10 个开发对象与 20 个测试对象，具体对象待筛选。规划见 configs/gso_dataset.yaml，
+来源与运行清单模板位于 data/manifests/gso-*.example.csv。最终模型与参数等待预实验结果。
+
+**运行模型选型预实验：从 [预实验实操说明](docs/PILOT_GUIDE.md) 开始。**
 包含上传、模型权限、两个环境、下载、共用去背景、单例验证、Slurm 批处理、评分和排错。
 方法与版本依据见 [PILOT_METHOD.md](docs/PILOT_METHOD.md)。
 
@@ -67,5 +71,5 @@ dist/asset3d-source.tar.gz 只包含源码、配置、说明和清单模板；
 configs/baseline.yaml、medium.yaml、fast.yaml 与原 Gradio 界面仍用于混元 50/30/20 步实验，
 本轮模型选型通过新的命令行/Slurm 流程完成，不在一个环境混装两个演示界面。
 
-旧资料：[混元安装](docs/HPC4_SETUP.md)、[步数实验](docs/EXPERIMENTS.md)、
+实验说明：[GSO 正式实验协议](docs/EXPERIMENTS.md)。旧资料：[混元安装](docs/HPC4_SETUP.md)、
 [原架构](docs/ARCHITECTURE.md)。课程 PDF 与原用户文件未改动。
