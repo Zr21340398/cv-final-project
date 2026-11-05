@@ -1,6 +1,7 @@
 """Pinned official TRELLIS.2 inference and native PBR export."""
 
 import json
+import hashlib
 import os
 import re
 import subprocess
@@ -86,6 +87,21 @@ def snapshot(model, download=False):
     # 主生成模型之外，还需稀疏结构解码器、图片特征编码器和背景处理模型。
     roots = {"main": fetch(model, ["pipeline.json", "ckpts/*", "LICENSE*", "README.md"])}
     for key, dep in model["auxiliary"].items():
+        if key == "image_encoder":
+            # 使用魔搭下载的 ViT-L 权重；校验文件，确保实验采用固定模型。
+            root = Path(os.environ.get("ASSET3D_DINOV3_DIR", "~/models/dinov3-vitl16-pretrain-lvd1689m")).expanduser().resolve()
+            weight = root / "model.safetensors"
+            for filename in ("config.json", "preprocessor_config.json", "model.safetensors"):
+                if not (root / filename).is_file():
+                    raise FileNotFoundError(f"缺少 DINOv3 文件：{root / filename}；请按 guide 从魔搭下载")
+            digest = hashlib.sha256()
+            with weight.open("rb") as f:
+                for chunk in iter(lambda: f.read(8 * 1024 * 1024), b""):
+                    digest.update(chunk)
+            if digest.hexdigest() != "dcb2e45127cccbf1601e5f42fef165eea275c8e5213197e8dcf3f48822718179":
+                raise ValueError(f"DINOv3 权重校验失败：{weight}")
+            roots[key] = str(root)
+            continue
         patterns = (
             ["ckpts/ss_dec_conv3d_16l8_fp16.*", "LICENSE*"]
             if key == "sparse_decoder"

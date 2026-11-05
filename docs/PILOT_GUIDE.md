@@ -197,23 +197,45 @@ ls
 **完成后检查：**ls 输出中能看到 configs、src、scripts、slurm、docs、README.md。
 服务器会重新安装 Linux 环境，上传包里只装源码和说明。
 
-## 5. 在网页上申请辅助模型的访问权限
+## 5. 准备辅助模型的访问权限和 DINOv3
 
-**在哪里：笔记本浏览器。可以在等待服务器资源时处理。**
+DINOv3 将图片转成 TRELLIS.2 所需的视觉特征。本项目使用 ViT-L/16 版本，
+从[魔搭模型页面](https://modelscope.cn/models/facebook/dinov3-vitl16-pretrain-lvd1689m)下载。
+RMBG-2.0 用于去背景，请在 [Hugging Face 页面](https://huggingface.co/briaai/RMBG-2.0)接受条款并取得访问权限。
+TRELLIS.2 的主模型和辅助解码器仍从 Hugging Face 下载。下载时遵守各模型许可证。
 
-用自己的 Hugging Face 账户打开：
+**在哪里：完成第 6 节准备环境后，在 CPU 计算节点中执行；无需占用 GPU。**
+先激活第 6 节创建的准备环境，再运行：
 
-- [DINOv3-L](https://huggingface.co/facebook/dinov3-vitl16-pretrain-lvd1689m)：按页面要求申请访问。
-- [RMBG-2.0](https://huggingface.co/briaai/RMBG-2.0)：按页面要求接受条款并取得访问权限。
+```bash
+python -m pip install modelscope
+python - <<'PY'
+from pathlib import Path
+from modelscope import snapshot_download
 
-DINOv3 用于提取图片特征。RMBG 用于去背景；我们会提前准备透明图片，
-同时保留官方加载程序需要的 RMBG 文件。
+# 个人目录是持久存储，退出计算节点后文件仍在。
+target = Path.home() / "models" / "dinov3-vitl16-pretrain-lvd1689m"
+snapshot_download("facebook/dinov3-vitl16-pretrain-lvd1689m", local_dir=str(target))
+print("模型目录：", target)
+PY
+```
 
-主模型 TRELLIS.2 还会读取第一代 TRELLIS 的一个辅助解码器。
-后面的下载命令会把配置里列出的模型一起缓存，代码中已固定各自版本。
+下载约 1.21 GB 权重。检查文件：
 
-**完成后检查：**网页显示你的账户可以访问相应模型文件。
-如果正在等待审批，可以先继续安装环境和准备图片。
+```bash
+ls -lh ~/models/dinov3-vitl16-pretrain-lvd1689m
+```
+
+应看到 `config.json`、`preprocessor_config.json` 和 `model.safetensors`。
+后续执行项目的权重下载命令时，程序会读取此目录并校验权重 SHA-256；其余模型仍按原流程下载。
+如果保存到了其他目录，在每次运行下载或推理命令的终端或 Slurm 脚本中设置：
+
+```bash
+export ASSET3D_DINOV3_DIR="$HOME/models/你的模型目录"
+```
+
+上传更新后的项目代码到服务器后再运行。配置中的 Hugging Face 版本号用于记录原方案，
+DINOv3 实际来源是上述魔搭本地文件，权重哈希固定在代码中。
 
 ## 6. 先用 CPU 做准备：模块、环境和卡时
 
@@ -230,7 +252,7 @@ GPU 计算节点：安装三维模型环境与扩展 → 检查 GPU → 立即�
 ```
 
 这样把体积较大的模型下载和图片准备放到申请 GPU 之前。先在笔记本选好五张图片、
-完成第 5 节的访问申请，再开始下面的操作，减少占用计算节点等待人工准备的时间。
+完成 RMBG 的访问申请，再开始下面的操作，减少占用计算节点等待人工准备的时间。
 
 ### 6.1 哪些操作需要 GPU，怎样计算资源占用
 
