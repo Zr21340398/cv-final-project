@@ -143,6 +143,39 @@ class HunyuanBackend:
         with torch.inference_mode():
             return self.paint(mesh, image=image)
 
+    def prepare_texture_mesh(self, mesh):
+        target = self.config["texture"].get("max_faces_before_paint")
+        if target is None:
+            # 旧配置沿用原有流程；只有新实验显式开启 Paint 前减面。
+            return mesh, None
+
+        from ..mesh_ops import validate_mesh
+
+        # 白模用于独立几何评价，减面及后续 UV 展开只能修改纹理专用副本。
+        texture_mesh = mesh.copy()
+        faces_before = len(texture_mesh.faces)
+        applied = faces_before > target
+        seconds = 0.0
+        print(f"Preparing mesh for Paint: {faces_before} faces, target {target}", flush=True)
+        if applied:
+            from hy3dgen.shapegen import FaceReducer
+
+            start = time.perf_counter()
+            texture_mesh = FaceReducer()(texture_mesh, max_facenum=target)
+            seconds = time.perf_counter() - start
+        validate_mesh(texture_mesh)
+        faces_after = len(texture_mesh.faces)
+        metadata = {
+            "method": "hy3dgen.shapegen.FaceReducer",
+            "target_faces": target,
+            "faces_before": faces_before,
+            "faces_after": faces_after,
+            "applied": applied,
+            "seconds": seconds,
+        }
+        print(f"Mesh ready for Paint: {faces_before} -> {faces_after} faces in {seconds:.3f}s", flush=True)
+        return texture_mesh, metadata
+
     def synchronize(self):
         import torch
 

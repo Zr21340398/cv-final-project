@@ -1,0 +1,1728 @@
+{
+  "schema_version": 1,
+  "cell_size_px": 224,
+  "background_rgb": [
+    210,
+    210,
+    210
+  ],
+  "view_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "source_roots": [
+    "results",
+    "evaluation"
+  ],
+  "sources_use_relative_paths": true,
+  "discovered_pairs": 10,
+  "generated_sheets": [
+    {
+      "object_id": "asymmetric",
+      "seed": 42,
+      "jpeg": "asymmetric-seed-42.jpg",
+      "width": 2074,
+      "height": 1308,
+      "input": {
+        "root": "results",
+        "path": "hunyuan2/asymmetric/seed-42/input.png"
+      },
+      "view_root": "evaluation",
+      "rows": [
+        {
+          "model": "hunyuan2",
+          "variant": "white_preview",
+          "label": "Hunyuan raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/asymmetric/seed-42/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/asymmetric/seed-42/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/asymmetric/seed-42/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/asymmetric/seed-42/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/asymmetric/seed-42/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/asymmetric/seed-42/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/asymmetric/seed-42/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/asymmetric/seed-42/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "white_preview",
+          "label": "TRELLIS raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/asymmetric/seed-42/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/asymmetric/seed-42/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/asymmetric/seed-42/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/asymmetric/seed-42/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/asymmetric/seed-42/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/asymmetric/seed-42/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/asymmetric/seed-42/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/asymmetric/seed-42/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "hunyuan2",
+          "variant": "preview",
+          "label": "Hunyuan final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/asymmetric/seed-42/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/asymmetric/seed-42/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/asymmetric/seed-42/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/asymmetric/seed-42/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/asymmetric/seed-42/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/asymmetric/seed-42/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/asymmetric/seed-42/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/asymmetric/seed-42/preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "preview",
+          "label": "TRELLIS final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/asymmetric/seed-42/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/asymmetric/seed-42/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/asymmetric/seed-42/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/asymmetric/seed-42/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/asymmetric/seed-42/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/asymmetric/seed-42/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/asymmetric/seed-42/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/asymmetric/seed-42/preview/view-007.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object_id": "asymmetric",
+      "seed": 123,
+      "jpeg": "asymmetric-seed-123.jpg",
+      "width": 2074,
+      "height": 1308,
+      "input": {
+        "root": "results",
+        "path": "hunyuan2/asymmetric/seed-123/input.png"
+      },
+      "view_root": "evaluation",
+      "rows": [
+        {
+          "model": "hunyuan2",
+          "variant": "white_preview",
+          "label": "Hunyuan raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/asymmetric/seed-123/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/asymmetric/seed-123/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/asymmetric/seed-123/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/asymmetric/seed-123/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/asymmetric/seed-123/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/asymmetric/seed-123/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/asymmetric/seed-123/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/asymmetric/seed-123/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "white_preview",
+          "label": "TRELLIS raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/asymmetric/seed-123/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/asymmetric/seed-123/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/asymmetric/seed-123/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/asymmetric/seed-123/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/asymmetric/seed-123/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/asymmetric/seed-123/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/asymmetric/seed-123/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/asymmetric/seed-123/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "hunyuan2",
+          "variant": "preview",
+          "label": "Hunyuan final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/asymmetric/seed-123/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/asymmetric/seed-123/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/asymmetric/seed-123/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/asymmetric/seed-123/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/asymmetric/seed-123/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/asymmetric/seed-123/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/asymmetric/seed-123/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/asymmetric/seed-123/preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "preview",
+          "label": "TRELLIS final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/asymmetric/seed-123/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/asymmetric/seed-123/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/asymmetric/seed-123/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/asymmetric/seed-123/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/asymmetric/seed-123/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/asymmetric/seed-123/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/asymmetric/seed-123/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/asymmetric/seed-123/preview/view-007.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object_id": "material",
+      "seed": 42,
+      "jpeg": "material-seed-42.jpg",
+      "width": 2074,
+      "height": 1308,
+      "input": {
+        "root": "results",
+        "path": "hunyuan2/material/seed-42/input.png"
+      },
+      "view_root": "evaluation",
+      "rows": [
+        {
+          "model": "hunyuan2",
+          "variant": "white_preview",
+          "label": "Hunyuan raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/material/seed-42/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/material/seed-42/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/material/seed-42/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/material/seed-42/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/material/seed-42/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/material/seed-42/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/material/seed-42/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/material/seed-42/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "white_preview",
+          "label": "TRELLIS raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/material/seed-42/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/material/seed-42/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/material/seed-42/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/material/seed-42/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/material/seed-42/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/material/seed-42/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/material/seed-42/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/material/seed-42/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "hunyuan2",
+          "variant": "preview",
+          "label": "Hunyuan final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/material/seed-42/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/material/seed-42/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/material/seed-42/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/material/seed-42/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/material/seed-42/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/material/seed-42/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/material/seed-42/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/material/seed-42/preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "preview",
+          "label": "TRELLIS final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/material/seed-42/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/material/seed-42/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/material/seed-42/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/material/seed-42/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/material/seed-42/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/material/seed-42/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/material/seed-42/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/material/seed-42/preview/view-007.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object_id": "material",
+      "seed": 123,
+      "jpeg": "material-seed-123.jpg",
+      "width": 2074,
+      "height": 1308,
+      "input": {
+        "root": "results",
+        "path": "hunyuan2/material/seed-123/input.png"
+      },
+      "view_root": "evaluation",
+      "rows": [
+        {
+          "model": "hunyuan2",
+          "variant": "white_preview",
+          "label": "Hunyuan raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/material/seed-123/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/material/seed-123/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/material/seed-123/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/material/seed-123/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/material/seed-123/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/material/seed-123/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/material/seed-123/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/material/seed-123/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "white_preview",
+          "label": "TRELLIS raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/material/seed-123/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/material/seed-123/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/material/seed-123/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/material/seed-123/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/material/seed-123/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/material/seed-123/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/material/seed-123/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/material/seed-123/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "hunyuan2",
+          "variant": "preview",
+          "label": "Hunyuan final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/material/seed-123/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/material/seed-123/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/material/seed-123/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/material/seed-123/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/material/seed-123/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/material/seed-123/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/material/seed-123/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/material/seed-123/preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "preview",
+          "label": "TRELLIS final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/material/seed-123/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/material/seed-123/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/material/seed-123/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/material/seed-123/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/material/seed-123/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/material/seed-123/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/material/seed-123/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/material/seed-123/preview/view-007.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object_id": "pattern",
+      "seed": 42,
+      "jpeg": "pattern-seed-42.jpg",
+      "width": 2074,
+      "height": 1308,
+      "input": {
+        "root": "results",
+        "path": "hunyuan2/pattern/seed-42/input.png"
+      },
+      "view_root": "evaluation",
+      "rows": [
+        {
+          "model": "hunyuan2",
+          "variant": "white_preview",
+          "label": "Hunyuan raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/pattern/seed-42/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/pattern/seed-42/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/pattern/seed-42/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/pattern/seed-42/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/pattern/seed-42/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/pattern/seed-42/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/pattern/seed-42/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/pattern/seed-42/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "white_preview",
+          "label": "TRELLIS raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/pattern/seed-42/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/pattern/seed-42/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/pattern/seed-42/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/pattern/seed-42/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/pattern/seed-42/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/pattern/seed-42/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/pattern/seed-42/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/pattern/seed-42/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "hunyuan2",
+          "variant": "preview",
+          "label": "Hunyuan final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/pattern/seed-42/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/pattern/seed-42/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/pattern/seed-42/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/pattern/seed-42/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/pattern/seed-42/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/pattern/seed-42/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/pattern/seed-42/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/pattern/seed-42/preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "preview",
+          "label": "TRELLIS final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/pattern/seed-42/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/pattern/seed-42/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/pattern/seed-42/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/pattern/seed-42/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/pattern/seed-42/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/pattern/seed-42/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/pattern/seed-42/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/pattern/seed-42/preview/view-007.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object_id": "pattern",
+      "seed": 123,
+      "jpeg": "pattern-seed-123.jpg",
+      "width": 2074,
+      "height": 1308,
+      "input": {
+        "root": "results",
+        "path": "hunyuan2/pattern/seed-123/input.png"
+      },
+      "view_root": "evaluation",
+      "rows": [
+        {
+          "model": "hunyuan2",
+          "variant": "white_preview",
+          "label": "Hunyuan raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/pattern/seed-123/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/pattern/seed-123/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/pattern/seed-123/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/pattern/seed-123/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/pattern/seed-123/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/pattern/seed-123/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/pattern/seed-123/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/pattern/seed-123/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "white_preview",
+          "label": "TRELLIS raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/pattern/seed-123/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/pattern/seed-123/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/pattern/seed-123/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/pattern/seed-123/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/pattern/seed-123/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/pattern/seed-123/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/pattern/seed-123/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/pattern/seed-123/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "hunyuan2",
+          "variant": "preview",
+          "label": "Hunyuan final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/pattern/seed-123/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/pattern/seed-123/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/pattern/seed-123/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/pattern/seed-123/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/pattern/seed-123/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/pattern/seed-123/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/pattern/seed-123/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/pattern/seed-123/preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "preview",
+          "label": "TRELLIS final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/pattern/seed-123/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/pattern/seed-123/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/pattern/seed-123/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/pattern/seed-123/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/pattern/seed-123/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/pattern/seed-123/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/pattern/seed-123/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/pattern/seed-123/preview/view-007.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object_id": "simple",
+      "seed": 42,
+      "jpeg": "simple-seed-42.jpg",
+      "width": 2074,
+      "height": 1308,
+      "input": {
+        "root": "results",
+        "path": "hunyuan2/simple/seed-42/input.png"
+      },
+      "view_root": "evaluation",
+      "rows": [
+        {
+          "model": "hunyuan2",
+          "variant": "white_preview",
+          "label": "Hunyuan raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/simple/seed-42/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/simple/seed-42/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/simple/seed-42/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/simple/seed-42/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/simple/seed-42/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/simple/seed-42/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/simple/seed-42/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/simple/seed-42/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "white_preview",
+          "label": "TRELLIS raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/simple/seed-42/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/simple/seed-42/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/simple/seed-42/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/simple/seed-42/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/simple/seed-42/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/simple/seed-42/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/simple/seed-42/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/simple/seed-42/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "hunyuan2",
+          "variant": "preview",
+          "label": "Hunyuan final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/simple/seed-42/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/simple/seed-42/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/simple/seed-42/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/simple/seed-42/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/simple/seed-42/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/simple/seed-42/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/simple/seed-42/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/simple/seed-42/preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "preview",
+          "label": "TRELLIS final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/simple/seed-42/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/simple/seed-42/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/simple/seed-42/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/simple/seed-42/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/simple/seed-42/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/simple/seed-42/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/simple/seed-42/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/simple/seed-42/preview/view-007.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object_id": "simple",
+      "seed": 123,
+      "jpeg": "simple-seed-123.jpg",
+      "width": 2074,
+      "height": 1308,
+      "input": {
+        "root": "results",
+        "path": "hunyuan2/simple/seed-123/input.png"
+      },
+      "view_root": "evaluation",
+      "rows": [
+        {
+          "model": "hunyuan2",
+          "variant": "white_preview",
+          "label": "Hunyuan raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/simple/seed-123/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/simple/seed-123/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/simple/seed-123/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/simple/seed-123/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/simple/seed-123/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/simple/seed-123/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/simple/seed-123/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/simple/seed-123/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "white_preview",
+          "label": "TRELLIS raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/simple/seed-123/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/simple/seed-123/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/simple/seed-123/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/simple/seed-123/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/simple/seed-123/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/simple/seed-123/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/simple/seed-123/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/simple/seed-123/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "hunyuan2",
+          "variant": "preview",
+          "label": "Hunyuan final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/simple/seed-123/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/simple/seed-123/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/simple/seed-123/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/simple/seed-123/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/simple/seed-123/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/simple/seed-123/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/simple/seed-123/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/simple/seed-123/preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "preview",
+          "label": "TRELLIS final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/simple/seed-123/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/simple/seed-123/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/simple/seed-123/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/simple/seed-123/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/simple/seed-123/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/simple/seed-123/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/simple/seed-123/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/simple/seed-123/preview/view-007.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object_id": "thin",
+      "seed": 42,
+      "jpeg": "thin-seed-42.jpg",
+      "width": 2074,
+      "height": 1308,
+      "input": {
+        "root": "results",
+        "path": "hunyuan2/thin/seed-42/input.png"
+      },
+      "view_root": "evaluation",
+      "rows": [
+        {
+          "model": "hunyuan2",
+          "variant": "white_preview",
+          "label": "Hunyuan raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/thin/seed-42/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/thin/seed-42/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/thin/seed-42/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/thin/seed-42/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/thin/seed-42/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/thin/seed-42/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/thin/seed-42/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/thin/seed-42/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "white_preview",
+          "label": "TRELLIS raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/thin/seed-42/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/thin/seed-42/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/thin/seed-42/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/thin/seed-42/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/thin/seed-42/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/thin/seed-42/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/thin/seed-42/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/thin/seed-42/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "hunyuan2",
+          "variant": "preview",
+          "label": "Hunyuan final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/thin/seed-42/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/thin/seed-42/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/thin/seed-42/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/thin/seed-42/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/thin/seed-42/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/thin/seed-42/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/thin/seed-42/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/thin/seed-42/preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "preview",
+          "label": "TRELLIS final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/thin/seed-42/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/thin/seed-42/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/thin/seed-42/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/thin/seed-42/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/thin/seed-42/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/thin/seed-42/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/thin/seed-42/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/thin/seed-42/preview/view-007.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "object_id": "thin",
+      "seed": 123,
+      "jpeg": "thin-seed-123.jpg",
+      "width": 2074,
+      "height": 1308,
+      "input": {
+        "root": "results",
+        "path": "hunyuan2/thin/seed-123/input.png"
+      },
+      "view_root": "evaluation",
+      "rows": [
+        {
+          "model": "hunyuan2",
+          "variant": "white_preview",
+          "label": "Hunyuan raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/thin/seed-123/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/thin/seed-123/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/thin/seed-123/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/thin/seed-123/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/thin/seed-123/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/thin/seed-123/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/thin/seed-123/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/thin/seed-123/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "white_preview",
+          "label": "TRELLIS raw white",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/thin/seed-123/white_preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/thin/seed-123/white_preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/thin/seed-123/white_preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/thin/seed-123/white_preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/thin/seed-123/white_preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/thin/seed-123/white_preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/thin/seed-123/white_preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/thin/seed-123/white_preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "hunyuan2",
+          "variant": "preview",
+          "label": "Hunyuan final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "hunyuan2/thin/seed-123/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "hunyuan2/thin/seed-123/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "hunyuan2/thin/seed-123/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "hunyuan2/thin/seed-123/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "hunyuan2/thin/seed-123/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "hunyuan2/thin/seed-123/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "hunyuan2/thin/seed-123/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "hunyuan2/thin/seed-123/preview/view-007.png"
+            }
+          ]
+        },
+        {
+          "model": "trellis2",
+          "variant": "preview",
+          "label": "TRELLIS final textured",
+          "views": [
+            {
+              "angle_index": 0,
+              "path": "trellis2/thin/seed-123/preview/view-000.png"
+            },
+            {
+              "angle_index": 1,
+              "path": "trellis2/thin/seed-123/preview/view-001.png"
+            },
+            {
+              "angle_index": 2,
+              "path": "trellis2/thin/seed-123/preview/view-002.png"
+            },
+            {
+              "angle_index": 3,
+              "path": "trellis2/thin/seed-123/preview/view-003.png"
+            },
+            {
+              "angle_index": 4,
+              "path": "trellis2/thin/seed-123/preview/view-004.png"
+            },
+            {
+              "angle_index": 5,
+              "path": "trellis2/thin/seed-123/preview/view-005.png"
+            },
+            {
+              "angle_index": 6,
+              "path": "trellis2/thin/seed-123/preview/view-006.png"
+            },
+            {
+              "angle_index": 7,
+              "path": "trellis2/thin/seed-123/preview/view-007.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "incomplete": []
+}

@@ -1,7 +1,7 @@
 """Pinned official TRELLIS.2 inference and native PBR export."""
 
-import json
 import hashlib
+import json
 import os
 import re
 import subprocess

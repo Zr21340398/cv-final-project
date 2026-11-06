@@ -1,0 +1,1015 @@
+{
+  "schema_version": 1,
+  "experiment": "pilot03",
+  "planned_runs": 20,
+  "completed_runs": 20,
+  "objects": [
+    "simple",
+    "thin",
+    "asymmetric",
+    "pattern",
+    "material"
+  ],
+  "seeds": [
+    42,
+    123
+  ],
+  "provenance": {
+    "source_records_sha256": "55056de214679b82c20842d454d8ef194d4866de045e5d80d0fb2a6fd3f3ff35",
+    "source_record_count": 41,
+    "plan_sha256": "fb19d67fd12f7c021d390f63cd19dc3bdc5f87e009bfcf027c79178f437fdcb4",
+    "source_hash": "fe5e374cb5f63fc505237c5b8e8751a054ea8dbb00e942408819262e6bfa9475",
+    "source_records": "One experiment record, 20 run manifests and 20 process-attempt logs."
+  },
+  "method": {
+    "aggregation": "For each model and object, average seeds 42 and 123; then equally average the five object means. object_means dispersion is over five object averages; runs dispersion is over ten individual runs.",
+    "pipeline_wall_seconds": "Earliest completed manifest attempt, including model loads and the full pipeline. All selected attempts generated fresh output without reused stages.",
+    "process_wall_seconds": "Completed outer process whose recorded start/end enclose the selected pipeline attempt. Commands containing --resume are included when they actually generated a run.",
+    "resume_skips_excluded": 2,
+    "stage_timings": "TRELLIS native_shape_material combines geometry and material inference; shape_seconds and texture_seconds are unavailable for TRELLIS. Hunyuan texture_seconds covers its Paint pipeline; it has no separately measured pbr_bake_seconds. Unavailable measurements are null, not zero.",
+    "gpu_memory": "PyTorch peak allocated/reserved bytes within the selected pipeline attempt; excludes additional native CUDA allocations and is not total driver-visible GPU memory.",
+    "geometry": "final_faces/final_vertices sum the final GLB mesh records. Hunyuan reduces a copy of its raw shape to 40,000 faces before Paint; raw shape is preserved. TRELLIS final export targets 1,000,000 faces. Face count is an output/configuration property, not a quality score.",
+    "quality": "No 3D ground truth is available. These files contain operational measurements only; visual quality requires subjective review of shared-view renders and assets.",
+    "wall_time_exclusions": "Queue waiting, environment installation, weight downloads and resumed no-op checks are excluded. These are successful pilot03 runs, not an all-experiment or first-ever-attempt success rate.",
+    "units": "Time: seconds; memory/file size: bytes; faces/vertices: counts. GiB=2^30 bytes, MiB=2^20 bytes.",
+    "csv_nulls": "Empty CSV cells represent unavailable measurements; numeric zero is retained when explicitly recorded."
+  },
+  "configurations": {
+    "trellis2": {
+      "name": "trellis2",
+      "backend": "trellis2",
+      "model": {
+        "repo_id": "microsoft/TRELLIS.2-4B",
+        "revision": "af44b45f2e35a493886929c6d786e563ec68364d",
+        "code_revision": "75fbf0183001ed9876c8dbb35de6b68552ee08bd",
+        "local_files_only": true,
+        "auxiliary": {
+          "sparse_decoder": {
+            "repo_id": "microsoft/TRELLIS-image-large",
+            "revision": "25e0d31ffbebe4b5a97464dd851910efc3002d96"
+          },
+          "image_encoder": {
+            "repo_id": "facebook/dinov3-vitl16-pretrain-lvd1689m",
+            "revision": "ea8dc2863c51be0a264bab82070e3e8836b02d51"
+          },
+          "background": {
+            "repo_id": "briaai/RMBG-2.0",
+            "revision": "2fd7b4b0f2393ddb39a267fb62df6c010928a6c6"
+          }
+        }
+      },
+      "preprocess": {
+        "background": "keep",
+        "size": 1024,
+        "padding": 0.05
+      },
+      "generation": {
+        "pipeline_type": "1024_cascade",
+        "max_num_tokens": 49152,
+        "low_vram": true
+      },
+      "texture": {
+        "enabled": true,
+        "texture_size": 2048,
+        "decimation_target": 1000000,
+        "remesh": false
+      }
+    },
+    "hunyuan2": {
+      "name": "hunyuan2",
+      "model": {
+        "repo_id": "tencent/Hunyuan3D-2",
+        "revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+        "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+        "shape_subfolder": "hunyuan3d-dit-v2-0",
+        "texture_subfolder": "hunyuan3d-paint-v2-0",
+        "local_files_only": true
+      },
+      "preprocess": {
+        "background": "keep",
+        "size": 512,
+        "padding": 0.2
+      },
+      "shape": {
+        "steps": 50,
+        "guidance_scale": 5.0,
+        "octree_resolution": 384,
+        "num_chunks": 8000
+      },
+      "texture": {
+        "enabled": true,
+        "render_size": 2048,
+        "texture_size": 2048,
+        "max_faces_before_paint": 40000
+      }
+    }
+  },
+  "environments": {
+    "hunyuan2": {
+      "gpu": [
+        "NVIDIA L20"
+      ],
+      "torch": [
+        "2.5.1+cu124"
+      ],
+      "cuda_runtime": [
+        "12.4"
+      ]
+    },
+    "trellis2": {
+      "gpu": [
+        "NVIDIA L20"
+      ],
+      "torch": [
+        "2.6.0+cu124"
+      ],
+      "cuda_runtime": [
+        "12.4"
+      ]
+    }
+  },
+  "models": {
+    "hunyuan2": {
+      "planned_runs": 10,
+      "completed_runs": 10,
+      "objects": 5,
+      "seeds_per_object": 2,
+      "metrics": {
+        "pipeline_wall_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 120.631415,
+            "median": 116.420576,
+            "min": 101.308616,
+            "max": 155.916903
+          },
+          "runs": {
+            "n": 10,
+            "mean": 120.631415,
+            "median": 116.420576,
+            "min": 100.25997,
+            "max": 157.705761
+          }
+        },
+        "process_wall_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 122.550394,
+            "median": 118.33718,
+            "min": 103.09334,
+            "max": 157.636837
+          },
+          "runs": {
+            "n": 10,
+            "mean": 122.550394,
+            "median": 118.33718,
+            "min": 102.092473,
+            "max": 159.466991
+          }
+        },
+        "preprocess_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 0.070202,
+            "median": 0.067996,
+            "min": 0.061839,
+            "max": 0.080279
+          },
+          "runs": {
+            "n": 10,
+            "mean": 0.070202,
+            "median": 0.068374,
+            "min": 0.061135,
+            "max": 0.091785
+          }
+        },
+        "shape_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 36.650713,
+            "median": 36.670222,
+            "min": 36.280577,
+            "max": 37.063747
+          },
+          "runs": {
+            "n": 10,
+            "mean": 36.650713,
+            "median": 36.670222,
+            "min": 36.259644,
+            "max": 37.076266
+          }
+        },
+        "native_shape_material_seconds": {
+          "object_means": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          },
+          "runs": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "texture_mesh_reduce_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 16.05569,
+            "median": 17.868293,
+            "min": 4.724846,
+            "max": 26.352953
+          },
+          "runs": {
+            "n": 10,
+            "mean": 16.05569,
+            "median": 17.868293,
+            "min": 4.720024,
+            "max": 26.629657
+          }
+        },
+        "texture_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 32.025198,
+            "median": 26.275428,
+            "min": 20.554342,
+            "max": 54.759732
+          },
+          "runs": {
+            "n": 10,
+            "mean": 32.025198,
+            "median": 26.275428,
+            "min": 20.420747,
+            "max": 55.832248
+          }
+        },
+        "pbr_bake_seconds": {
+          "object_means": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          },
+          "runs": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "export_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 1.23195,
+            "median": 1.250371,
+            "min": 1.065354,
+            "max": 1.483723
+          },
+          "runs": {
+            "n": 10,
+            "mean": 1.23195,
+            "median": 1.239492,
+            "min": 1.032522,
+            "max": 1.492479
+          }
+        },
+        "load_shape_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 21.458968,
+            "median": 21.381749,
+            "min": 20.78954,
+            "max": 22.293818
+          },
+          "runs": {
+            "n": 10,
+            "mean": 21.458968,
+            "median": 21.346796,
+            "min": 20.568188,
+            "max": 22.582884
+          }
+        },
+        "load_texture_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 8.398664,
+            "median": 8.289094,
+            "min": 7.951231,
+            "max": 9.215673
+          },
+          "runs": {
+            "n": 10,
+            "mean": 8.398664,
+            "median": 8.237461,
+            "min": 7.709518,
+            "max": 9.60745
+          }
+        },
+        "gpu_peak_allocated_bytes": {
+          "object_means": {
+            "n": 5,
+            "mean": 15562217574.4,
+            "median": 15563394304.0,
+            "min": 15557452800.0,
+            "max": 15565765120.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 15562217574.4,
+            "median": 15563575296.0,
+            "min": 15554495488,
+            "max": 15572275200
+          }
+        },
+        "gpu_peak_reserved_bytes": {
+          "object_means": {
+            "n": 5,
+            "mean": 18837038694.4,
+            "median": 18836619264.0,
+            "min": 18833473536.0,
+            "max": 18841862144.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 18837038694.4,
+            "median": 18835570688.0,
+            "min": 18828230656,
+            "max": 18851299328
+          }
+        },
+        "final_glb_bytes": {
+          "object_means": {
+            "n": 5,
+            "mean": 3667519.6,
+            "median": 3466330.0,
+            "min": 2942054.0,
+            "max": 4715688.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 3667519.6,
+            "median": 3466330.0,
+            "min": 2930232,
+            "max": 4750448
+          }
+        },
+        "final_mesh_count": {
+          "object_means": {
+            "n": 5,
+            "mean": 1.0,
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 1.0,
+            "median": 1.0,
+            "min": 1,
+            "max": 1
+          }
+        },
+        "final_faces": {
+          "object_means": {
+            "n": 5,
+            "mean": 40000.0,
+            "median": 40000.0,
+            "min": 40000.0,
+            "max": 40000.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 40000.0,
+            "median": 40000.0,
+            "min": 40000,
+            "max": 40000
+          }
+        },
+        "final_vertices": {
+          "object_means": {
+            "n": 5,
+            "mean": 23216.1,
+            "median": 23197.0,
+            "min": 21387.5,
+            "max": 25024.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 23216.1,
+            "median": 23059.5,
+            "min": 21385,
+            "max": 25281
+          }
+        },
+        "texture_mesh_faces_before": {
+          "object_means": {
+            "n": 5,
+            "mean": 1401920.4,
+            "median": 1368882.0,
+            "min": 473826.0,
+            "max": 2349436.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 1401920.4,
+            "median": 1368882.0,
+            "min": 465352,
+            "max": 2362756
+          }
+        },
+        "texture_mesh_faces_after": {
+          "object_means": {
+            "n": 5,
+            "mean": 40000.0,
+            "median": 40000.0,
+            "min": 40000.0,
+            "max": 40000.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 40000.0,
+            "median": 40000.0,
+            "min": 40000,
+            "max": 40000
+          }
+        },
+        "texture_mesh_target_faces": {
+          "object_means": {
+            "n": 5,
+            "mean": 40000.0,
+            "median": 40000.0,
+            "min": 40000.0,
+            "max": 40000.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 40000.0,
+            "median": 40000.0,
+            "min": 40000,
+            "max": 40000
+          }
+        }
+      }
+    },
+    "trellis2": {
+      "planned_runs": 10,
+      "completed_runs": 10,
+      "objects": 5,
+      "seeds_per_object": 2,
+      "metrics": {
+        "pipeline_wall_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 313.272553,
+            "median": 315.090082,
+            "min": 263.654205,
+            "max": 362.255859
+          },
+          "runs": {
+            "n": 10,
+            "mean": 313.272553,
+            "median": 295.87212,
+            "min": 235.383956,
+            "max": 425.369973
+          }
+        },
+        "process_wall_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 315.463621,
+            "median": 317.081532,
+            "min": 265.788009,
+            "max": 364.638712
+          },
+          "runs": {
+            "n": 10,
+            "mean": 315.46362,
+            "median": 297.896594,
+            "min": 237.503015,
+            "max": 427.954773
+          }
+        },
+        "preprocess_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 0.055379,
+            "median": 0.040526,
+            "min": 0.031974,
+            "max": 0.086368
+          },
+          "runs": {
+            "n": 10,
+            "mean": 0.055379,
+            "median": 0.040797,
+            "min": 0.031843,
+            "max": 0.103208
+          }
+        },
+        "shape_seconds": {
+          "object_means": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          },
+          "runs": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "native_shape_material_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 86.41278,
+            "median": 75.529626,
+            "min": 37.869709,
+            "max": 149.481142
+          },
+          "runs": {
+            "n": 10,
+            "mean": 86.41278,
+            "median": 81.722694,
+            "min": 19.524108,
+            "max": 181.488119
+          }
+        },
+        "texture_mesh_reduce_seconds": {
+          "object_means": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          },
+          "runs": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "texture_seconds": {
+          "object_means": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          },
+          "runs": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "pbr_bake_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 122.645595,
+            "median": 99.164714,
+            "min": 49.077618,
+            "max": 190.072809
+          },
+          "runs": {
+            "n": 10,
+            "mean": 122.645595,
+            "median": 102.07948,
+            "min": 48.481408,
+            "max": 262.894699
+          }
+        },
+        "export_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 5.367043,
+            "median": 5.27258,
+            "min": 5.092945,
+            "max": 5.854216
+          },
+          "runs": {
+            "n": 10,
+            "mean": 5.367043,
+            "median": 5.32585,
+            "min": 4.569,
+            "max": 5.901027
+          }
+        },
+        "load_shape_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 74.85985,
+            "median": 72.388715,
+            "min": 71.471564,
+            "max": 84.728766
+          },
+          "runs": {
+            "n": 10,
+            "mean": 74.85985,
+            "median": 72.36519,
+            "min": 71.33179,
+            "max": 96.187398
+          }
+        },
+        "load_texture_seconds": {
+          "object_means": {
+            "n": 5,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 0.0,
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0
+          }
+        },
+        "gpu_peak_allocated_bytes": {
+          "object_means": {
+            "n": 5,
+            "mean": 6737643571.2,
+            "median": 5985595648.0,
+            "min": 2945862400.0,
+            "max": 10511695872.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 6737643571.2,
+            "median": 6687911680.0,
+            "min": 2937414656,
+            "max": 10515124736
+          }
+        },
+        "gpu_peak_reserved_bytes": {
+          "object_means": {
+            "n": 5,
+            "mean": 8825235046.4,
+            "median": 8602517504.0,
+            "min": 3634364416.0,
+            "max": 13047431168.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 8825235046.4,
+            "median": 8948547584.0,
+            "min": 3529506816,
+            "max": 13193183232
+          }
+        },
+        "final_glb_bytes": {
+          "object_means": {
+            "n": 5,
+            "mean": 42426695.6,
+            "median": 42024756.0,
+            "min": 40124558.0,
+            "max": 46355326.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 42426695.6,
+            "median": 41420548.0,
+            "min": 40015180,
+            "max": 47065600
+          }
+        },
+        "final_mesh_count": {
+          "object_means": {
+            "n": 5,
+            "mean": 1.0,
+            "median": 1.0,
+            "min": 1.0,
+            "max": 1.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 1.0,
+            "median": 1.0,
+            "min": 1,
+            "max": 1
+          }
+        },
+        "final_faces": {
+          "object_means": {
+            "n": 5,
+            "mean": 967233.1,
+            "median": 972810.5,
+            "min": 945255.0,
+            "max": 984007.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 967233.1,
+            "median": 975187.5,
+            "min": 934865,
+            "max": 984869
+          }
+        },
+        "final_vertices": {
+          "object_means": {
+            "n": 5,
+            "mean": 660686.1,
+            "median": 655817.0,
+            "min": 627715.5,
+            "max": 732100.0
+          },
+          "runs": {
+            "n": 10,
+            "mean": 660686.1,
+            "median": 644311.0,
+            "min": 625203,
+            "max": 734551
+          }
+        },
+        "texture_mesh_faces_before": {
+          "object_means": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          },
+          "runs": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "texture_mesh_faces_after": {
+          "object_means": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          },
+          "runs": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          }
+        },
+        "texture_mesh_target_faces": {
+          "object_means": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          },
+          "runs": {
+            "n": 0,
+            "mean": null,
+            "median": null,
+            "min": null,
+            "max": null
+          }
+        }
+      }
+    }
+  },
+  "per_object_seed_means": {
+    "hunyuan2": {
+      "simple": {
+        "pipeline_wall_seconds": 155.916903,
+        "process_wall_seconds": 157.636837,
+        "preprocess_seconds": 0.080279,
+        "shape_seconds": 37.063747,
+        "native_shape_material_seconds": null,
+        "texture_mesh_reduce_seconds": 26.352953,
+        "texture_seconds": 54.759732,
+        "pbr_bake_seconds": null,
+        "export_seconds": 1.065354,
+        "load_shape_seconds": 21.24719,
+        "load_texture_seconds": 9.215673,
+        "gpu_peak_allocated_bytes": 15565765120.0,
+        "gpu_peak_reserved_bytes": 18834522112.0,
+        "final_glb_bytes": 3237246.0,
+        "final_mesh_count": 1.0,
+        "final_faces": 40000.0,
+        "final_vertices": 23738.0,
+        "texture_mesh_faces_before": 2349436.0,
+        "texture_mesh_faces_after": 40000.0,
+        "texture_mesh_target_faces": 40000.0
+      },
+      "thin": {
+        "pipeline_wall_seconds": 127.121631,
+        "process_wall_seconds": 129.142024,
+        "preprocess_seconds": 0.067996,
+        "shape_seconds": 36.670222,
+        "native_shape_material_seconds": null,
+        "texture_mesh_reduce_seconds": 17.868293,
+        "texture_seconds": 36.56807,
+        "pbr_bake_seconds": null,
+        "export_seconds": 1.074845,
+        "load_shape_seconds": 21.582544,
+        "load_texture_seconds": 8.373495,
+        "gpu_peak_allocated_bytes": 15557452800.0,
+        "gpu_peak_reserved_bytes": 18841862144.0,
+        "final_glb_bytes": 2942054.0,
+        "final_mesh_count": 1.0,
+        "final_faces": 40000.0,
+        "final_vertices": 21387.5,
+        "texture_mesh_faces_before": 1368882.0,
+        "texture_mesh_faces_after": 40000.0,
+        "texture_mesh_target_faces": 40000.0
+      },
+      "asymmetric": {
+        "pipeline_wall_seconds": 101.308616,
+        "process_wall_seconds": 103.09334,
+        "preprocess_seconds": 0.067452,
+        "shape_seconds": 36.438443,
+        "native_shape_material_seconds": null,
+        "texture_mesh_reduce_seconds": 9.105955,
+        "texture_seconds": 21.968416,
+        "pbr_bake_seconds": null,
+        "export_seconds": 1.250371,
+        "load_shape_seconds": 20.78954,
+        "load_texture_seconds": 7.951231,
+        "gpu_peak_allocated_bytes": 15563394304.0,
+        "gpu_peak_reserved_bytes": 18838716416.0,
+        "final_glb_bytes": 3976280.0,
+        "final_mesh_count": 1.0,
+        "final_faces": 40000.0,
+        "final_vertices": 22734.0,
+        "texture_mesh_faces_before": 875566.0,
+        "texture_mesh_faces_after": 40000.0,
+        "texture_mesh_target_faces": 40000.0
+      },
+      "pattern": {
+        "pipeline_wall_seconds": 116.420576,
+        "process_wall_seconds": 118.33718,
+        "preprocess_seconds": 0.073443,
+        "shape_seconds": 36.800576,
+        "native_shape_material_seconds": null,
+        "texture_mesh_reduce_seconds": 22.226402,
+        "texture_seconds": 20.554342,
+        "pbr_bake_seconds": null,
+        "export_seconds": 1.285459,
+        "load_shape_seconds": 21.381749,
+        "load_texture_seconds": 8.289094,
+        "gpu_peak_allocated_bytes": 15560900352.0,
+        "gpu_peak_reserved_bytes": 18836619264.0,
+        "final_glb_bytes": 3466330.0,
+        "final_mesh_count": 1.0,
+        "final_faces": 40000.0,
+        "final_vertices": 25024.0,
+        "texture_mesh_faces_before": 1941892.0,
+        "texture_mesh_faces_after": 40000.0,
+        "texture_mesh_target_faces": 40000.0
+      },
+      "material": {
+        "pipeline_wall_seconds": 102.389347,
+        "process_wall_seconds": 104.54259,
+        "preprocess_seconds": 0.061839,
+        "shape_seconds": 36.280577,
+        "native_shape_material_seconds": null,
+        "texture_mesh_reduce_seconds": 4.724846,
+        "texture_seconds": 26.275428,
+        "pbr_bake_seconds": null,
+        "export_seconds": 1.483723,
+        "load_shape_seconds": 22.293818,
+        "load_texture_seconds": 8.163829,
+        "gpu_peak_allocated_bytes": 15563575296.0,
+        "gpu_peak_reserved_bytes": 18833473536.0,
+        "final_glb_bytes": 4715688.0,
+        "final_mesh_count": 1.0,
+        "final_faces": 40000.0,
+        "final_vertices": 23197.0,
+        "texture_mesh_faces_before": 473826.0,
+        "texture_mesh_faces_after": 40000.0,
+        "texture_mesh_target_faces": 40000.0
+      }
+    },
+    "trellis2": {
+      "simple": {
+        "pipeline_wall_seconds": 325.599958,
+        "process_wall_seconds": 327.507485,
+        "preprocess_seconds": 0.086368,
+        "shape_seconds": null,
+        "native_shape_material_seconds": 149.481142,
+        "texture_mesh_reduce_seconds": null,
+        "texture_seconds": null,
+        "pbr_bake_seconds": 49.077618,
+        "export_seconds": 5.092945,
+        "load_shape_seconds": 84.728766,
+        "load_texture_seconds": 0.0,
+        "gpu_peak_allocated_bytes": 10511695872.0,
+        "gpu_peak_reserved_bytes": 13047431168.0,
+        "final_glb_bytes": 41304136.0,
+        "final_mesh_count": 1.0,
+        "final_faces": 977283.5,
+        "final_vertices": 630609.5,
+        "texture_mesh_faces_before": null,
+        "texture_mesh_faces_after": null,
+        "texture_mesh_target_faces": null
+      },
+      "thin": {
+        "pipeline_wall_seconds": 362.255859,
+        "process_wall_seconds": 364.638712,
+        "preprocess_seconds": 0.039887,
+        "shape_seconds": null,
+        "native_shape_material_seconds": 75.529626,
+        "texture_mesh_reduce_seconds": null,
+        "texture_seconds": null,
+        "pbr_bake_seconds": 187.229193,
+        "export_seconds": 5.123016,
+        "load_shape_seconds": 72.388715,
+        "load_texture_seconds": 0.0,
+        "gpu_peak_allocated_bytes": 5985595648.0,
+        "gpu_peak_reserved_bytes": 7250903040.0,
+        "final_glb_bytes": 40124558.0,
+        "final_mesh_count": 1.0,
+        "final_faces": 945255.0,
+        "final_vertices": 657188.5,
+        "texture_mesh_faces_before": null,
+        "texture_mesh_faces_after": null,
+        "texture_mesh_target_faces": null
+      },
+      "asymmetric": {
+        "pipeline_wall_seconds": 263.654205,
+        "process_wall_seconds": 265.788009,
+        "preprocess_seconds": 0.040526,
+        "shape_seconds": null,
+        "native_shape_material_seconds": 66.832882,
+        "texture_mesh_reduce_seconds": null,
+        "texture_seconds": null,
+        "pbr_bake_seconds": 99.164714,
+        "export_seconds": 5.27258,
+        "load_shape_seconds": 71.471564,
+        "load_texture_seconds": 0.0,
+        "gpu_peak_allocated_bytes": 5797208832.0,
+        "gpu_peak_reserved_bytes": 8602517504.0,
+        "final_glb_bytes": 42324702.0,
+        "final_mesh_count": 1.0,
+        "final_faces": 956809.5,
+        "final_vertices": 655817.0,
+        "texture_mesh_faces_before": null,
+        "texture_mesh_faces_after": null,
+        "texture_mesh_target_faces": null
+      },
+      "pattern": {
+        "pipeline_wall_seconds": 299.762662,
+        "process_wall_seconds": 302.302365,
+        "preprocess_seconds": 0.07814,
+        "shape_seconds": null,
+        "native_shape_material_seconds": 102.350541,
+        "texture_mesh_reduce_seconds": null,
+        "texture_seconds": null,
+        "pbr_bake_seconds": 87.68364,
+        "export_seconds": 5.49246,
+        "load_shape_seconds": 73.783546,
+        "load_texture_seconds": 0.0,
+        "gpu_peak_allocated_bytes": 8447855104.0,
+        "gpu_peak_reserved_bytes": 11590959104.0,
+        "final_glb_bytes": 42024756.0,
+        "final_mesh_count": 1.0,
+        "final_faces": 972810.5,
+        "final_vertices": 627715.5,
+        "texture_mesh_faces_before": null,
+        "texture_mesh_faces_after": null,
+        "texture_mesh_target_faces": null
+      },
+      "material": {
+        "pipeline_wall_seconds": 315.090082,
+        "process_wall_seconds": 317.081532,
+        "preprocess_seconds": 0.031974,
+        "shape_seconds": null,
+        "native_shape_material_seconds": 37.869709,
+        "texture_mesh_reduce_seconds": null,
+        "texture_seconds": null,
+        "pbr_bake_seconds": 190.072809,
+        "export_seconds": 5.854216,
+        "load_shape_seconds": 71.926661,
+        "load_texture_seconds": 0.0,
+        "gpu_peak_allocated_bytes": 2945862400.0,
+        "gpu_peak_reserved_bytes": 3634364416.0,
+        "final_glb_bytes": 46355326.0,
+        "final_mesh_count": 1.0,
+        "final_faces": 984007.0,
+        "final_vertices": 732100.0,
+        "texture_mesh_faces_before": null,
+        "texture_mesh_faces_after": null,
+        "texture_mesh_target_faces": null
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+extends: hunyuan2_pilot.yaml
+name: hunyuan2
+texture:
+  # 与固定版本官方 Gradio/API 的 Paint 前处理一致，原始白模仍独立保存。
+  max_faces_before_paint: 40000

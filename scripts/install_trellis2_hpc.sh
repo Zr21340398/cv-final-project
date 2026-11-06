@@ -38,7 +38,7 @@ checkout FlexGEMM https://github.com/JeffreyXiang/FlexGEMM.git 6dd94a859c26ee824
 checkout nvdiffrast-trellis2 https://github.com/NVlabs/nvdiffrast.git 253ac4fcea7de5f396371124af597e6cc957bfae
 checkout nvdiffrec-trellis2 https://github.com/JeffreyXiang/nvdiffrec.git b296927cc7fd01c2ac1087c8065c4d7248f72da4
 checkout utils3d-trellis2 https://github.com/EasternJournalist/utils3d.git 9a4eb15e4021b67b12c460c7057d642626897ec8
-python -m pip install "$ROOT/third_party/utils3d-trellis2"
+python -m pip install -c "$ROOT/requirements-trellis2.txt" "$ROOT/third_party/utils3d-trellis2"
 # 编译注意力、网格处理和渲染扩展；这一步可能比普通 Python 包安装耗时更长。
 python -m pip install flash-attn==2.7.3 --no-build-isolation
 for name in CuMesh FlexGEMM nvdiffrast-trellis2 nvdiffrec-trellis2; do

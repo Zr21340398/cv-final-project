@@ -58,8 +58,17 @@ def validate(c):
     if not re.fullmatch(r"[A-Za-z0-9_-]+", str(c["name"])):
         raise ValueError("Invalid configuration name")
     for section, keys in expected.items():
-        if not isinstance(c[section], dict) or set(c[section]) != keys:
+        optional = {"max_faces_before_paint"} if section == "texture" else set()
+        if (
+            not isinstance(c[section], dict)
+            or not keys <= set(c[section])
+            or not set(c[section]) <= keys | optional
+        ):
             raise ValueError(f"Invalid keys in {section}; expected {sorted(keys)}")
+    if "max_faces_before_paint" in c["texture"]:
+        value = c["texture"]["max_faces_before_paint"]
+        if type(value) is not int or value < 1:
+            raise ValueError("texture.max_faces_before_paint must be a positive integer")
     for key in ("revision", "code_revision"):
         if not re.fullmatch(r"[0-9a-f]{40}", str(c["model"][key])):
             raise ValueError(f"model.{key} must be a full commit SHA")

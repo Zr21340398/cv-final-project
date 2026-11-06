@@ -156,6 +156,15 @@ class Pipeline:
                 mesh = load_mesh(out / "shape_raw.glb")
             # 混元在此调用上色模型；TRELLIS.2 将已生成的材质整理成网格贴图。
             if textured:
+                prepare_texture_mesh = getattr(self.backend, "prepare_texture_mesh", None)
+                if prepare_texture_mesh is not None:
+                    stage = "texture_mesh"
+                    mesh, mesh_preparation = prepare_texture_mesh(mesh)
+                    if mesh_preparation is not None:
+                        attempt["texture_mesh"] = mesh_preparation
+                        attempt["timings"]["texture_mesh_reduce"] = mesh_preparation["seconds"]
+                        # 先保存减面记录；后续 Paint 超时也能查到实际面数与耗时。
+                        save_json(manifest_path, manifest)
                 stage = "texture"
                 attempt["loads"]["texture"] = self.backend.load_texture()
                 mesh = timed(

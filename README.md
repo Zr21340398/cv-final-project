@@ -12,7 +12,7 @@
 方法与版本依据见 [PILOT_METHOD.md](docs/PILOT_METHOD.md)。
 
 当前代码提供两模型适配、成对实验、白模/PBR GLB 导出、运行记录和评价工具。
-本地测试不代表真实 GPU 推理已经完成；没有伪造的 AI 输出。验收范围见 [VALIDATION.md](docs/VALIDATION.md)。
+**pilot03 已在学校 L20 完成 20/20 次真实生成。** 查看 [五图预实验结果与完整多视角对比](docs/results/pilot03/README.md)、[逐项统计](docs/results/pilot03/runs.csv) 与 [完整结果附件](https://github.com/Zr21340398/cv-final-project/releases/tag/pilot03-2026-11-07)。本轮建议混元作为较低成本的展示基线，TRELLIS.2 保留为细节和材质对照；结论边界与早期失败记录见报告。工程测试验收范围见 [VALIDATION.md](docs/VALIDATION.md)。
 
 ## 预实验命令入口
 
