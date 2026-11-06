@@ -1,7 +1,7 @@
 # GSO 正式数据规划；供选样和审查使用，当前 CLI 不直接读取此文件。
 dataset: Google Scanned Objects
 version: gso-formal-v1
-status: selection_pending
+status: candidates_selected_pending_mesh_qa
 source: https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/
 license: CC-BY-4.0
 counts:

@@ -1,7 +1,7 @@
 # GSO 正式实验数据方案
 
 更新：2026-11-06。正式评估数据确定为 Google Scanned Objects（GSO）。
-当前先准备数据，模型和参数等待同学的预实验结果。对象 ID 尚未逐项选定，仓库中的 CSV 是待填写模板。
+当前先准备数据，模型和参数等待同学的预实验结果。第一版 30 个对象 ID 已选定，见 [GSO_SELECTION_V1.md](GSO_SELECTION_V1.md)。gso-selection.csv 已记录真实对象与下载地址，完整网格、材质与贴图验收待完成；example.csv 仍为空白模板。
 
 ## 1. 本轮范围与依据
 

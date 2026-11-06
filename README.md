@@ -4,8 +4,8 @@
 两个随机种子的小规模实验确定后续主线。无需先生成六视角图。
 
 **正式数据已确定为 GSO：阅读 [GSO 数据准备与选样说明](docs/GSO_DATASET.md)。**
-当前准备 10 个开发对象与 20 个测试对象，具体对象待筛选。规划见 configs/gso_dataset.yaml，
-来源与运行清单模板位于 data/manifests/gso-*.example.csv。最终模型与参数等待预实验结果。
+已选定第一版 10 个开发对象与 20 个测试对象，详见 [对象清单](docs/GSO_SELECTION_V1.md)，完整网格验收待完成。规划见 configs/gso_dataset.yaml，
+真实对象来源见 data/manifests/gso-selection.csv，预期渲染路径见 gso-formal-v1.draft.csv；example.csv 文件仍作为空白模板。最终模型与参数等待预实验结果。
 
 **运行模型选型预实验：从 [预实验实操说明](docs/PILOT_GUIDE.md) 开始。**
 包含上传、模型权限、两个环境、下载、共用去背景、单例验证、Slurm 批处理、评分和排错。

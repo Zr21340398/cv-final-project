@@ -1,0 +1,950 @@
+[
+  {
+    "id": "gso_01",
+    "metadata": {
+      "createdAt": "2020-09-18T16:47:34Z",
+      "updatedAt": "2026-11-06T04:02:59Z",
+      "name": "3D_Dollhouse_Refrigerator",
+      "owner": "GoogleResearch",
+      "description": "3D Dollhouse Refrigerator",
+      "likes": 0,
+      "downloads": 3731,
+      "filesize": 8394013,
+      "upload_date": "2020-09-18T16:47:31Z",
+      "modify_date": "2020-09-18T20:07:13Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/3D_Dollhouse_Refrigerator/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Toys"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/3D_Dollhouse_Refrigerator/tip/3D_Dollhouse_Refrigerator.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_02",
+    "metadata": {
+      "createdAt": "2020-09-03T16:58:46Z",
+      "updatedAt": "2026-11-06T04:03:50Z",
+      "name": "JBL_Charge_Speaker_portable_wireless_wired_Green",
+      "owner": "GoogleResearch",
+      "description": "JBL Charge Speaker - portable - wireless, wired, Green",
+      "likes": 1,
+      "downloads": 4034,
+      "filesize": 8419174,
+      "upload_date": "2020-09-03T16:58:43Z",
+      "modify_date": "2020-09-18T20:10:05Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/JBL_Charge_Speaker_portable_wireless_wired_Green/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Consumer Goods"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/JBL_Charge_Speaker_portable_wireless_wired_Green/tip/JBL_Charge_Speaker_portable_wireless_wired_Green.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_03",
+    "metadata": {
+      "createdAt": "2020-09-03T16:22:41Z",
+      "updatedAt": "2026-11-06T04:03:19Z",
+      "name": "Black_and_Decker_TR3500SD_2Slice_Toaster",
+      "owner": "GoogleResearch",
+      "description": "Black and Decker TR3500SD 2-Slice Toaster",
+      "likes": 1,
+      "downloads": 3253,
+      "filesize": 9507820,
+      "upload_date": "2020-09-03T16:22:38Z",
+      "modify_date": "2020-09-18T20:10:58Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Black_and_Decker_TR3500SD_2Slice_Toaster/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Black_and_Decker_TR3500SD_2Slice_Toaster/tip/Black_and_Decker_TR3500SD_2Slice_Toaster.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_04",
+    "metadata": {
+      "createdAt": "2020-09-18T17:52:22Z",
+      "updatedAt": "2026-11-06T06:11:06Z",
+      "name": "Razer_Abyssus_Ambidextrous_Gaming_Mouse",
+      "owner": "GoogleResearch",
+      "description": "Razer Abyssus - Ambidextrous Gaming Mouse\nThe Razer Abyssus is armed with ultra-responsive buttons tuned for maximum tactile feedback. With an uncompromising 3500 DPI Razer optical sensor at its core, take full control of your every aim with perfect tracking so you outgun your competition.",
+      "likes": 0,
+      "downloads": 3387,
+      "filesize": 6299654,
+      "upload_date": "2020-09-18T17:52:18Z",
+      "modify_date": "2020-09-18T20:05:43Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Razer_Abyssus_Ambidextrous_Gaming_Mouse/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Mouse"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Razer_Abyssus_Ambidextrous_Gaming_Mouse/tip/Razer_Abyssus_Ambidextrous_Gaming_Mouse.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_05",
+    "metadata": {
+      "createdAt": "2020-09-18T18:04:39Z",
+      "updatedAt": "2026-11-06T05:37:57Z",
+      "name": "Threshold_Bamboo_Ceramic_Soap_Dish",
+      "owner": "GoogleResearch",
+      "description": "Threshold Bamboo Ceramic Soap Dish",
+      "likes": 0,
+      "downloads": 3375,
+      "filesize": 5617617,
+      "upload_date": "2020-09-18T18:04:36Z",
+      "modify_date": "2020-09-18T20:05:12Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Threshold_Bamboo_Ceramic_Soap_Dish/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Threshold_Bamboo_Ceramic_Soap_Dish/tip/Threshold_Bamboo_Ceramic_Soap_Dish.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_06",
+    "metadata": {
+      "createdAt": "2020-09-18T16:52:28Z",
+      "updatedAt": "2026-11-06T04:47:03Z",
+      "name": "BIA_Cordon_Bleu_White_Porcelain_Utensil_Holder_900028",
+      "owner": "GoogleResearch",
+      "description": "B.I.A Cordon Bleu White Porcelain Utensil Holder 900028\nBIA Cordon Bleu Give your spatulas and serving spoons an elegant home with this 60 Oz.  Made from porcelain, this piece is resistant to chipping, cracking and staining.  The clean design and solid white glaze make this piece a classic addition to any table kitchen.",
+      "likes": 1,
+      "downloads": 3992,
+      "filesize": 3905417,
+      "upload_date": "2020-09-18T16:52:25Z",
+      "modify_date": "2020-09-18T20:07:05Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/BIA_Cordon_Bleu_White_Porcelain_Utensil_Holder_900028/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/BIA_Cordon_Bleu_White_Porcelain_Utensil_Holder_900028/tip/BIA_Cordon_Bleu_White_Porcelain_Utensil_Holder_900028.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_07",
+    "metadata": {
+      "createdAt": "2020-09-18T16:59:55Z",
+      "updatedAt": "2026-11-06T04:44:22Z",
+      "name": "Cole_Hardware_Mug_Classic_Blue",
+      "owner": "GoogleResearch",
+      "description": "Cole Hardware Mug, Classic Blue",
+      "likes": 0,
+      "downloads": 3920,
+      "filesize": 3688547,
+      "upload_date": "2020-09-18T16:59:52Z",
+      "modify_date": "2020-09-18T20:06:51Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Cole_Hardware_Mug_Classic_Blue/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Cole_Hardware_Mug_Classic_Blue/tip/Cole_Hardware_Mug_Classic_Blue.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_08",
+    "metadata": {
+      "createdAt": "2020-09-18T17:32:05Z",
+      "updatedAt": "2026-11-06T04:31:42Z",
+      "name": "Diamond_Visions_Scissors_Red",
+      "owner": "GoogleResearch",
+      "description": "Diamond Visions Scissors, Red",
+      "likes": 1,
+      "downloads": 3466,
+      "filesize": 2935793,
+      "upload_date": "2020-09-18T17:32:02Z",
+      "modify_date": "2020-09-18T20:06:44Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Diamond_Visions_Scissors_Red/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Consumer Goods"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Diamond_Visions_Scissors_Red/tip/Diamond_Visions_Scissors_Red.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_09",
+    "metadata": {
+      "createdAt": "2020-09-18T16:48:56Z",
+      "updatedAt": "2026-11-06T06:05:02Z",
+      "name": "ACE_Coffee_Mug_Kristen_16_oz_cup",
+      "owner": "GoogleResearch",
+      "description": "ACE Coffee Mug, Kristen, 16 oz cup",
+      "likes": 2,
+      "downloads": 4385,
+      "filesize": 6232969,
+      "upload_date": "2020-09-18T16:48:53Z",
+      "modify_date": "2020-09-18T20:07:10Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/ACE_Coffee_Mug_Kristen_16_oz_cup/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Consumer Goods"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/ACE_Coffee_Mug_Kristen_16_oz_cup/tip/ACE_Coffee_Mug_Kristen_16_oz_cup.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_10",
+    "metadata": {
+      "createdAt": "2020-09-18T16:48:03Z",
+      "updatedAt": "2026-11-06T05:22:23Z",
+      "name": "3D_Dollhouse_TablePurple",
+      "owner": "GoogleResearch",
+      "description": "3D Dollhouse Table-Purple",
+      "likes": 0,
+      "downloads": 3292,
+      "filesize": 4931636,
+      "upload_date": "2020-09-18T16:47:57Z",
+      "modify_date": "2020-09-18T20:07:12Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/3D_Dollhouse_TablePurple/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Toys"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/3D_Dollhouse_TablePurple/tip/3D_Dollhouse_TablePurple.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_11",
+    "metadata": {
+      "createdAt": "2020-09-18T17:51:10Z",
+      "updatedAt": "2026-11-06T05:47:17Z",
+      "name": "Pony_C_Clamp_1440",
+      "owner": "GoogleResearch",
+      "description": "Pony C Clamp, 1440",
+      "likes": 0,
+      "downloads": 3759,
+      "filesize": 4905741,
+      "upload_date": "2020-09-18T17:51:07Z",
+      "modify_date": "2020-09-18T20:05:47Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Pony_C_Clamp_1440/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Pony_C_Clamp_1440/tip/Pony_C_Clamp_1440.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_12",
+    "metadata": {
+      "createdAt": "2020-09-18T16:47:55Z",
+      "updatedAt": "2026-11-06T04:02:58Z",
+      "name": "3D_Dollhouse_Swing",
+      "owner": "GoogleResearch",
+      "description": "3D Dollhouse Swing",
+      "likes": 0,
+      "downloads": 3931,
+      "filesize": 6845483,
+      "upload_date": "2020-09-18T16:47:52Z",
+      "modify_date": "2020-09-18T20:07:12Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/3D_Dollhouse_Swing/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Toys"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/3D_Dollhouse_Swing/tip/3D_Dollhouse_Swing.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_13",
+    "metadata": {
+      "createdAt": "2020-09-18T16:59:46Z",
+      "updatedAt": "2026-11-06T04:29:51Z",
+      "name": "Cole_Hardware_Hammer_Black",
+      "owner": "GoogleResearch",
+      "description": "Cole Hardware Hammer, Black",
+      "likes": 0,
+      "downloads": 4144,
+      "filesize": 2359266,
+      "upload_date": "2020-09-18T16:59:43Z",
+      "modify_date": "2020-09-18T20:06:52Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Cole_Hardware_Hammer_Black/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Cole_Hardware_Hammer_Black/tip/Cole_Hardware_Hammer_Black.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_14",
+    "metadata": {
+      "createdAt": "2020-09-18T18:05:56Z",
+      "updatedAt": "2026-11-06T05:08:05Z",
+      "name": "Threshold_Porcelain_Pitcher_White",
+      "owner": "GoogleResearch",
+      "description": "Threshold Porcelain Pitcher, White",
+      "likes": 1,
+      "downloads": 3768,
+      "filesize": 2595281,
+      "upload_date": "2020-09-18T18:05:53Z",
+      "modify_date": "2020-09-18T20:05:09Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Threshold_Porcelain_Pitcher_White/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Threshold_Porcelain_Pitcher_White/tip/Threshold_Porcelain_Pitcher_White.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_15",
+    "metadata": {
+      "createdAt": "2020-09-18T17:54:01Z",
+      "updatedAt": "2026-11-06T05:38:41Z",
+      "name": "Remington_TStudio_Hair_Dryer",
+      "owner": "GoogleResearch",
+      "description": "Remington T/Studio Hair Dryer",
+      "likes": 0,
+      "downloads": 3470,
+      "filesize": 6740668,
+      "upload_date": "2020-09-18T17:53:57Z",
+      "modify_date": "2020-09-18T20:05:39Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Remington_TStudio_Hair_Dryer/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Remington_TStudio_Hair_Dryer/tip/Remington_TStudio_Hair_Dryer.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_16",
+    "metadata": {
+      "createdAt": "2020-09-18T18:06:50Z",
+      "updatedAt": "2026-11-06T05:07:02Z",
+      "name": "Threshold_Porcelain_Teapot_White",
+      "owner": "GoogleResearch",
+      "description": "Threshold Porcelain Teapot, White",
+      "likes": 1,
+      "downloads": 4834,
+      "filesize": 3063446,
+      "upload_date": "2020-09-18T18:06:47Z",
+      "modify_date": "2020-09-18T20:05:08Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Threshold_Porcelain_Teapot_White/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Threshold_Porcelain_Teapot_White/tip/Threshold_Porcelain_Teapot_White.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_17",
+    "metadata": {
+      "createdAt": "2020-09-18T17:39:23Z",
+      "updatedAt": "2026-11-06T04:31:23Z",
+      "name": "Focus_8643_Lime_Squeezer_10x35x188_Enamelled_Aluminum_Light",
+      "owner": "GoogleResearch",
+      "description": "Focus 8643 Lime Squeezer - 10x3.5x1.88, Enamelled Aluminum, Light",
+      "likes": 1,
+      "downloads": 3415,
+      "filesize": 2783430,
+      "upload_date": "2020-09-18T17:39:21Z",
+      "modify_date": "2020-09-18T20:06:21Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Focus_8643_Lime_Squeezer_10x35x188_Enamelled_Aluminum_Light/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Focus_8643_Lime_Squeezer_10x35x188_Enamelled_Aluminum_Light/tip/Focus_8643_Lime_Squeezer_10x35x188_Enamelled_Aluminum_Light.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_18",
+    "metadata": {
+      "createdAt": "2020-09-18T16:49:25Z",
+      "updatedAt": "2026-11-06T05:44:05Z",
+      "name": "Air_Hogs_Wind_Flyers_Set_Airplane_Red",
+      "owner": "GoogleResearch",
+      "description": "Air Hogs Wind Flyers Set, Airplane, Red",
+      "likes": 0,
+      "downloads": 3597,
+      "filesize": 5773079,
+      "upload_date": "2020-09-18T16:49:22Z",
+      "modify_date": "2020-09-18T20:07:09Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Air_Hogs_Wind_Flyers_Set_Airplane_Red/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Air_Hogs_Wind_Flyers_Set_Airplane_Red/tip/Air_Hogs_Wind_Flyers_Set_Airplane_Red.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_19",
+    "metadata": {
+      "createdAt": "2020-09-03T16:36:19Z",
+      "updatedAt": "2026-11-06T05:54:18Z",
+      "name": "Crayola_Crayons_24_count",
+      "owner": "GoogleResearch",
+      "description": "Crayola Crayons - 24 count",
+      "likes": 0,
+      "downloads": 4348,
+      "filesize": 12185762,
+      "upload_date": "2020-09-03T16:36:15Z",
+      "modify_date": "2020-09-18T20:10:44Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Crayola_Crayons_24_count/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Consumer Goods"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Crayola_Crayons_24_count/tip/Crayola_Crayons_24_count.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_20",
+    "metadata": {
+      "createdAt": "2020-09-03T16:20:39Z",
+      "updatedAt": "2026-11-06T04:03:18Z",
+      "name": "Big_Dot_Aqua_Pencil_Case",
+      "owner": "GoogleResearch",
+      "description": "Big Dot Aqua Pencil Case",
+      "likes": 0,
+      "downloads": 3595,
+      "filesize": 13598313,
+      "upload_date": "2020-09-03T16:20:35Z",
+      "modify_date": "2020-09-18T20:11:01Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Big_Dot_Aqua_Pencil_Case/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Bag"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Big_Dot_Aqua_Pencil_Case/tip/Big_Dot_Aqua_Pencil_Case.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_21",
+    "metadata": {
+      "createdAt": "2020-09-03T17:53:15Z",
+      "updatedAt": "2026-11-06T04:04:26Z",
+      "name": "Olive_Kids_Mermaids_Pack_n_Snack_Backpack",
+      "owner": "GoogleResearch",
+      "description": "Olive Kids Mermaids Pack 'n Snack Backpack",
+      "likes": 0,
+      "downloads": 3790,
+      "filesize": 10752366,
+      "upload_date": "2020-09-03T17:53:11Z",
+      "modify_date": "2020-09-18T20:08:56Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Olive_Kids_Mermaids_Pack_n_Snack_Backpack/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Bag"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Olive_Kids_Mermaids_Pack_n_Snack_Backpack/tip/Olive_Kids_Mermaids_Pack_n_Snack_Backpack.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_22",
+    "metadata": {
+      "createdAt": "2020-09-18T16:58:10Z",
+      "updatedAt": "2026-11-06T05:23:16Z",
+      "name": "Cole_Hardware_Bowl_Scirocco_YellowBlue",
+      "owner": "GoogleResearch",
+      "description": "Cole Hardware Bowl Scirocco, Yellow/Blue",
+      "likes": 1,
+      "downloads": 3480,
+      "filesize": 5105213,
+      "upload_date": "2020-09-18T16:58:08Z",
+      "modify_date": "2020-09-18T20:06:56Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Cole_Hardware_Bowl_Scirocco_YellowBlue/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Cole_Hardware_Bowl_Scirocco_YellowBlue/tip/Cole_Hardware_Bowl_Scirocco_YellowBlue.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_23",
+    "metadata": {
+      "createdAt": "2020-09-03T16:41:44Z",
+      "updatedAt": "2026-11-06T04:03:31Z",
+      "name": "Digital_Camo_Double_Decker_Lunch_Bag",
+      "owner": "GoogleResearch",
+      "description": "Digital Camo Double Decker Lunch Bag",
+      "likes": 0,
+      "downloads": 3422,
+      "filesize": 12403943,
+      "upload_date": "2020-09-03T16:41:40Z",
+      "modify_date": "2020-09-18T20:10:36Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Digital_Camo_Double_Decker_Lunch_Bag/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Bag"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Digital_Camo_Double_Decker_Lunch_Bag/tip/Digital_Camo_Double_Decker_Lunch_Bag.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_24",
+    "metadata": {
+      "createdAt": "2020-09-03T16:10:24Z",
+      "updatedAt": "2026-11-06T04:03:00Z",
+      "name": "ASICS_GELResolution_5_Flash_YellowBlackSilver",
+      "owner": "GoogleResearch",
+      "description": "ASICS GEL-Resolution® 5 - Flash Yellow/Black/Silver\nThe pinnacle of the ASICS stability tennis line, the GEL-Resolution® 5 doesn't disappoint. The newest edition to this series features an improved Flexion Fit™ upper design providing one-of-kind upper comfort, in addition to a re-designed PGuard™ improving upper flexibility.  New to this model, a hidden Trusstic System® has been developed to allow full ground outsole contact all while providing the superb medial stability and torsional rigidity that this series is known for.  The best just got better.",
+      "likes": 0,
+      "downloads": 3404,
+      "filesize": 7516878,
+      "upload_date": "2020-09-03T16:10:21Z",
+      "modify_date": "2020-09-18T20:11:16Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/ASICS_GELResolution_5_Flash_YellowBlackSilver/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Shoe"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/ASICS_GELResolution_5_Flash_YellowBlackSilver/tip/ASICS_GELResolution_5_Flash_YellowBlackSilver.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_25",
+    "metadata": {
+      "createdAt": "2020-09-03T17:46:45Z",
+      "updatedAt": "2026-11-06T05:58:35Z",
+      "name": "Nintendo_Mario_Action_Figure",
+      "owner": "GoogleResearch",
+      "description": "Nintendo Mario Action Figure",
+      "likes": 0,
+      "downloads": 3605,
+      "filesize": 6021335,
+      "upload_date": "2020-09-03T17:46:43Z",
+      "modify_date": "2020-09-18T20:09:13Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Nintendo_Mario_Action_Figure/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Toys"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Nintendo_Mario_Action_Figure/tip/Nintendo_Mario_Action_Figure.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_26",
+    "metadata": {
+      "createdAt": "2020-09-18T17:38:27Z",
+      "updatedAt": "2026-11-06T04:03:37Z",
+      "name": "Elephant",
+      "owner": "GoogleResearch",
+      "description": "Elephant\nElephant",
+      "likes": 0,
+      "downloads": 4005,
+      "filesize": 9462011,
+      "upload_date": "2020-09-18T17:38:23Z",
+      "modify_date": "2020-09-18T20:06:25Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Elephant/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Elephant/tip/Elephant.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_27",
+    "metadata": {
+      "createdAt": "2020-09-18T17:58:27Z",
+      "updatedAt": "2026-11-06T05:25:19Z",
+      "name": "Schleich_Lion_Action_Figure",
+      "owner": "GoogleResearch",
+      "description": "Schleich Lion Action Figure",
+      "likes": 1,
+      "downloads": 3868,
+      "filesize": 9633109,
+      "upload_date": "2020-09-18T17:58:23Z",
+      "modify_date": "2020-09-18T20:05:29Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Schleich_Lion_Action_Figure/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Action Figures"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Schleich_Lion_Action_Figure/tip/Schleich_Lion_Action_Figure.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_28",
+    "metadata": {
+      "createdAt": "2020-09-18T17:57:41Z",
+      "updatedAt": "2026-11-06T05:27:42Z",
+      "name": "Schleich_African_Black_Rhino",
+      "owner": "GoogleResearch",
+      "description": "Schleich African Black Rhino",
+      "likes": 0,
+      "downloads": 3931,
+      "filesize": 8794386,
+      "upload_date": "2020-09-18T17:57:37Z",
+      "modify_date": "2020-09-18T20:05:30Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Schleich_African_Black_Rhino/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Toys"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Schleich_African_Black_Rhino/tip/Schleich_African_Black_Rhino.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_29",
+    "metadata": {
+      "createdAt": "2020-09-03T16:16:30Z",
+      "updatedAt": "2026-11-06T04:03:09Z",
+      "name": "BALANCING_CACTUS",
+      "owner": "GoogleResearch",
+      "description": "BALANCING CACTUS\nIt?s all about strategy! The player that can build and balance the cactus without making it fall is the winner. Ideal for 1 - 4 players.",
+      "likes": 0,
+      "downloads": 3283,
+      "filesize": 7325424,
+      "upload_date": "2020-09-03T16:16:27Z",
+      "modify_date": "2020-09-18T20:11:06Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/BALANCING_CACTUS/tip/files/thumbnails/0.jpg",
+      "private": false,
+      "categories": [
+        "Toys"
+      ]
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/BALANCING_CACTUS/tip/BALANCING_CACTUS.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  },
+  {
+    "id": "gso_30",
+    "metadata": {
+      "createdAt": "2020-09-18T18:08:19Z",
+      "updatedAt": "2026-11-06T04:52:16Z",
+      "name": "Vtech_Roll_Learn_Turtle",
+      "owner": "GoogleResearch",
+      "description": "Vtech Roll & Learn Turtle",
+      "likes": 0,
+      "downloads": 4908,
+      "filesize": 6466471,
+      "upload_date": "2020-09-18T18:08:15Z",
+      "modify_date": "2020-09-18T20:05:03Z",
+      "license_id": 2,
+      "license_name": "Creative Commons Attribution 4.0 International",
+      "license_url": "http://creativecommons.org/licenses/by/4.0/",
+      "license_image": "https://i.creativecommons.org/l/by/4.0/88x31.png",
+      "permission": 0,
+      "url_name": "",
+      "thumbnail_url": "/GoogleResearch/models/Vtech_Roll_Learn_Turtle/tip/files/thumbnails/0.jpg",
+      "private": false
+    },
+    "download_check": {
+      "url": "https://fuel.gazebosim.org/1.0/GoogleResearch/models/Vtech_Roll_Learn_Turtle/tip/Vtech_Roll_Learn_Turtle.zip",
+      "status": 206,
+      "zip_magic": "504b0304",
+      "verified_zip_header": true
+    },
+    "verified_date": "2026-11-06"
+  }
+]

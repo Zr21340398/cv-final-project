@@ -6,7 +6,7 @@
 ## 对象与划分
 
 本轮正式评估仅使用 GSO：10 个开发对象、20 个测试对象。按简单实体、细结构或孔洞、非对称、明显图案、复杂形状五类分层，各类 2 个开发对象和 4 个测试对象。
-对象 ID 尚待筛选；来源与清单模板均为空表头。ABO、Toys4K 和实拍案例暂不加入本轮正式统计。
+第一版对象 ID 与分组已记录在 gso-selection.csv，详情见 [GSO_SELECTION_V1.md](GSO_SELECTION_V1.md)。gso-formal-v1.draft.csv 是预期渲染路径草稿，待下载、渲染和文件校验后再冻结为正式清单。ABO、Toys4K 和实拍案例暂不加入本轮正式统计。
 
 每个对象渲染 8 个固定视角，**只将 view-000.png 作为生成输入**；其他图用于视觉检查。`asset3d render` 输出归一化参考 mesh、PNG 与相机矩阵。旋转轴采用 Blender 的 Z-up；Hunyuan 输出轴约定需在开发集上校准。
 
