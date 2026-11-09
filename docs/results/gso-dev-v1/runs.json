@@ -1,0 +1,3963 @@
+[
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_01",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2230442",
+    "generation_seconds": 120.27273328206502,
+    "process_attempt_statuses": [
+      "completed",
+      "skipped"
+    ],
+    "shape_raw": {
+      "bytes": 13278652,
+      "triangles": 737656,
+      "vertices": 368830,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3212788,
+      "triangles": 40000,
+      "vertices": 21932,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "fa66a813a12738bfc7a86a717c20a3a5a15b5ac7693c2fa94d354956a3feeb03",
+      "foreground.png": "8352487f35d7e7a63ae9da13bb48294d58ad7a3a386224b9049c5b3bc9b83c33",
+      "shape_raw.glb": "b6e85537fbbd35f277abbf7f3fca395c84acc8e432732da28cd275b79c1d69fd",
+      "asset.glb": "429a09faefaaa7e90058053cd9b26d98a24ed60f6aed80be07c42e0d3b0a0e6b"
+    },
+    "pipeline_seconds": 117.97773257410154,
+    "phase_seconds": {
+      "preprocess": 0.044573089107871056,
+      "shape": 37.18903194414452,
+      "texture_mesh_reduce": 8.870465883985162,
+      "texture": 23.865675335982814,
+      "export": 1.1395007479004562
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 25.23859452502802
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 17.586012927116826
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15572250112,
+      "peak_reserved_bytes": 18845007872,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_01",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 99.00386290601455,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 13984072,
+      "triangles": 776844,
+      "vertices": 388427,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3308484,
+      "triangles": 40000,
+      "vertices": 21543,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "fa66a813a12738bfc7a86a717c20a3a5a15b5ac7693c2fa94d354956a3feeb03",
+      "foreground.png": "8352487f35d7e7a63ae9da13bb48294d58ad7a3a386224b9049c5b3bc9b83c33",
+      "shape_raw.glb": "3898375f583f15715690789f1a3f7c1369fe4c56f2d129f3203be00bb88e7a9a",
+      "asset.glb": "2860913dbc5296305d76c4a1aede30af680246048dfc14d5d7157fbb66cdd35b"
+    },
+    "pipeline_seconds": 96.76847526384518,
+    "phase_seconds": {
+      "preprocess": 0.0399852548725903,
+      "shape": 36.809291920857504,
+      "texture_mesh_reduce": 7.97678076219745,
+      "texture": 18.744840821949765,
+      "export": 1.1578508880920708
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.45378810307011
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 8.957874075975269
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15567162880,
+      "peak_reserved_bytes": 18840813568,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_02",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 113.02540966193192,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 14941828,
+      "triangles": 830056,
+      "vertices": 415028,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3600788,
+      "triangles": 40000,
+      "vertices": 20639,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "89fabe75a1d02935dfa907d1738ded17be30aff9ba73a4a6788e23a6bec982d1",
+      "foreground.png": "c13640cb6127b1e5a7a2ef9d004a91f526b9b0142b2e57b685687c0f13ba68ab",
+      "shape_raw.glb": "e73328188c7dd941e8b2dbe8684b7f1e0298f76398b63c91206eda6c98672714",
+      "asset.glb": "916aefc978f905b8e004b11c56b00091f362da86a89eb86ff6fb1a31babded6b"
+    },
+    "pipeline_seconds": 109.91365072480403,
+    "phase_seconds": {
+      "preprocess": 0.040696739917621017,
+      "shape": 36.83930517616682,
+      "texture_mesh_reduce": 10.411430230131373,
+      "texture": 28.963933030841872,
+      "export": 0.920831834897399
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 21.21733262599446
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.5085591280367225
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15560394752,
+      "peak_reserved_bytes": 18851299328,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_02",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 103.57978734886274,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 10618360,
+      "triangles": 589864,
+      "vertices": 294931,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3794432,
+      "triangles": 40000,
+      "vertices": 21832,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "89fabe75a1d02935dfa907d1738ded17be30aff9ba73a4a6788e23a6bec982d1",
+      "foreground.png": "c13640cb6127b1e5a7a2ef9d004a91f526b9b0142b2e57b685687c0f13ba68ab",
+      "shape_raw.glb": "45fd60131110b6e2c58828ffd560e18f2134240929eedb3add78e9b39794354e",
+      "asset.glb": "5948094e39500578737a750fd8d622b87c69fe6ec1c59d70a754fff50f518d7c"
+    },
+    "pipeline_seconds": 100.90598577796482,
+    "phase_seconds": {
+      "preprocess": 0.04003632394596934,
+      "shape": 39.62245088908821,
+      "texture_mesh_reduce": 6.531801039120182,
+      "texture": 21.863424910930917,
+      "export": 0.9611654239706695
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 20.847732172114775
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.374146395130083
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554504192,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_07",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 122.30443030805327,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 22865384,
+      "triangles": 1270256,
+      "vertices": 635124,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2917636,
+      "triangles": 40000,
+      "vertices": 22751,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "9699b18d98a2b275c5bb0e16cc26a6384eb42d0bbdc0de147b8530d1da4fb2e2",
+      "foreground.png": "1b4b9b6521ddfb40eab05c0d077c2a6f6d5a08940a1e923a8ebd6a4641a89414",
+      "shape_raw.glb": "e22c6568335150e4c72bfc72054f432b29e980fcaee2ff9306053c071e07da01",
+      "asset.glb": "71939c487020056fcde12edf350baa4991c76f2258b907918e6a2e2d34a57356"
+    },
+    "pipeline_seconds": 119.47651899419725,
+    "phase_seconds": {
+      "preprocess": 0.04131794115528464,
+      "shape": 36.810999454930425,
+      "texture_mesh_reduce": 16.202383427880704,
+      "texture": 34.4981024870649,
+      "export": 0.837490611942485
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.522334214067087
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.921519888099283
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15567187456,
+      "peak_reserved_bytes": 18840813568,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_07",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 117.39087354508229,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 23393644,
+      "triangles": 1299604,
+      "vertices": 649798,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2653468,
+      "triangles": 40000,
+      "vertices": 21648,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "9699b18d98a2b275c5bb0e16cc26a6384eb42d0bbdc0de147b8530d1da4fb2e2",
+      "foreground.png": "1b4b9b6521ddfb40eab05c0d077c2a6f6d5a08940a1e923a8ebd6a4641a89414",
+      "shape_raw.glb": "a1badf2b2ad53702b4b2943f6a50a35d1b3e9db2c5acbe855f99da9e7e40d2d2",
+      "asset.glb": "7cf9e7e169faafae2835e68a5e31a2190c211d19148c698712c8593d2baef213"
+    },
+    "pipeline_seconds": 114.35001660999842,
+    "phase_seconds": {
+      "preprocess": 0.0405604240950197,
+      "shape": 36.712620173813775,
+      "texture_mesh_reduce": 13.666939213871956,
+      "texture": 32.64556847396307,
+      "export": 0.7967241019941866
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.30276443902403
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.7150639849714935
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15572244480,
+      "peak_reserved_bytes": 18845007872,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_08",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 112.69382110680453,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 7398772,
+      "triangles": 411000,
+      "vertices": 205496,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2827056,
+      "triangles": 40000,
+      "vertices": 22695,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "39af72e41bb850a4812fc1ab9fdef9abda4e45d1d3744e2321502cd7384b5184",
+      "foreground.png": "fccabe3db14cac809ad85303b155fd8cc4101c03367031dc6175ff4f53231005",
+      "shape_raw.glb": "5450d1b3d00a9c338c8923f25178180524fcb036f290ba0c0ac265f8c4284abb",
+      "asset.glb": "63c66bebbf83dec9a6c171d42541fbc7be28b95de6241d24646f9cd6c342571e"
+    },
+    "pipeline_seconds": 110.2891788969282,
+    "phase_seconds": {
+      "preprocess": 0.03043883410282433,
+      "shape": 36.04354025912471,
+      "texture_mesh_reduce": 3.809318105923012,
+      "texture": 40.08529664296657,
+      "export": 0.8285789908841252
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.081312229158357
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.26568114105612
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15560435712,
+      "peak_reserved_bytes": 18851299328,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_08",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 112.39686185889877,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 5818228,
+      "triangles": 323192,
+      "vertices": 161592,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2716376,
+      "triangles": 40000,
+      "vertices": 23341,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "39af72e41bb850a4812fc1ab9fdef9abda4e45d1d3744e2321502cd7384b5184",
+      "foreground.png": "fccabe3db14cac809ad85303b155fd8cc4101c03367031dc6175ff4f53231005",
+      "shape_raw.glb": "1ec15e79403fe667daf64549f308f98686acadbacd9ff1d75fa95e50a02c5439",
+      "asset.glb": "3b64f39c092739197f5047d432e3c179338ad991b4b629133e900b5fe6b7b2dd"
+    },
+    "pipeline_seconds": 110.14044254599139,
+    "phase_seconds": {
+      "preprocess": 0.03055405500344932,
+      "shape": 36.02471733582206,
+      "texture_mesh_reduce": 2.7810910979751498,
+      "texture": 42.488999844994396,
+      "export": 0.7238720401655883
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.458581693004817
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.606023411964998
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15572278272,
+      "peak_reserved_bytes": 18845007872,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_13",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 91.34942520107143,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 2755632,
+      "triangles": 153044,
+      "vertices": 76524,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2474512,
+      "triangles": 40000,
+      "vertices": 21524,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "5755371b3e632ed36780ecea6e1ab42c61ba3e2beb32994d29ac4dd8e1db8b98",
+      "foreground.png": "adbbbe07884c2813a2f62373d35384759ce577e12497f1bb6e8f972e07658ab1",
+      "shape_raw.glb": "684ef61d8b92af243ce398380a05aa31a1b1594008e6924cc6d1b076a25148b0",
+      "asset.glb": "3fb634ff188c3d5bfeb12c3fb2c48f6b4fb40a1fb10a34c7dc76f1e24ce4d710"
+    },
+    "pipeline_seconds": 88.87040413892828,
+    "phase_seconds": {
+      "preprocess": 0.03759441105648875,
+      "shape": 36.076712446054444,
+      "texture_mesh_reduce": 1.0236504881177098,
+      "texture": 21.582644019043073,
+      "export": 0.7715174220502377
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.963602925883606
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.532175655011088
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15562804736,
+      "peak_reserved_bytes": 18840813568,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_13",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 91.46820065006614,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 2836348,
+      "triangles": 157528,
+      "vertices": 78766,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2700924,
+      "triangles": 40000,
+      "vertices": 22944,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "5755371b3e632ed36780ecea6e1ab42c61ba3e2beb32994d29ac4dd8e1db8b98",
+      "foreground.png": "adbbbe07884c2813a2f62373d35384759ce577e12497f1bb6e8f972e07658ab1",
+      "shape_raw.glb": "031a333f2faab07bd4b788d354d67920d7f984d115a8b36f2f8b874e7b26bdeb",
+      "asset.glb": "eaea375799677b1454945d38529dba783c06c80a571302773de61f6a74f38a09"
+    },
+    "pipeline_seconds": 89.3535289929714,
+    "phase_seconds": {
+      "preprocess": 0.03678931202739477,
+      "shape": 36.1227579000406,
+      "texture_mesh_reduce": 1.059066304937005,
+      "texture": 22.84752583107911,
+      "export": 0.7770405889023095
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.763884350191802
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.030824545072392
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15562832896,
+      "peak_reserved_bytes": 18840813568,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_14",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 103.2435403498821,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 18788312,
+      "triangles": 1043752,
+      "vertices": 521872,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2346564,
+      "triangles": 40000,
+      "vertices": 22109,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "a1093a0b74416a4a82df9c4f382c318ad8da60c174158acde136abfaea74ea5a",
+      "foreground.png": "9e8bec425cde6f2ad1baae71b08e80b86aecff99fbfbd482d090986e7d4df38c",
+      "shape_raw.glb": "adbab28425ec1a8f0d537e5641cafe6161c41be5ba9467dedc2cb9b9db3745d0",
+      "asset.glb": "cb0cce6fd02442b38e98082052dfd1a0b8b5c5e63555f2d8f73590139512c5db"
+    },
+    "pipeline_seconds": 100.56954841502011,
+    "phase_seconds": {
+      "preprocess": 0.039855693001300097,
+      "shape": 36.35347723099403,
+      "texture_mesh_reduce": 10.710756240878254,
+      "texture": 22.78489572298713,
+      "export": 0.639891617000103
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.89454175508581
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.057064444990829
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554509824,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_14",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 138.9836098300293,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 27509024,
+      "triangles": 1528240,
+      "vertices": 764110,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2027060,
+      "triangles": 40000,
+      "vertices": 21822,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "a1093a0b74416a4a82df9c4f382c318ad8da60c174158acde136abfaea74ea5a",
+      "foreground.png": "9e8bec425cde6f2ad1baae71b08e80b86aecff99fbfbd482d090986e7d4df38c",
+      "shape_raw.glb": "6cb974c52319572db9a6148eb107fd31c309277cd758ef6866e1f88b334a1c6c",
+      "asset.glb": "c06c6f032d195c85a2782df9a1caeb695c6ec414256e531414ee44ed9f597ca3"
+    },
+    "pipeline_seconds": 135.9723950540647,
+    "phase_seconds": {
+      "preprocess": 0.04079021792858839,
+      "shape": 36.46503389091231,
+      "texture_mesh_reduce": 16.233154619811103,
+      "texture": 52.54632629896514,
+      "export": 0.5169996269978583
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.653919615084305
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.7753824919927865
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15564284928,
+      "peak_reserved_bytes": 18828230656,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_19",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 101.71350446995348,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 10868644,
+      "triangles": 603768,
+      "vertices": 301884,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4582412,
+      "triangles": 40000,
+      "vertices": 24179,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "2031c92458c766003c357985de6ef5a69f9c5a1e0d28bc8e775b21080e60d6b7",
+      "foreground.png": "80ad4373cc7be7c1087297a44cacdd0ea5759f441abc5afebe301ceb8fa69662",
+      "shape_raw.glb": "1b50332fc217fa56b84fb10ca16c22051c1ebba49a12d37a091990fdd44cb839",
+      "asset.glb": "2598b8204373f74f775bf7d636c107a3f19a7d1a3df8348aa4d8b8049469a5cf"
+    },
+    "pipeline_seconds": 99.21273229201324,
+    "phase_seconds": {
+      "preprocess": 0.04490193002857268,
+      "shape": 36.209408569848165,
+      "texture_mesh_reduce": 6.5271890258882195,
+      "texture": 24.540608061943203,
+      "export": 1.3663189949002117
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 20.3406042419374
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.545577439945191
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15564332032,
+      "peak_reserved_bytes": 18828230656,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_19",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 125.98763319198042,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 10378396,
+      "triangles": 576532,
+      "vertices": 288266,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4138064,
+      "triangles": 40000,
+      "vertices": 22969,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "2031c92458c766003c357985de6ef5a69f9c5a1e0d28bc8e775b21080e60d6b7",
+      "foreground.png": "80ad4373cc7be7c1087297a44cacdd0ea5759f441abc5afebe301ceb8fa69662",
+      "shape_raw.glb": "5f5e0febea3e09861d6105d2ca6b51fa59ee3bea62aa26b6aefd68606e0820fd",
+      "asset.glb": "7f4b5641ce5019cf965fac031b74f09e034b1b7816238f8bf7ab868aecca773c"
+    },
+    "pipeline_seconds": 123.53411651798524,
+    "phase_seconds": {
+      "preprocess": 0.0460488828830421,
+      "shape": 36.635867747012526,
+      "texture_mesh_reduce": 5.963820378994569,
+      "texture": 50.809940284118056,
+      "export": 1.1555138109251857
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.927064971998334
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.494944642065093
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15564307968,
+      "peak_reserved_bytes": 18828230656,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_20",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 99.58434331184253,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 11314012,
+      "triangles": 628516,
+      "vertices": 314250,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4109568,
+      "triangles": 40000,
+      "vertices": 22971,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "b42028b824525a4b3f00761fdccfbb3f9ecf3b46a7b879e4b1035d3b9169dad8",
+      "foreground.png": "1d87fb45d866b0b22ec7beb3099f86d8c8a2a7cfc875d439acba10e21790a0bd",
+      "shape_raw.glb": "951e3daadc41abd7035e1805a5888a66b609a6567ba64369de8f570bb0461637",
+      "asset.glb": "0b5acfa475ced1bf4d069bcb7977bc0f521778c1d02fd2740f80cbd24fe79f04"
+    },
+    "pipeline_seconds": 97.11219635116868,
+    "phase_seconds": {
+      "preprocess": 0.04079599608667195,
+      "shape": 36.20591905107722,
+      "texture_mesh_reduce": 5.9904732489958405,
+      "texture": 25.206956720910966,
+      "export": 1.3161671850830317
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.43361851107329
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.461476511089131
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554526720,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_20",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 103.51598971011117,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 11123248,
+      "triangles": 617916,
+      "vertices": 308953,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3918936,
+      "triangles": 40000,
+      "vertices": 22876,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "b42028b824525a4b3f00761fdccfbb3f9ecf3b46a7b879e4b1035d3b9169dad8",
+      "foreground.png": "1d87fb45d866b0b22ec7beb3099f86d8c8a2a7cfc875d439acba10e21790a0bd",
+      "shape_raw.glb": "1c8ef8a6cad6b6fd5db97f9d446e8c27affbdfdef293029384f0f3ace33403e4",
+      "asset.glb": "f14b4ac3d8d0fdb44d7feccd994da45bd2e41cccbf261083ca58edbd58a9a1c3"
+    },
+    "pipeline_seconds": 101.09128527599387,
+    "phase_seconds": {
+      "preprocess": 0.03923122491687536,
+      "shape": 36.22301009204239,
+      "texture_mesh_reduce": 6.7967485138215125,
+      "texture": 26.114106904016808,
+      "export": 1.2212104499340057
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 20.143341716146097
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.093284795060754
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554525184,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_25",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 102.86828905111179,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 12645328,
+      "triangles": 702472,
+      "vertices": 351237,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3675884,
+      "triangles": 40000,
+      "vertices": 24530,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "cbf6ba6d84b2269780fdb0ea985af17f5a92d9dc2a2ed230eb17f338fb1b0288",
+      "foreground.png": "b4bce834b710b5c1be5b547816e8bf26aef070140965b3607f22a4b1d75dc76e",
+      "shape_raw.glb": "03fa68e2706cee8e2ef7f6458857ff683ebb188455658f5c8c89ee322311b040",
+      "asset.glb": "d579700d30b7f3517f63fb8b1930e8994fa3e1fc88b82f64c6fd29b5c4c18746"
+    },
+    "pipeline_seconds": 100.24600683012977,
+    "phase_seconds": {
+      "preprocess": 0.04222755506634712,
+      "shape": 36.5752549089957,
+      "texture_mesh_reduce": 8.156208456959575,
+      "texture": 23.23702820413746,
+      "export": 1.077415803913027
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 20.323576447786763
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.164569407003
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15560472576,
+      "peak_reserved_bytes": 18851299328,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_25",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 100.8010837030597,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 12408472,
+      "triangles": 689310,
+      "vertices": 344661,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3667884,
+      "triangles": 40000,
+      "vertices": 24383,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "cbf6ba6d84b2269780fdb0ea985af17f5a92d9dc2a2ed230eb17f338fb1b0288",
+      "foreground.png": "b4bce834b710b5c1be5b547816e8bf26aef070140965b3607f22a4b1d75dc76e",
+      "shape_raw.glb": "6b83e11758e69c0748d7332bee9d1e21f33595775b58b39335aae3c8bdb31803",
+      "asset.glb": "b5d87e90e48329e14a168fe109ec175a4362deeb50dcfd2dc08a79fa6c20c01b"
+    },
+    "pipeline_seconds": 98.35228028800339,
+    "phase_seconds": {
+      "preprocess": 0.043128013145178556,
+      "shape": 36.37036314792931,
+      "texture_mesh_reduce": 6.948398010106757,
+      "texture": 23.800504066981375,
+      "export": 1.1085749089252204
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.296232437016442
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.165852629812434
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554554880,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_26",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 112.10589479003102,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 25883828,
+      "triangles": 1437952,
+      "vertices": 718965,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3851872,
+      "triangles": 40000,
+      "vertices": 24814,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "1e9fb64e4edfcb9510bcd0eef8b61b27ca020573410373064c9901e326931c72",
+      "foreground.png": "dbdbc53ac7bf3fadd67b5f30d584f75b81c4203f24aee8d6d347e4ca8e2c7c05",
+      "shape_raw.glb": "b31b869ba9ce269d3abd2997ffa276122807958b9cd7fb1ac67b76c6bbdd4136",
+      "asset.glb": "81847cf1a80b96c48523b4243057710766fbd047b4db8ac7551db808c470d6cb"
+    },
+    "pipeline_seconds": 109.3129021548666,
+    "phase_seconds": {
+      "preprocess": 0.04240371589548886,
+      "shape": 36.469326993916184,
+      "texture_mesh_reduce": 15.222944732988253,
+      "texture": 25.831850132904947,
+      "export": 1.226826359052211
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.943363920785487
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.8719169578980654
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15572307456,
+      "peak_reserved_bytes": 18845007872,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps50",
+    "object": "gso_26",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 111.06052445899695,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 23886976,
+      "triangles": 1327008,
+      "vertices": 663505,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3838336,
+      "triangles": 40000,
+      "vertices": 24202,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "1e9fb64e4edfcb9510bcd0eef8b61b27ca020573410373064c9901e326931c72",
+      "foreground.png": "dbdbc53ac7bf3fadd67b5f30d584f75b81c4203f24aee8d6d347e4ca8e2c7c05",
+      "shape_raw.glb": "d3c611ec1362f1a4fd037bbb073d7db9aeb164957f91898b1b11e66cfc3f46bc",
+      "asset.glb": "1ae57f8ea848da1dc4baaf7ea5158efe37e363e98dfc3d392b2c2ce9eb112c1b"
+    },
+    "pipeline_seconds": 108.30749130179174,
+    "phase_seconds": {
+      "preprocess": 0.03869968210346997,
+      "shape": 36.364094648044556,
+      "texture_mesh_reduce": 13.942652414087206,
+      "texture": 26.64618615899235,
+      "export": 1.2432294220197946
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.778927182080224
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.846851094160229
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554551808,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_01",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 97.63504225597717,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 13471556,
+      "triangles": 748364,
+      "vertices": 374197,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3309000,
+      "triangles": 40000,
+      "vertices": 22174,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "fa66a813a12738bfc7a86a717c20a3a5a15b5ac7693c2fa94d354956a3feeb03",
+      "foreground.png": "8352487f35d7e7a63ae9da13bb48294d58ad7a3a386224b9049c5b3bc9b83c33",
+      "shape_raw.glb": "c71dd5c8c8e96acdcd77145940978fe1fe8e9fb5cb57f51a6c365b440d53f098",
+      "asset.glb": "730a7760f62e0d7810c32e9d471dc55c20a533213dbf392ea9182f5a4054f5ae"
+    },
+    "pipeline_seconds": 94.92392968409695,
+    "phase_seconds": {
+      "preprocess": 0.041425636038184166,
+      "shape": 31.367740096058697,
+      "texture_mesh_reduce": 7.761900067096576,
+      "texture": 25.56482950784266,
+      "export": 1.1383931189775467
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.938512196065858
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.423607094911858
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15562817536,
+      "peak_reserved_bytes": 18838716416,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_01",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 91.41033297404647,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 14000668,
+      "triangles": 777748,
+      "vertices": 388906,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3039028,
+      "triangles": 40000,
+      "vertices": 22025,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "fa66a813a12738bfc7a86a717c20a3a5a15b5ac7693c2fa94d354956a3feeb03",
+      "foreground.png": "8352487f35d7e7a63ae9da13bb48294d58ad7a3a386224b9049c5b3bc9b83c33",
+      "shape_raw.glb": "5325cddb33caff4b21f330ed99428e426c0f4812e24878ad5b2056a59e9e9179",
+      "asset.glb": "5ff6bf417cbc95b52f310810ea31353ee87f20631768c68066174143b022b520"
+    },
+    "pipeline_seconds": 88.73095493600704,
+    "phase_seconds": {
+      "preprocess": 0.04257516493089497,
+      "shape": 31.375671064015478,
+      "texture_mesh_reduce": 8.397804917069152,
+      "texture": 17.783526749815792,
+      "export": 1.0549743899609894
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.7109951779712
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.6132458401843905
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15572252160,
+      "peak_reserved_bytes": 18845007872,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_02",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 96.71564960991964,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 15034580,
+      "triangles": 835208,
+      "vertices": 417605,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3945284,
+      "triangles": 40000,
+      "vertices": 21854,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "89fabe75a1d02935dfa907d1738ded17be30aff9ba73a4a6788e23a6bec982d1",
+      "foreground.png": "c13640cb6127b1e5a7a2ef9d004a91f526b9b0142b2e57b685687c0f13ba68ab",
+      "shape_raw.glb": "ffd35dc3eca26d7a57aff92a309dbfc1ce6013e43fe463ff377ad6586e62c013",
+      "asset.glb": "250210106e834b1d5c59bea38970e7e628d8b5b13c2541238e47b5777b0229e6"
+    },
+    "pipeline_seconds": 94.21957551385276,
+    "phase_seconds": {
+      "preprocess": 0.040191311156377196,
+      "shape": 31.51330521586351,
+      "texture_mesh_reduce": 8.315397640224546,
+      "texture": 24.06181251280941,
+      "export": 0.9940766158979386
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.85350649105385
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.724703414132819
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554504704,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_02",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 91.94066003989428,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 10735472,
+      "triangles": 596368,
+      "vertices": 298186,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4125700,
+      "triangles": 40000,
+      "vertices": 21833,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "89fabe75a1d02935dfa907d1738ded17be30aff9ba73a4a6788e23a6bec982d1",
+      "foreground.png": "c13640cb6127b1e5a7a2ef9d004a91f526b9b0142b2e57b685687c0f13ba68ab",
+      "shape_raw.glb": "f7efd63942d6b64454d6afbdccb5fd5b428a5c5f9dd92f13ae42c38835256df4",
+      "asset.glb": "88513b53b1380793bac0cc5499e8416ca557eec779dcdd10bca2381aa697e8ae"
+    },
+    "pipeline_seconds": 89.55919343605638,
+    "phase_seconds": {
+      "preprocess": 0.039604430086910725,
+      "shape": 31.368496443144977,
+      "texture_mesh_reduce": 5.69794857618399,
+      "texture": 22.126070658909157,
+      "export": 1.12191755999811
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.582976555917412
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.107410256983712
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15572248064,
+      "peak_reserved_bytes": 18845007872,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_07",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 111.7401838558726,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 22911428,
+      "triangles": 1272812,
+      "vertices": 636405,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2870528,
+      "triangles": 40000,
+      "vertices": 22447,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "9699b18d98a2b275c5bb0e16cc26a6384eb42d0bbdc0de147b8530d1da4fb2e2",
+      "foreground.png": "1b4b9b6521ddfb40eab05c0d077c2a6f6d5a08940a1e923a8ebd6a4641a89414",
+      "shape_raw.glb": "18312552648692cafb9c1dd8b7e2e1ed6c7569579e77c4906e06c678950335f9",
+      "asset.glb": "0d5521026ea323e7870f2327e50ad0d82be0a9d98f9199f1d735f77b59f002df"
+    },
+    "pipeline_seconds": 108.58115645986982,
+    "phase_seconds": {
+      "preprocess": 0.04063472687266767,
+      "shape": 31.612273830920458,
+      "texture_mesh_reduce": 13.201270169112831,
+      "texture": 33.75185540411621,
+      "export": 0.8090134379453957
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.359990508062765
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.385813749860972
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15564297728,
+      "peak_reserved_bytes": 18828230656,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_07",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 108.76095343800262,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 23362580,
+      "triangles": 1297880,
+      "vertices": 648933,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2646664,
+      "triangles": 40000,
+      "vertices": 21752,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "9699b18d98a2b275c5bb0e16cc26a6384eb42d0bbdc0de147b8530d1da4fb2e2",
+      "foreground.png": "1b4b9b6521ddfb40eab05c0d077c2a6f6d5a08940a1e923a8ebd6a4641a89414",
+      "shape_raw.glb": "5ce81f6585db9be4334413b666f93d1426c0e51802218fce2c31d912b3d36750",
+      "asset.glb": "0ccdb5cfef9902c6fd1cafeb23100a68c108153b6f54f89ceb4121a013702570"
+    },
+    "pipeline_seconds": 106.13046733802184,
+    "phase_seconds": {
+      "preprocess": 0.04136386001482606,
+      "shape": 31.801429367857054,
+      "texture_mesh_reduce": 13.742203849833459,
+      "texture": 29.981065313098952,
+      "export": 0.7756597269326448
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.428329854970798
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.95815773610957
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15564283392,
+      "peak_reserved_bytes": 18828230656,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_08",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 104.73356426181272,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 7382788,
+      "triangles": 410112,
+      "vertices": 205052,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2776752,
+      "triangles": 40000,
+      "vertices": 22937,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "39af72e41bb850a4812fc1ab9fdef9abda4e45d1d3744e2321502cd7384b5184",
+      "foreground.png": "fccabe3db14cac809ad85303b155fd8cc4101c03367031dc6175ff4f53231005",
+      "shape_raw.glb": "33aee9bfc7658b94c4cd0a0792d9ee7254f121f060854ee074818aad71094203",
+      "asset.glb": "88e6816040e623d1de6ba66e91104ca0679f73b69679eba997bfbe666443657a"
+    },
+    "pipeline_seconds": 102.25480307103135,
+    "phase_seconds": {
+      "preprocess": 0.03111503296531737,
+      "shape": 31.339168014004827,
+      "texture_mesh_reduce": 3.689426918979734,
+      "texture": 37.20100085600279,
+      "export": 0.8335841719526798
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.106031954986975
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.871365604922175
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15560440832,
+      "peak_reserved_bytes": 18851299328,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_08",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 118.50529348407872,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 5726872,
+      "triangles": 318116,
+      "vertices": 159055,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2785480,
+      "triangles": 40000,
+      "vertices": 22610,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "39af72e41bb850a4812fc1ab9fdef9abda4e45d1d3744e2321502cd7384b5184",
+      "foreground.png": "fccabe3db14cac809ad85303b155fd8cc4101c03367031dc6175ff4f53231005",
+      "shape_raw.glb": "fe3ddc66aa27d88a5ba34781c6ae5be0b07fcf12be868497689615ebf8012835",
+      "asset.glb": "84f5548388fad67d6abc972dfbb9ba36a6bd316da5655691d4668ecbf4a2d47e"
+    },
+    "pipeline_seconds": 116.10710651893169,
+    "phase_seconds": {
+      "preprocess": 0.032990073785185814,
+      "shape": 31.226647970965132,
+      "texture_mesh_reduce": 2.708228241885081,
+      "texture": 52.259310223860666,
+      "export": 0.7949731671251357
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.1014285038691
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.867014570860192
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15560434176,
+      "peak_reserved_bytes": 18851299328,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_13",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 89.70217906986363,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 2748508,
+      "triangles": 152648,
+      "vertices": 76326,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2499680,
+      "triangles": 40000,
+      "vertices": 22756,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "5755371b3e632ed36780ecea6e1ab42c61ba3e2beb32994d29ac4dd8e1db8b98",
+      "foreground.png": "adbbbe07884c2813a2f62373d35384759ce577e12497f1bb6e8f972e07658ab1",
+      "shape_raw.glb": "dabf59f6c76e16d62c0c12c0e34d0eb03e0ab264a30f7e3cdedb8491890a9dbc",
+      "asset.glb": "a70b8b3b0713ffffd9afc9db00a7285851515b2e37ade542e186376706897e3e"
+    },
+    "pipeline_seconds": 87.29560823901556,
+    "phase_seconds": {
+      "preprocess": 0.03761115111410618,
+      "shape": 31.64752651611343,
+      "texture_mesh_reduce": 1.0820941589772701,
+      "texture": 23.335681947879493,
+      "export": 0.7429549279622734
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 20.356823925860226
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.231343501014635
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554522624,
+      "peak_reserved_bytes": 18836619264,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_13",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 87.29602472903207,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 2830440,
+      "triangles": 157200,
+      "vertices": 78602,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2691712,
+      "triangles": 40000,
+      "vertices": 23377,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "5755371b3e632ed36780ecea6e1ab42c61ba3e2beb32994d29ac4dd8e1db8b98",
+      "foreground.png": "adbbbe07884c2813a2f62373d35384759ce577e12497f1bb6e8f972e07658ab1",
+      "shape_raw.glb": "4885e9c750bbb67311c92607d8dc6d068c1104aea0e64c42641e35e296f2c539",
+      "asset.glb": "d0735058dd813a8ee6165b9c7eb6c93f862f8306b60e2f71597f9106d56fea8f"
+    },
+    "pipeline_seconds": 84.97963986801915,
+    "phase_seconds": {
+      "preprocess": 0.03831880306825042,
+      "shape": 31.179942226968706,
+      "texture_mesh_reduce": 1.0616333631332964,
+      "texture": 23.22444990905933,
+      "export": 0.7909888809081167
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.87763727386482
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.782957978080958
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15572278784,
+      "peak_reserved_bytes": 18847105024,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_14",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 100.32806178089231,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 18887264,
+      "triangles": 1049252,
+      "vertices": 524618,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2403032,
+      "triangles": 40000,
+      "vertices": 22093,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "a1093a0b74416a4a82df9c4f382c318ad8da60c174158acde136abfaea74ea5a",
+      "foreground.png": "9e8bec425cde6f2ad1baae71b08e80b86aecff99fbfbd482d090986e7d4df38c",
+      "shape_raw.glb": "e7f256140bdd7ecc443d12a33486e96799c2600e40c4040d4853ec3dbbaf83a8",
+      "asset.glb": "47203510a8efa1a639ac8b264fc3ae69fdfb1103495a26a3560927bf0a824517"
+    },
+    "pipeline_seconds": 97.33361005201004,
+    "phase_seconds": {
+      "preprocess": 0.04657187010161579,
+      "shape": 31.475822687149048,
+      "texture_mesh_reduce": 10.987938102101907,
+      "texture": 22.995731657138094,
+      "export": 0.6558855439070612
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.38403400592506
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.226610228884965
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554509312,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_14",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 137.27755486988463,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 27609464,
+      "triangles": 1533816,
+      "vertices": 766904,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 1964364,
+      "triangles": 40000,
+      "vertices": 21717,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "a1093a0b74416a4a82df9c4f382c318ad8da60c174158acde136abfaea74ea5a",
+      "foreground.png": "9e8bec425cde6f2ad1baae71b08e80b86aecff99fbfbd482d090986e7d4df38c",
+      "shape_raw.glb": "57091d261c667bf9fc0959710677e8e93ab55d1bb08983a66997342cca9bf3d7",
+      "asset.glb": "1442f32526e7939d02e86fef3d1e5289f78be575fcd5c402119342345dd7f864"
+    },
+    "pipeline_seconds": 134.30384135106578,
+    "phase_seconds": {
+      "preprocess": 0.03936862596310675,
+      "shape": 31.653613105183467,
+      "texture_mesh_reduce": 18.599697011057287,
+      "texture": 52.84262980800122,
+      "export": 0.487344573950395
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.244196728104725
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.557204017881304
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15562808320,
+      "peak_reserved_bytes": 18838716416,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_19",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 94.25005216500722,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 10894132,
+      "triangles": 605184,
+      "vertices": 302592,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4490020,
+      "triangles": 40000,
+      "vertices": 23863,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "2031c92458c766003c357985de6ef5a69f9c5a1e0d28bc8e775b21080e60d6b7",
+      "foreground.png": "80ad4373cc7be7c1087297a44cacdd0ea5759f441abc5afebe301ceb8fa69662",
+      "shape_raw.glb": "de23b7252ea0045d9a6dcc1c86bbbc7db4572ba7e67bd2533a6ad221eb754302",
+      "asset.glb": "f245eeaee9162aef4bdad2c59c5603ca5547ad5e36161cfebc7a9fe99b5507d8"
+    },
+    "pipeline_seconds": 91.62227168888785,
+    "phase_seconds": {
+      "preprocess": 0.04603232000954449,
+      "shape": 31.32489286107011,
+      "texture_mesh_reduce": 6.604084572056308,
+      "texture": 22.724888508906588,
+      "export": 1.3121315729804337
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.0949539761059
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.920386918121949
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554544640,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_19",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 96.81404200312681,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 10389424,
+      "triangles": 577144,
+      "vertices": 288573,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3885192,
+      "triangles": 40000,
+      "vertices": 22229,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "2031c92458c766003c357985de6ef5a69f9c5a1e0d28bc8e775b21080e60d6b7",
+      "foreground.png": "80ad4373cc7be7c1087297a44cacdd0ea5759f441abc5afebe301ceb8fa69662",
+      "shape_raw.glb": "894f8793feaf632f64d1234b4dfc38a68354e3d8fdba976ccc40444456643665",
+      "asset.glb": "6fffdc1f13fdf1a34d874a70d619e4d9ee2ce62edd3bb26fd775117d8be50bf9"
+    },
+    "pipeline_seconds": 94.23638595500961,
+    "phase_seconds": {
+      "preprocess": 0.047048135893419385,
+      "shape": 31.3907635291107,
+      "texture_mesh_reduce": 7.123732645995915,
+      "texture": 23.21134214499034,
+      "export": 1.114969558082521
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 20.38659645919688
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.381080401130021
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15567176704,
+      "peak_reserved_bytes": 18840813568,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_20",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 95.2203250178136,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 11309732,
+      "triangles": 628284,
+      "vertices": 314125,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4016100,
+      "triangles": 40000,
+      "vertices": 23909,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "b42028b824525a4b3f00761fdccfbb3f9ecf3b46a7b879e4b1035d3b9169dad8",
+      "foreground.png": "1d87fb45d866b0b22ec7beb3099f86d8c8a2a7cfc875d439acba10e21790a0bd",
+      "shape_raw.glb": "530354fa112776888801686a0305fee6d948097d8fae31a0f91bff0715afcb83",
+      "asset.glb": "a1dc140a5032428bf1e246752ea7ba4913ae2d042c5e05d084a15323d79cb3ab"
+    },
+    "pipeline_seconds": 92.35137546109036,
+    "phase_seconds": {
+      "preprocess": 0.03944220393896103,
+      "shape": 31.325184082845226,
+      "texture_mesh_reduce": 5.980536908842623,
+      "texture": 25.04243665211834,
+      "export": 1.2370501118712127
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.4731108979322
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.724907672032714
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15562852352,
+      "peak_reserved_bytes": 18838716416,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_20",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 105.40059395879507,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 11127932,
+      "triangles": 618180,
+      "vertices": 309079,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4205716,
+      "triangles": 40000,
+      "vertices": 23788,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "b42028b824525a4b3f00761fdccfbb3f9ecf3b46a7b879e4b1035d3b9169dad8",
+      "foreground.png": "1d87fb45d866b0b22ec7beb3099f86d8c8a2a7cfc875d439acba10e21790a0bd",
+      "shape_raw.glb": "478aa3853e428d98dabe1354daac1c7f045f42f277e9f1d276081c18b019f99a",
+      "asset.glb": "848302586fd7c53d0f17a8a9a089d1936e1999c5798974e843816289bf6ca78e"
+    },
+    "pipeline_seconds": 101.46493357396685,
+    "phase_seconds": {
+      "preprocess": 0.050666666124016047,
+      "shape": 31.442357499152422,
+      "texture_mesh_reduce": 6.911500404821709,
+      "texture": 25.784214246086776,
+      "export": 1.501422266010195
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 23.713361399946734
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.762347222073004
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15567207936,
+      "peak_reserved_bytes": 18840813568,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_25",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 96.6579419518821,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 12606160,
+      "triangles": 700296,
+      "vertices": 350149,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3575248,
+      "triangles": 40000,
+      "vertices": 24252,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "cbf6ba6d84b2269780fdb0ea985af17f5a92d9dc2a2ed230eb17f338fb1b0288",
+      "foreground.png": "b4bce834b710b5c1be5b547816e8bf26aef070140965b3607f22a4b1d75dc76e",
+      "shape_raw.glb": "9af90e3876a8178c6efa0056dbee43d59504f5ca97c9a4fb1eca2c44b7c2ec37",
+      "asset.glb": "0fa968e77b2bdfd04db121a7b4af6bfa47ee4e559e4739bcadbad4d552f79f2d"
+    },
+    "pipeline_seconds": 93.86168379499577,
+    "phase_seconds": {
+      "preprocess": 0.04523802385665476,
+      "shape": 31.378064861055464,
+      "texture_mesh_reduce": 7.070752796018496,
+      "texture": 24.332460938952863,
+      "export": 1.0496227438561618
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.283382495166734
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.696504369145259
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15572296192,
+      "peak_reserved_bytes": 18845007872,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_25",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 91.78600785695016,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 12286004,
+      "triangles": 682508,
+      "vertices": 341257,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3564584,
+      "triangles": 40000,
+      "vertices": 23890,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "cbf6ba6d84b2269780fdb0ea985af17f5a92d9dc2a2ed230eb17f338fb1b0288",
+      "foreground.png": "b4bce834b710b5c1be5b547816e8bf26aef070140965b3607f22a4b1d75dc76e",
+      "shape_raw.glb": "1a1ce8bd9b093a5ac6437c122e891f642171748a7adfd7e1698fce12b869f50e",
+      "asset.glb": "baf3c01147a57f3c9db66333200217221038ad84997d34ab24e6cc5b2f32e3f3"
+    },
+    "pipeline_seconds": 89.15103718987666,
+    "phase_seconds": {
+      "preprocess": 0.040777832036837935,
+      "shape": 31.426410628017038,
+      "texture_mesh_reduce": 6.636214711004868,
+      "texture": 21.132367559010163,
+      "export": 1.0593767990358174
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.562618422089145
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.677242381963879
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15562851840,
+      "peak_reserved_bytes": 18838716416,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_26",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 111.21681712800637,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 25874012,
+      "triangles": 1437404,
+      "vertices": 718695,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4009796,
+      "triangles": 40000,
+      "vertices": 25652,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "1e9fb64e4edfcb9510bcd0eef8b61b27ca020573410373064c9901e326931c72",
+      "foreground.png": "dbdbc53ac7bf3fadd67b5f30d584f75b81c4203f24aee8d6d347e4ca8e2c7c05",
+      "shape_raw.glb": "bfcdefa428e4f078f1118e39be18a278ef5540ccf655447f1783591723d0d02b",
+      "asset.glb": "171831fbda012d1dbdf831a12b3cdb1fe84b76f906c2c2e58c4a8c79fd770bc4"
+    },
+    "pipeline_seconds": 108.21639093593694,
+    "phase_seconds": {
+      "preprocess": 0.039814905961975455,
+      "shape": 31.728807202074677,
+      "texture_mesh_reduce": 18.816619030898437,
+      "texture": 25.133640283020213,
+      "export": 1.2545090520288795
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.782709340099245
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.604233918013051
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554580480,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps30",
+    "object": "gso_26",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 111.02045334409922,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 23847680,
+      "triangles": 1324820,
+      "vertices": 662418,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3789688,
+      "triangles": 40000,
+      "vertices": 24453,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "1e9fb64e4edfcb9510bcd0eef8b61b27ca020573410373064c9901e326931c72",
+      "foreground.png": "dbdbc53ac7bf3fadd67b5f30d584f75b81c4203f24aee8d6d347e4ca8e2c7c05",
+      "shape_raw.glb": "4e1b7ef36d556d7ef456e9b94fc6ea00f9b53f0df47ae75f858c920268360939",
+      "asset.glb": "c3af8201318058020d6cb82c2d2be432251c455185475b6d86f925189b99fe1b"
+    },
+    "pipeline_seconds": 108.2629298591055,
+    "phase_seconds": {
+      "preprocess": 0.039636036148294806,
+      "shape": 31.703197058057413,
+      "texture_mesh_reduce": 14.952164162881672,
+      "texture": 29.710129101062194,
+      "export": 1.202927086967975
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.557962109101936
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.5091550699435174
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15562863616,
+      "peak_reserved_bytes": 18838716416,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_01",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 95.61953233811073,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 13588144,
+      "triangles": 754840,
+      "vertices": 377437,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3308600,
+      "triangles": 40000,
+      "vertices": 22219,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "fa66a813a12738bfc7a86a717c20a3a5a15b5ac7693c2fa94d354956a3feeb03",
+      "foreground.png": "8352487f35d7e7a63ae9da13bb48294d58ad7a3a386224b9049c5b3bc9b83c33",
+      "shape_raw.glb": "4a0b5d4bd7dac3a459abb8652cd65a4af165bf494123105f30124525ef2bff14",
+      "asset.glb": "5361fa7639c6efb3377dac82a4fcb91bf667f2d5be1a8f9093977d5d3104bcd4"
+    },
+    "pipeline_seconds": 93.05564638995565,
+    "phase_seconds": {
+      "preprocess": 0.0416987300850451,
+      "shape": 29.009580394020304,
+      "texture_mesh_reduce": 8.287236771080643,
+      "texture": 24.599105739966035,
+      "export": 1.144505196949467
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.37248386698775
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.902889952994883
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554511872,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_01",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 91.84711488895118,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 14038636,
+      "triangles": 779880,
+      "vertices": 389938,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3234808,
+      "triangles": 40000,
+      "vertices": 22253,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "fa66a813a12738bfc7a86a717c20a3a5a15b5ac7693c2fa94d354956a3feeb03",
+      "foreground.png": "8352487f35d7e7a63ae9da13bb48294d58ad7a3a386224b9049c5b3bc9b83c33",
+      "shape_raw.glb": "188b53e7da2e176173319831739d5316ad3f2bf13bae44ab2a9698fc637a1f03",
+      "asset.glb": "2a4c1e38d307d4e18c27cf31256760958bcdc4ced87b5bcff43be9638892abb7"
+    },
+    "pipeline_seconds": 89.33363001397811,
+    "phase_seconds": {
+      "preprocess": 0.0431511381175369,
+      "shape": 28.98196092201397,
+      "texture_mesh_reduce": 7.657100823009387,
+      "texture": 22.586803953861818,
+      "export": 1.1564700310118496
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.5379187699873
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.687472589081153
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15560427008,
+      "peak_reserved_bytes": 18851299328,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_02",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 102.89940657117404,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 15231212,
+      "triangles": 846132,
+      "vertices": 423067,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3832796,
+      "triangles": 40000,
+      "vertices": 22279,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "89fabe75a1d02935dfa907d1738ded17be30aff9ba73a4a6788e23a6bec982d1",
+      "foreground.png": "c13640cb6127b1e5a7a2ef9d004a91f526b9b0142b2e57b685687c0f13ba68ab",
+      "shape_raw.glb": "5e57e15ccca8791345c7c5ddf5ee7d7c4bb4acb574045f0ba681f5e30c4fc6ae",
+      "asset.glb": "04b7007b2f35eddc0927c71f77192953e285991811b23782dd2b5ebf8f073912"
+    },
+    "pipeline_seconds": 100.26386072603054,
+    "phase_seconds": {
+      "preprocess": 0.039299556985497475,
+      "shape": 29.737097720149904,
+      "texture_mesh_reduce": 10.123727641999722,
+      "texture": 28.818001536885276,
+      "export": 0.9359208280220628
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 20.27057586493902
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.502514273161069
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15567178240,
+      "peak_reserved_bytes": 18840813568,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_02",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 97.27804480912164,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 13560520,
+      "triangles": 753316,
+      "vertices": 376659,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4142148,
+      "triangles": 40000,
+      "vertices": 23484,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "89fabe75a1d02935dfa907d1738ded17be30aff9ba73a4a6788e23a6bec982d1",
+      "foreground.png": "c13640cb6127b1e5a7a2ef9d004a91f526b9b0142b2e57b685687c0f13ba68ab",
+      "shape_raw.glb": "9f05bd67c3875cc4c2e0e1f93eea2f657d838d2bf30ff346d23613782b2247c4",
+      "asset.glb": "916ad00d7c4dfa599d8bb0e3e370bcbb992046a25766bb1f20e2460782e84e3a"
+    },
+    "pipeline_seconds": 94.56695507792756,
+    "phase_seconds": {
+      "preprocess": 0.0396827629301697,
+      "shape": 29.032178387977183,
+      "texture_mesh_reduce": 8.844933097949252,
+      "texture": 25.099406194174662,
+      "export": 1.050014098873362
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 20.182844511931762
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.671058434993029
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15564318208,
+      "peak_reserved_bytes": 18828230656,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_07",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 117.14887437596917,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 23146936,
+      "triangles": 1285896,
+      "vertices": 642947,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2575172,
+      "triangles": 40000,
+      "vertices": 22085,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "9699b18d98a2b275c5bb0e16cc26a6384eb42d0bbdc0de147b8530d1da4fb2e2",
+      "foreground.png": "1b4b9b6521ddfb40eab05c0d077c2a6f6d5a08940a1e923a8ebd6a4641a89414",
+      "shape_raw.glb": "91a6057f50bc79e4a1fb6cacb68436db8d90463373a6a059f36ac0f587a1fddd",
+      "asset.glb": "9ab504a26bd1655efd5d72f2893f023d266dcf8e6dabf9c5cca5494ed0744970"
+    },
+    "pipeline_seconds": 113.94730433891527,
+    "phase_seconds": {
+      "preprocess": 0.04076959611847997,
+      "shape": 29.171230089850724,
+      "texture_mesh_reduce": 13.302328283898532,
+      "texture": 40.649708450073376,
+      "export": 0.7439166880212724
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.668808459071442
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.779831012012437
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554509312,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_07",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 117.45411739195697,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 23325032,
+      "triangles": 1295792,
+      "vertices": 647892,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2686304,
+      "triangles": 40000,
+      "vertices": 21769,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "9699b18d98a2b275c5bb0e16cc26a6384eb42d0bbdc0de147b8530d1da4fb2e2",
+      "foreground.png": "1b4b9b6521ddfb40eab05c0d077c2a6f6d5a08940a1e923a8ebd6a4641a89414",
+      "shape_raw.glb": "6d2b085e995e9b55d2e1994397736992394b0c82af662a3a6c2ea0b74b668215",
+      "asset.glb": "ee66a3c67789c6450ca495cac1b0ed6cc0a388977e56c8bd600b3d07616bf671"
+    },
+    "pipeline_seconds": 114.4485524520278,
+    "phase_seconds": {
+      "preprocess": 0.04040097305551171,
+      "shape": 29.233608728041872,
+      "texture_mesh_reduce": 16.945995677961037,
+      "texture": 35.22231286484748,
+      "export": 0.7969301650300622
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 20.36354047106579
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.07393778511323
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15567168000,
+      "peak_reserved_bytes": 18840813568,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_08",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 109.69346570689231,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 7220728,
+      "triangles": 401108,
+      "vertices": 200551,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2947204,
+      "triangles": 40000,
+      "vertices": 23509,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "39af72e41bb850a4812fc1ab9fdef9abda4e45d1d3744e2321502cd7384b5184",
+      "foreground.png": "fccabe3db14cac809ad85303b155fd8cc4101c03367031dc6175ff4f53231005",
+      "shape_raw.glb": "6f41d03edb0ff0dbdd39c1211f0314f1937294b9ab0022233b2e9644d451408e",
+      "asset.glb": "4f6bda8adb3b9c7fef24813f8a8909ab93de05b86de65081cea0abf0508aa0cd"
+    },
+    "pipeline_seconds": 107.33451803820208,
+    "phase_seconds": {
+      "preprocess": 0.03068600408732891,
+      "shape": 29.03098338888958,
+      "texture_mesh_reduce": 3.6910362020134926,
+      "texture": 45.19269791478291,
+      "export": 0.8062882160302252
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.874948539072648
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.644080425146967
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15560452096,
+      "peak_reserved_bytes": 18853396480,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_08",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 98.77541661215946,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 5630980,
+      "triangles": 312788,
+      "vertices": 156392,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2794572,
+      "triangles": 40000,
+      "vertices": 23080,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "39af72e41bb850a4812fc1ab9fdef9abda4e45d1d3744e2321502cd7384b5184",
+      "foreground.png": "fccabe3db14cac809ad85303b155fd8cc4101c03367031dc6175ff4f53231005",
+      "shape_raw.glb": "bd5cab11355b0962a37772ca1f12b61065447ed7132419100c67239768902bf8",
+      "asset.glb": "a25e5b2e1bc6526789a1c8383e5bf691ee867b352b47e7596259a988c07b8537"
+    },
+    "pipeline_seconds": 96.37633027811535,
+    "phase_seconds": {
+      "preprocess": 0.032008309848606586,
+      "shape": 28.904225272824988,
+      "texture_mesh_reduce": 2.65759664401412,
+      "texture": 35.609300531912595,
+      "export": 0.7859687269665301
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.83220004593022
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.513833810109645
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15555446272,
+      "peak_reserved_bytes": 18836619264,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_13",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 83.09106164309196,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 2735616,
+      "triangles": 151932,
+      "vertices": 75968,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2535224,
+      "triangles": 40000,
+      "vertices": 22512,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "5755371b3e632ed36780ecea6e1ab42c61ba3e2beb32994d29ac4dd8e1db8b98",
+      "foreground.png": "adbbbe07884c2813a2f62373d35384759ce577e12497f1bb6e8f972e07658ab1",
+      "shape_raw.glb": "d697879bfec0131ef8c61aa3ad844ebd0d7f72e40eedb7e29a7ddbbe610f3ffd",
+      "asset.glb": "8d8101347c0bd7ad573a7556a5193cfad3116caa1dbb1178ab459cf93ac2fef5"
+    },
+    "pipeline_seconds": 80.95274391397834,
+    "phase_seconds": {
+      "preprocess": 0.03858893900178373,
+      "shape": 28.883528869831935,
+      "texture_mesh_reduce": 1.0285477698780596,
+      "texture": 22.33007846889086,
+      "export": 0.7586001032032073
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.35121000907384
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.774930282961577
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15564298752,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_13",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 83.94103527907282,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 2819340,
+      "triangles": 156584,
+      "vertices": 78293,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2803728,
+      "triangles": 40000,
+      "vertices": 23555,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "5755371b3e632ed36780ecea6e1ab42c61ba3e2beb32994d29ac4dd8e1db8b98",
+      "foreground.png": "adbbbe07884c2813a2f62373d35384759ce577e12497f1bb6e8f972e07658ab1",
+      "shape_raw.glb": "87641faa615581987126feea959354dfe1df446664c3d4dd4d7bef453d4097e0",
+      "asset.glb": "97ff8dc8e3b721e310ef6382c0542cb8ea0f6b2e95a0de0555c1d1dffa1c663d"
+    },
+    "pipeline_seconds": 81.59548575198278,
+    "phase_seconds": {
+      "preprocess": 0.037969492143020034,
+      "shape": 28.796317039988935,
+      "texture_mesh_reduce": 1.0540530551224947,
+      "texture": 22.67642930801958,
+      "export": 0.8160049680154771
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.975420132046565
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.414451157907024
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15572282880,
+      "peak_reserved_bytes": 18847105024,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_14",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 133.9190307687968,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 26962204,
+      "triangles": 1497856,
+      "vertices": 748926,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2077408,
+      "triangles": 40000,
+      "vertices": 21939,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "a1093a0b74416a4a82df9c4f382c318ad8da60c174158acde136abfaea74ea5a",
+      "foreground.png": "9e8bec425cde6f2ad1baae71b08e80b86aecff99fbfbd482d090986e7d4df38c",
+      "shape_raw.glb": "7db70c68b450cc3b1eb95dc92cae10a896bdff5e6eb237ca2b06180f7cd02e05",
+      "asset.glb": "d18c3112bb2165a662001e9b0309061fb238cd001eda84284a45ada89fa86f5b"
+    },
+    "pipeline_seconds": 130.98817669902928,
+    "phase_seconds": {
+      "preprocess": 0.04037583596073091,
+      "shape": 29.31848428095691,
+      "texture_mesh_reduce": 15.72182009392418,
+      "texture": 54.83449965482578,
+      "export": 0.5269537400454283
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.57559529901482
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.270664768991992
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15562812928,
+      "peak_reserved_bytes": 18838716416,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_14",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 134.13929843483493,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 27803452,
+      "triangles": 1544596,
+      "vertices": 772290,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 2112088,
+      "triangles": 40000,
+      "vertices": 22396,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "a1093a0b74416a4a82df9c4f382c318ad8da60c174158acde136abfaea74ea5a",
+      "foreground.png": "9e8bec425cde6f2ad1baae71b08e80b86aecff99fbfbd482d090986e7d4df38c",
+      "shape_raw.glb": "c8728f9bb94494dda5358918bc5e9d1c81ca65cba3fbd36476615d2ad52314bc",
+      "asset.glb": "1f4a0f2a75ea5b4525f7a2cbfcdda4e96c05e72cc3e25e4010403dc4b9e20a57"
+    },
+    "pipeline_seconds": 131.19408499496058,
+    "phase_seconds": {
+      "preprocess": 0.04031343199312687,
+      "shape": 29.392469397978857,
+      "texture_mesh_reduce": 15.973333778092638,
+      "texture": 55.02114528301172,
+      "export": 0.533901201095432
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.63089431892149
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.835458850953728
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15567179776,
+      "peak_reserved_bytes": 18840813568,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_19",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 91.04534200089984,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 11078596,
+      "triangles": 615432,
+      "vertices": 307716,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4125732,
+      "triangles": 40000,
+      "vertices": 22303,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "2031c92458c766003c357985de6ef5a69f9c5a1e0d28bc8e775b21080e60d6b7",
+      "foreground.png": "80ad4373cc7be7c1087297a44cacdd0ea5759f441abc5afebe301ceb8fa69662",
+      "shape_raw.glb": "3b8f832a00db8976f0aa07cebfa455bd20943d7c5e96a79a771421971dc9bbda",
+      "asset.glb": "81accc9aa75d0ef6a54d6a38d037eef4849675045fbae960c2bc9c1123da4a0f"
+    },
+    "pipeline_seconds": 88.48655991698615,
+    "phase_seconds": {
+      "preprocess": 0.04608876002021134,
+      "shape": 28.92769119190052,
+      "texture_mesh_reduce": 6.059536929009482,
+      "texture": 23.24386666691862,
+      "export": 1.3084069439209998
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.67285917396657
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.639894505031407
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15564294656,
+      "peak_reserved_bytes": 18828230656,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_19",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 92.71082358201966,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 10470076,
+      "triangles": 581624,
+      "vertices": 290814,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4741064,
+      "triangles": 40000,
+      "vertices": 25261,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "2031c92458c766003c357985de6ef5a69f9c5a1e0d28bc8e775b21080e60d6b7",
+      "foreground.png": "80ad4373cc7be7c1087297a44cacdd0ea5759f441abc5afebe301ceb8fa69662",
+      "shape_raw.glb": "72847891882c631d587f226840a621f8aad2faebe270007d5c14f1a253991a67",
+      "asset.glb": "39ed51a249dc7407607c89e6d95ee92c10d1da0a052053e90ef190091edd3b1f"
+    },
+    "pipeline_seconds": 90.18161840108223,
+    "phase_seconds": {
+      "preprocess": 0.04571916605345905,
+      "shape": 29.039815452881157,
+      "texture_mesh_reduce": 5.69062248012051,
+      "texture": 25.16586874285713,
+      "export": 1.3879210441373289
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.52793147112243
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.786826082970947
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15562879488,
+      "peak_reserved_bytes": 18838716416,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_20",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 92.87160136085004,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 11384776,
+      "triangles": 632458,
+      "vertices": 316205,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4574256,
+      "triangles": 40000,
+      "vertices": 26136,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "b42028b824525a4b3f00761fdccfbb3f9ecf3b46a7b879e4b1035d3b9169dad8",
+      "foreground.png": "1d87fb45d866b0b22ec7beb3099f86d8c8a2a7cfc875d439acba10e21790a0bd",
+      "shape_raw.glb": "16a79f056034d09e136b0e3301a8ca26f3bdbdf0660e594cf9ada6e255d4ad02",
+      "asset.glb": "f31821fc382de6f5a81753ca20cccbd4b214dc3ed4f9529598dce1f856d4dc1e"
+    },
+    "pipeline_seconds": 90.4437571449671,
+    "phase_seconds": {
+      "preprocess": 0.040016616927459836,
+      "shape": 29.009853900875896,
+      "texture_mesh_reduce": 5.987123220926151,
+      "texture": 25.008120137965307,
+      "export": 1.3847779231145978
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.812648500083014
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.636210659053177
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15572334080,
+      "peak_reserved_bytes": 18845007872,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_20",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 96.55389934498817,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 11148572,
+      "triangles": 619324,
+      "vertices": 309655,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 4107364,
+      "triangles": 40000,
+      "vertices": 24372,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "b42028b824525a4b3f00761fdccfbb3f9ecf3b46a7b879e4b1035d3b9169dad8",
+      "foreground.png": "1d87fb45d866b0b22ec7beb3099f86d8c8a2a7cfc875d439acba10e21790a0bd",
+      "shape_raw.glb": "42ed05c465520d2c4435e7c0058acf238d05aab5b3d447b3f3b1342bd0171b03",
+      "asset.glb": "d2f1764c453071b446c4be2316c05f82a13beb97355274dffd6b2e00c66fe2d6"
+    },
+    "pipeline_seconds": 94.10763353505172,
+    "phase_seconds": {
+      "preprocess": 0.03883708198554814,
+      "shape": 28.960938457865268,
+      "texture_mesh_reduce": 6.064022572012618,
+      "texture": 27.796415980905294,
+      "export": 1.2263573168311268
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.242701133014634
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 7.218389575835317
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15564336128,
+      "peak_reserved_bytes": 18828230656,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_25",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 92.70333540113643,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 12602320,
+      "triangles": 700084,
+      "vertices": 350041,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3535516,
+      "triangles": 40000,
+      "vertices": 24417,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "cbf6ba6d84b2269780fdb0ea985af17f5a92d9dc2a2ed230eb17f338fb1b0288",
+      "foreground.png": "b4bce834b710b5c1be5b547816e8bf26aef070140965b3607f22a4b1d75dc76e",
+      "shape_raw.glb": "d322d78df19b3fd91a9889fd66a3dc28c26277f6a9e154acd897f01af495f3da",
+      "asset.glb": "20f04596937d27ed1a57f52f3ffed8c4db3bb1f9b60a9b886d0771f3f68b72bd"
+    },
+    "pipeline_seconds": 90.21727924700826,
+    "phase_seconds": {
+      "preprocess": 0.041523585096001625,
+      "shape": 29.307792039122432,
+      "texture_mesh_reduce": 7.133103002095595,
+      "texture": 22.932874934049323,
+      "export": 1.0208968459628522
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.411501022987068
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.756608133902773
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15560470528,
+      "peak_reserved_bytes": 18851299328,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_25",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 92.77096876106225,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 12328936,
+      "triangles": 684892,
+      "vertices": 342451,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3579288,
+      "triangles": 40000,
+      "vertices": 24462,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "cbf6ba6d84b2269780fdb0ea985af17f5a92d9dc2a2ed230eb17f338fb1b0288",
+      "foreground.png": "b4bce834b710b5c1be5b547816e8bf26aef070140965b3607f22a4b1d75dc76e",
+      "shape_raw.glb": "dfc0549c6647a0c0b37ec046503ab6efef8da45110fbb2bd3d69d433b0077289",
+      "asset.glb": "aac3e728bc3126b235da73e2149054bee031d032998a198bc68f11634ce4c0b1"
+    },
+    "pipeline_seconds": 90.32058237399906,
+    "phase_seconds": {
+      "preprocess": 0.04324410203844309,
+      "shape": 29.38112626899965,
+      "texture_mesh_reduce": 6.74259591801092,
+      "texture": 23.76167925912887,
+      "export": 1.069146980997175
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 19.23000715789385
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.518912649946287
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15560471552,
+      "peak_reserved_bytes": 18851299328,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_26",
+    "seed": 42,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 109.83425327693112,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 26767756,
+      "triangles": 1487048,
+      "vertices": 743530,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3801864,
+      "triangles": 40000,
+      "vertices": 24515,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "1e9fb64e4edfcb9510bcd0eef8b61b27ca020573410373064c9901e326931c72",
+      "foreground.png": "dbdbc53ac7bf3fadd67b5f30d584f75b81c4203f24aee8d6d347e4ca8e2c7c05",
+      "shape_raw.glb": "7c38fdd82768a27c3cea2b54e1a2251c7814ef67d205700bd4c738aa5f3b5f84",
+      "asset.glb": "8a4320936490073660f6b21ad5f92a76c7a54fa07edd23ba4d2036a1ffca0e62"
+    },
+    "pipeline_seconds": 106.32193064317107,
+    "phase_seconds": {
+      "preprocess": 0.04336852882988751,
+      "shape": 29.26954363984987,
+      "texture_mesh_reduce": 15.765398923074827,
+      "texture": 30.125980361830443,
+      "export": 1.2023913480807096
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.574198598973453
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.671059862943366
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15554557952,
+      "peak_reserved_bytes": 18832424960,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  },
+  {
+    "config": "hunyuan2_steps20",
+    "object": "gso_26",
+    "seed": 123,
+    "status": "completed",
+    "generation_job": "2232706",
+    "generation_seconds": 103.5083123811055,
+    "process_attempt_statuses": [
+      "completed"
+    ],
+    "shape_raw": {
+      "bytes": 24173332,
+      "triangles": 1342912,
+      "vertices": 671464,
+      "embedded_images": 0,
+      "external_references": false
+    },
+    "asset": {
+      "bytes": 3862804,
+      "triangles": 40000,
+      "vertices": 24813,
+      "embedded_images": 1,
+      "external_references": false
+    },
+    "artifact_sha256": {
+      "input.png": "1e9fb64e4edfcb9510bcd0eef8b61b27ca020573410373064c9901e326931c72",
+      "foreground.png": "dbdbc53ac7bf3fadd67b5f30d584f75b81c4203f24aee8d6d347e4ca8e2c7c05",
+      "shape_raw.glb": "eb378a6dda323a8bd255fd71035d4aec131b25d5b616b67178cba953a256df2a",
+      "asset.glb": "aaf81b463e9e87cb629329dd7b18d9eb6fa1ad9098820b73419b619e75916f14"
+    },
+    "pipeline_seconds": 100.50527192209847,
+    "phase_seconds": {
+      "preprocess": 0.03999836114235222,
+      "shape": 29.200667504919693,
+      "texture_mesh_reduce": 13.829085753997788,
+      "texture": 26.56314541795291,
+      "export": 1.2243373591918498
+    },
+    "model_loads": {
+      "shape": {
+        "cold": true,
+        "seconds": 18.428966843057424
+      },
+      "texture": {
+        "cold": true,
+        "seconds": 6.730184243991971
+      }
+    },
+    "resources": {
+      "peak_allocated_bytes": 15560478208,
+      "peak_reserved_bytes": 18851299328,
+      "background_model_sha256": null,
+      "note": "PyTorch allocator metrics; not total driver-visible GPU memory"
+    },
+    "backend": {
+      "gpu": "NVIDIA L20",
+      "torch": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "code_revision": "f8db63096c8282cb27354314d896feba5ba6ff8a",
+      "weights_revision": "9cd649ba6913f7a852e3286bad86bfa9a2d83dcf",
+      "texture_multiview_seed": 0,
+      "texture_delight_seed": 42,
+      "texture_steps": 30
+    },
+    "intermediate_reuse": []
+  }
+]

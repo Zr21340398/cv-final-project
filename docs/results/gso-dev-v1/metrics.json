@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "experiment": "gso-dev-v1",
+  "split": "dev",
+  "planned": 60,
+  "completed_verified": 60,
+  "failed": 0,
+  "not_executed": 0,
+  "groups": [
+    {
+      "config": "hunyuan2_steps50",
+      "shape_steps": 50,
+      "completed": 20,
+      "generation_seconds_mean": 109.16749093679246,
+      "generation_seconds_median": 107.32015590392984,
+      "generation_seconds_min": 91.34942520107143,
+      "generation_seconds_max": 138.9836098300293,
+      "generation_seconds_sum": 2183.349818735849,
+      "pipeline_seconds_mean": 106.58784445003839,
+      "phase_seconds_mean": {
+        "preprocess": 0.04003146481700241,
+        "shape": 36.606159189040774,
+        "texture_mesh_reduce": 8.44126360983355,
+        "texture": 29.455220697738696,
+        "export": 0.9893360414775089
+      },
+      "load_seconds_mean": {
+        "shape": 19.729255903826562,
+        "texture": 7.54874007832259
+      },
+      "raw_faces_mean": 785225.5,
+      "raw_faces_min": 153044,
+      "raw_faces_max": 1528240,
+      "asset_faces": [
+        40000
+      ],
+      "asset_mib_mean": 3.1644365310668947,
+      "peak_allocated_gib_mean": 14.493729400634766
+    },
+    {
+      "config": "hunyuan2_steps30",
+      "shape_steps": 30,
+      "completed": 20,
+      "generation_seconds_mean": 101.92058668974786,
+      "generation_seconds_median": 97.22454212955199,
+      "generation_seconds_min": 87.29602472903207,
+      "generation_seconds_max": 137.27755486988463,
+      "generation_seconds_sum": 2038.4117337949574,
+      "pipeline_seconds_mean": 99.1793447463424,
+      "phase_seconds_mean": {
+        "preprocess": 0.04102134050335735,
+        "shape": 31.46406571298139,
+        "texture_mesh_reduce": 8.467057412408758,
+        "texture": 28.109972199134063,
+        "export": 0.9965887653175741
+      },
+      "load_seconds_mean": {
+        "shape": 19.389957913814577,
+        "texture": 6.801264597312548
+      },
+      "raw_faces_mean": 786167.2,
+      "raw_faces_min": 152648,
+      "raw_faces_max": 1533816,
+      "asset_faces": [
+        40000
+      ],
+      "asset_mib_mean": 3.175428771972656,
+      "peak_allocated_gib_mean": 14.494162583351136
+    },
+    {
+      "config": "hunyuan2_steps20",
+      "shape_steps": 20,
+      "completed": 20,
+      "generation_seconds_mean": 101.89024674645626,
+      "generation_seconds_median": 96.9159720770549,
+      "generation_seconds_min": 83.09106164309196,
+      "generation_seconds_max": 134.13929843483493,
+      "generation_seconds_sum": 2037.804934929125,
+      "pipeline_seconds_mean": 99.23209609297336,
+      "phase_seconds_mean": {
+        "preprocess": 0.04018704862101004,
+        "shape": 29.129454647446984,
+        "texture_mesh_reduce": 8.627959931909572,
+        "texture": 30.861872070143,
+        "export": 0.9939854862750508
+      },
+      "load_seconds_mean": {
+        "shape": 19.026862709457056,
+        "texture": 6.751460452855099
+      },
+      "raw_faces_mean": 822224.7,
+      "raw_faces_min": 151932,
+      "raw_faces_max": 1544596,
+      "asset_faces": [
+        40000
+      ],
+      "asset_mib_mean": 3.2128305435180664,
+      "peak_allocated_gib_mean": 14.493726563453674
+    }
+  ],
+  "paired_against_50_steps": [
+    {
+      "config": "hunyuan2_steps30",
+      "baseline": "hunyuan2_steps50",
+      "matched_cells": 20,
+      "mean_seconds_saved": 7.2469042470445855,
+      "mean_paired_percent_saved": 6.452899285759633,
+      "faster_pairs": 18,
+      "slower_pairs": 2
+    },
+    {
+      "config": "hunyuan2_steps20",
+      "baseline": "hunyuan2_steps50",
+      "matched_cells": 20,
+      "mean_seconds_saved": 7.277244190336205,
+      "mean_paired_percent_saved": 6.489884427211326,
+      "faster_pairs": 18,
+      "slower_pairs": 2
+    }
+  ],
+  "generation_seconds_total": 6259.5664874599315,
+  "gpu_job_elapsed_seconds_total": 6364,
+  "timing_basis": "One completed/returncode=0/phase=generation process attempt per cell; resume skips excluded; model loading included; queue, setup, rendering and evaluation excluded.",
+  "aggregation": "Two seeds per object, ten objects per config, all cells present; equal cell mean equals equal object mean.",
+  "run_order": "All 50-step cells, then 30-step, then 20-step; first 50-step cell ran in a separate job. No randomization or per-cell timing repeats.",
+  "human_qa_completed": false,
+  "geometry_metrics_computed": false,
+  "rendered_quality_review_completed": false
+}
