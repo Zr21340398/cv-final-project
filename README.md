@@ -7,6 +7,8 @@
 **正式数据已确定为 GSO：阅读 [GSO 数据准备与选样说明](docs/GSO_DATASET.md)。**
 已选定第一版 10 个开发对象与 20 个测试对象，详见 [对象清单](docs/GSO_SELECTION_V1.md)。开发集已执行，人工来源验收仍待完成；正式参数选择还需结合开发集质量评价。数据准备说明和仓库中的初始规划需与最新结果报告中的冻结实验范围区分。
 
+**查看开发集模型：使用 [本地 3D 模型浏览器](gso-viewer/README.md)。** 可以并排比较 20、30、50 步，切换对象、种子和白模或带纹理模型；模型文件需另外下载到本地。
+
 **运行模型选型预实验：从 [预实验实操说明](docs/PILOT_GUIDE.md) 开始。**
 包含上传、模型权限、两个环境、下载、共用去背景、单例验证、Slurm 批处理、评分和排错。
 方法与版本依据见 [PILOT_METHOD.md](docs/PILOT_METHOD.md)。
@@ -47,6 +49,7 @@ asset3d pilot-render --experiment results/pilot01 --blender blender --views 8
 | scripts/install_trellis2_hpc.sh | TRELLIS.2 独立安装，固定 CUDA 扩展提交 |
 | slurm/pilot.sbatch | 两组作业共用入口，自动选择环境 |
 | data/manifests/pilot.example.csv | 五样本格式模板，需要真实图片 |
+| gso-viewer/ | 本地 Babylon.js 模型浏览与三档步数对比 |
 | tests/ | CPU 工程测试，合成网格仅作测试夹具 |
 
 每次生成保存 input.png、foreground.png、shape_raw.glb、asset.glb、manifest.json。

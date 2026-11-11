@@ -4,7 +4,7 @@ import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-FOLDERS = ["src", "configs", "scripts", "slurm", "app", "tests", "docs", "data/manifests"]
+FOLDERS = ["src", "configs", "scripts", "slurm", "app", "tests", "docs", "data/manifests", "gso-viewer"]
 FILES = [
     "README.md",
     "pyproject.toml",

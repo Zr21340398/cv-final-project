@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>3D 模型对比浏览器</title>
+  <link rel="stylesheet" href="/style.css">
+  <script defer src="/vendor/babylon.js"></script>
+  <script defer src="/vendor/babylonjs.loaders.min.js"></script>
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <header><div><span class="eyebrow">IMAGE TO 3D · MODEL VIEWER</span><h1>3D 模型对比浏览器</h1><p>查看开发集模型，直观比较不同生成步数的效果。</p></div><span class="tag">本地浏览</span></header>
+  <main>
+    <section class="toolbar" aria-label="模型筛选">
+      <label>物体<select id="object" disabled></select></label>
+      <label>随机种子<select id="seed" disabled></select></label>
+      <label>模型类型<select id="kind"><option value="asset">带纹理模型</option><option value="shape">原始白模</option></select></label>
+      <button type="button" id="reset">重置视角</button>
+    </section>
+    <div class="input-row"><div><strong>生成输入图</strong><p>展示当前对象与种子的输入图片（50 步结果）。</p></div><div class="input-preview"><img id="input-image" alt="当前物体的输入图片" hidden><span id="input-error">等待加载</span></div><p id="notice" role="status">正在读取本地实验数据…</p></div>
+    <section class="viewers" id="viewers" aria-label="模型对比"></section>
+    <section class="tips"><strong>操作提示</strong><span>鼠标左键拖动旋转 · 滚轮缩放 · 右键拖动平移 · 各窗口可独立操作</span><span>每个模型自动居中并适配视野。不同模型的原始朝向可能不同，可手动旋转查看同一面。</span></section>
+  </main>
+</body>
+</html>
