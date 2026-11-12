@@ -1,0 +1,4 @@
+extends: baseline.yaml
+name: hunyuan2
+preprocess:
+  background: keep

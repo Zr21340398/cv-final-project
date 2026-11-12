@@ -1,0 +1,4 @@
+extends: hunyuan2_formal_50.yaml
+name: hunyuan2_steps20
+shape:
+  steps: 20

@@ -1,0 +1,22 @@
+name: baseline
+model:
+  repo_id: tencent/Hunyuan3D-2
+  revision: 9cd649ba6913f7a852e3286bad86bfa9a2d83dcf
+  code_revision: f8db63096c8282cb27354314d896feba5ba6ff8a
+  shape_subfolder: hunyuan3d-dit-v2-0
+  texture_subfolder: hunyuan3d-paint-v2-0
+  local_files_only: true
+preprocess:
+  background: auto
+  size: 512
+  padding: 0.2
+shape:
+  steps: 50
+  guidance_scale: 5.0
+  octree_resolution: 384
+  num_chunks: 8000
+texture:
+  enabled: true
+  render_size: 2048
+  texture_size: 2048
+

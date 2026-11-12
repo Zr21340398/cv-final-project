@@ -1,0 +1,5 @@
+extends: baseline.yaml
+name: medium
+shape:
+  steps: 30
+

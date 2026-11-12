@@ -1,0 +1,6 @@
+id,image,reference,split
+simple,../raw/simple.jpg,,real
+thin,../raw/thin.jpg,,real
+asymmetric,../raw/asymmetric.jpg,,real
+pattern,../raw/pattern.jpg,,real
+material,../raw/material.jpg,,real

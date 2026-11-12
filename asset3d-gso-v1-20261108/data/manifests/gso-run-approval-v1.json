@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "scope": "dev",
+  "authorized_by": "user",
+  "user_instruction": "给学校gpu提交任务",
+  "authorized_at": "2026-11-08T14:53:53.544767+00:00",
+  "review_basis": "user_authorized_after_technical_and_ai_review",
+  "human_visual_qa_completed": false,
+  "submission_scope": "Submit only gso_01 / hunyuan2_steps50 / seed42 now; retain full 60-cell dev plan. No automatic remainder submission.",
+  "manifest_sha256": "0d618e4587471fe85b70d07a26876badc8d9d2ca94efef67ac3d2de80afe159d",
+  "selection_sha256": "99acf41ba43d7851203ac7c49a5b6082328bbdbed988ab85608fa18a5956cf81",
+  "roster_sha256": "efa8edc4c51f3c4ad4ec43ce9b095714069dd7c1d280bfce4c6730cfd9c16531",
+  "render_protocol_sha256": "72749a34fabd9b4fe72c38cf6b5c216a5d0203e19db7d020cff970d0ddbf5be4",
+  "data_checksums_sha256": "d5342960155f611ca214ad221f25925af0e510533c8e7ae0cfae8a9542c00260",
+  "evidence": {
+    "cpu": {
+      "path": "data/manifests/gso-run-evidence/gso-cpu-final-audit.json",
+      "sha256": "e7df1816756582a5d452df749be6b9ad44b3f722bbf2d1e926755fd5fb90fb86"
+    },
+    "ai": {
+      "path": "data/manifests/gso-run-evidence/gso-dev-visual-review.json",
+      "sha256": "78fc655d89e71e1d58a04d76a3f799f14db80af134ac301638f73034799dc692"
+    }
+  }
+}

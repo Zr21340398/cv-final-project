@@ -1,26 +1,12 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>3D 模型对比浏览器</title>
-  <link rel="stylesheet" href="/style.css">
-  <script defer src="/vendor/babylon.js"></script>
-  <script defer src="/vendor/babylonjs.loaders.min.js"></script>
-  <script defer src="/app.js"></script>
-</head>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3D 模型工作台</title><link rel="stylesheet" href="/style.css"><script defer src="/vendor/babylon.js"></script><script defer src="/vendor/babylonjs.loaders.min.js"></script><script defer src="/app.js"></script></head>
 <body>
-  <header><div><span class="eyebrow">IMAGE TO 3D · MODEL VIEWER</span><h1>3D 模型对比浏览器</h1><p>查看开发集模型，直观比较不同生成步数的效果。</p></div><span class="tag">本地浏览</span></header>
+  <header><div><span class="eyebrow">IMAGE TO 3D · MODEL WORKSPACE</span><h1>3D 模型工作台</h1><p>把模型放在一起查看，也可以载入实验结果进行对比。</p></div><span class="tag">本地运行</span></header>
   <main>
-    <section class="toolbar" aria-label="模型筛选">
-      <label>物体<select id="object" disabled></select></label>
-      <label>随机种子<select id="seed" disabled></select></label>
-      <label>模型类型<select id="kind"><option value="asset">带纹理模型</option><option value="shape">原始白模</option></select></label>
-      <button type="button" id="reset">重置视角</button>
-    </section>
-    <div class="input-row"><div><strong>生成输入图</strong><p>展示当前对象与种子的输入图片（50 步结果）。</p></div><div class="input-preview"><img id="input-image" alt="当前物体的输入图片" hidden><span id="input-error">等待加载</span></div><p id="notice" role="status">正在读取本地实验数据…</p></div>
+    <section class="toolbar" aria-label="工作台操作"><button type="button" id="add-panel" class="primary">＋ 添加对比窗口</button><button type="button" id="reset">重置所有视角</button><button type="button" id="preset-toggle" aria-expanded="false">实验预设 ▾</button><span id="notice" role="status">将 GLB 模型拖入窗口，或点击窗口中的加号。</span></section>
+    <section id="preset-bar" class="presets" hidden aria-label="实验预设设置"><p id="preset-message" role="status" hidden></p><label>实验<select id="dataset"></select></label><button type="button" id="refresh-catalog">刷新实验列表</button><label>对象<select id="object"></select></label><label>随机种子<select id="seed"></select></label><label>模型类型<select id="kind"></select></label><label>输入图片来源<select id="input-variant"></select></label><button type="button" id="load-preset">对比参考模型与所有方案</button><div class="input-preview"><div><strong>输入图片</strong><p>根据所选物体、种子和来源方案显示。</p></div><div class="input-image"><img id="input-image" alt="实验输入图片" hidden><span id="input-message">正在读取输入图片</span></div></div><p>预设用于快速加载实验结果；每个窗口也可以单独选择方案。加载预设会替换当前窗口。</p></section>
     <section class="viewers" id="viewers" aria-label="模型对比"></section>
-    <section class="tips"><strong>操作提示</strong><span>鼠标左键拖动旋转 · 滚轮缩放 · 右键拖动平移 · 各窗口可独立操作</span><span>每个模型自动居中并适配视野。不同模型的原始朝向可能不同，可手动旋转查看同一面。</span></section>
+    <section class="tips"><strong>操作提示</strong><span>左键拖动旋转 · 滚轮缩放 · 右键拖动平移 · 每个窗口独立操作</span><span>模型自动适配视野；不同结果的原始朝向可能不同，需要手动旋转查看同一面。</span></section>
   </main>
-</body>
-</html>
+  <template id="panel-template"><article class="card"><div class="card-head"><div class="card-title"><strong>空窗口</strong><small></small></div><div class="card-actions"><button class="replace" type="button" title="选择本地 GLB" aria-label="选择本地 GLB">＋</button><button class="panel-reset" type="button" title="重置视角" aria-label="重置视角">↺</button><button class="remove" type="button" title="关闭窗口" aria-label="关闭窗口">×</button></div></div><div class="panel-presets" hidden><label>方案 <select class="variant"></select></label><button class="load-one" type="button">加载</button></div><div class="viewport"><canvas tabindex="0" aria-label="3D 模型视图"></canvas><div class="overlay"><button class="choose" type="button"><span>＋</span><b>选择 GLB 文件</b><small>或将文件拖入此处</small></button></div></div><input class="file" type="file" accept=".glb,model/gltf-binary" hidden></article></template>
+</body></html>

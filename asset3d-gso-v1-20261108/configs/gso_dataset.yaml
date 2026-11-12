@@ -1,0 +1,30 @@
+# GSO 正式数据规划；供选样和审查使用，当前 CLI 不直接读取此文件。
+dataset: Google Scanned Objects
+version: gso-formal-v1
+status: cpu_prepared_pending_human_source_qa
+source: https://research.google/blog/scanned-objects-by-google-research-a-dataset-of-3d-scanned-common-household-items/
+license: CC-BY-4.0
+counts:
+  dev: 10
+  test: 20
+strata:
+  simple_solid: {dev: 2, test: 4}
+  thin_or_hollow: {dev: 2, test: 4}
+  asymmetric: {dev: 2, test: 4}
+  patterned: {dev: 2, test: 4}
+  complex_shape: {dev: 2, test: 4}
+paths:
+  raw: data/raw/gso
+  rendered: data/rendered/gso-formal-v1
+  selection: data/manifests/gso-selection.csv
+  manifest: data/manifests/gso-formal-v1.csv
+render:
+  views: 8
+  resolution: 1024
+  input_view: view-000.png
+  projection_status: fixed_shared_orthographic_native_z_up_cpu_verified
+experiment:
+  model: hunyuan2
+  configurations: dev_candidates_steps_50_30_20_shared_40k_paint_budget
+  proposed_seeds: [42, 123]
+  freeze_status: pending_human_source_qa_and_development_results

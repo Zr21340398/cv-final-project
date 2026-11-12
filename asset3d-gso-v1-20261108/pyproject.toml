@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maie5421-asset3d"
+version = "0.2.0"
+description = "Reproducible single-image to textured 3D course project"
+requires-python = ">=3.10,<3.13"
+dependencies = ["numpy>=1.26,<2", "scipy>=1.11,<2", "Pillow>=10,<12", "trimesh>=4.5,<5", "PyYAML>=6,<7"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9", "ruff>=0.9,<1"]
+ui = ["gradio>=5.9,<6"]
+download = ["huggingface-hub>=0.27,<1"]
+
+[project.scripts]
+asset3d = "asset3d.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+

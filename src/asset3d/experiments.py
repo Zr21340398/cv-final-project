@@ -1,11 +1,27 @@
 import gc
 import json
+import sys
 from pathlib import Path
 
 from .config import load_config
 from .data import read_manifest
 from .pipeline import Pipeline
 from .recording import file_hash, now, object_hash, save_json
+from .viewer_manifest import write_viewer_manifest
+
+
+def _update_viewer_manifest(output):
+    """展示索引只提供便利，更新失败时保留训练或生成任务的执行结果。"""
+    viewer_path = output / "viewer-manifest.json"
+    try:
+        if viewer_path.exists():
+            viewer = json.loads(viewer_path.read_text(encoding="utf-8"))
+            if (viewer.get("schema_version") != 1 or viewer.get("id") != output.name
+                    or viewer.get("generated_by") != "asset3d.viewer_manifest"):
+                raise ValueError("Existing viewer-manifest.json has an incompatible format")
+        write_viewer_manifest(output, viewer_path, overwrite=True)
+    except Exception as exc:
+        print(f"Viewer index update failed: {type(exc).__name__}: {exc}", file=sys.stderr, flush=True)
 
 
 def run_experiments(manifest_path, config_paths, seeds, output, split="test", resume=False):
@@ -33,6 +49,8 @@ def run_experiments(manifest_path, config_paths, seeds, output, split="test", re
             raise ValueError("Experiment already exists or its plan changed; choose a new output directory")
     else:
         save_json(plan_path, {"created_at": now(), "plan_sha256": object_hash(plan), "plan": plan})
+    # 独立生成展示索引，不修改冻结的 experiment.json 或原始模型。
+    _update_viewer_manifest(output)
     failures = []
     for config in configs:
         pipeline = Pipeline(config)
@@ -46,6 +64,7 @@ def run_experiments(manifest_path, config_paths, seeds, output, split="test", re
                     failures.append(failure)
                     print(f"FAILED {failure}", flush=True)
                 save_json(output / "failures.json", failures)
+                _update_viewer_manifest(output)
         del pipeline
         gc.collect()
         try:

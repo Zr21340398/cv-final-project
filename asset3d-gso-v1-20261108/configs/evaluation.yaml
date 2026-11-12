@@ -1,0 +1,6 @@
+samples: 100000
+seed: 2026
+normalization: unit_bbox
+# No automatic rotation or non-rigid alignment. Use an explicit prediction-to-reference
+# rigid transform with --transform when coordinate conventions have been calibrated.
+

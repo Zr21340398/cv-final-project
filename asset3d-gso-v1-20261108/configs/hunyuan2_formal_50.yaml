@@ -1,0 +1,6 @@
+extends: hunyuan2_pilot_retry.yaml
+name: hunyuan2_steps50
+# GSO uses an audited transparent reference render. Keep the same input and
+# 40k Paint mesh budget across all step settings; preserve shape_raw.glb.
+shape:
+  steps: 50

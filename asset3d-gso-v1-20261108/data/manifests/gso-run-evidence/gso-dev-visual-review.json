@@ -1,0 +1,147 @@
+{
+  "reviewer": "AI-assisted visual source review by Codex",
+  "human_acceptance": false,
+  "purpose": "Source dataset geometry/orientation/texture QA, not generated-model blind ratings",
+  "items": {
+    "gso_01": {
+      "views_reviewed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "No obvious missing parts or texture failure; upright fridge, front handles and door colors visible; clean silhouette in all eight views.",
+      "decision": "prepared_pending_human_qa"
+    },
+    "gso_02": {
+      "views_reviewed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "Full speaker body and both end caps visible; source colors/logo retained, no obvious floating fragments; bright white material regions under shared lighting.",
+      "decision": "prepared_pending_human_qa"
+    },
+    "gso_08": {
+      "views_reviewed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "Closed scissors lie flat in the native scan. Red/gray handles, both holes and narrow blades are visible; no texture failure or floating background. Shared elevated camera foreshortens the first view, retained as a legitimate thin-structure challenge rather than individually rotating it.",
+      "decision": "prepared_pending_human_qa"
+    },
+    "gso_07": {
+      "views_reviewed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "Upright teal mug with open interior and intact handle hole; all views show a complete clean silhouette. Source contains surface highlights/scanning texture marks, retained rather than retouched.",
+      "decision": "prepared_pending_human_qa"
+    },
+    "gso_13": {
+      "views_reviewed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "Rubber mallet is complete; head, yellow shaft and black handle remain connected with no floating debris. Front view gives recognizable asymmetric silhouette; side/end views naturally foreshorten the shaft.",
+      "decision": "prepared_pending_human_qa"
+    },
+    "gso_14": {
+      "views_reviewed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "Upright pitcher with open mouth, spout and continuous curved handle. The native scan has slightly irregular rim/edge detail and two geometric components; no large missing body or stray ground. White highlights are strong under the shared lighting, a documented source-condition limitation.",
+      "decision": "prepared_pending_human_qa"
+    },
+    "gso_19": {
+      "views_reviewed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "Crayon package is upright and complete. Front and rear text, colored patterns, folded side panels and hanging tab are visible, with correct textures across eight views. No obvious missing parts or external debris.",
+      "decision": "prepared_pending_human_qa"
+    },
+    "gso_20": {
+      "views_reviewed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "Pencil case is complete with readable polka-dot pattern, zipper and end panels. Fabric bulges/folds and slight scan roughness are retained; no missing texture, background fragments or clipping.",
+      "decision": "prepared_pending_human_qa"
+    },
+    "gso_25": {
+      "views_reviewed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "Mario figure stands upright; hat logo, face, both gloves, overalls and boots are visible across all views. Toy joint gaps are part of the source; no obvious missing limbs or floating debris. First view is a natural three-quarter angle under the common camera.",
+      "decision": "prepared_pending_human_qa"
+    },
+    "gso_26": {
+      "views_reviewed": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "finding": "Seated elephant ornament is upright and complete; raised trunk, both ears, tusks, feet and tail visible over the orbit. Rough sculpted surface and source texture are intentional object detail, not cleaned or smoothed. No obvious background debris or missing texture.",
+      "decision": "prepared_pending_human_qa"
+    }
+  }
+}

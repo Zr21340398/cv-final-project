@@ -76,6 +76,11 @@ def main(argv=None):
     p.add_argument("--split", choices=["dev", "test", "real"], default="test")
     p.add_argument("--output", required=True)
     p.add_argument("--resume", action="store_true")
+    p = sub.add_parser("viewer-index", help="Build a portable viewer index from an existing experiment")
+    p.add_argument("--experiment", required=True)
+    p.add_argument("--output", required=True)
+    p.add_argument("--reference-dir", help="Directory containing <object-id>/reference_normalized.glb")
+    p.add_argument("--overwrite", action="store_true")
     p = sub.add_parser("evaluate", help="Compare with a known reference mesh (not arbitrary photographs)")
     p.add_argument("--pred", required=True)
     p.add_argument("--reference", required=True)
@@ -155,6 +160,10 @@ def main(argv=None):
                 )
                 else 0
             )
+        elif args.command == "viewer-index":
+            from .viewer_manifest import write_viewer_manifest
+
+            print(write_viewer_manifest(args.experiment, args.output, args.reference_dir, args.overwrite))
         elif args.command == "evaluate":
             print(
                 json.dumps(
