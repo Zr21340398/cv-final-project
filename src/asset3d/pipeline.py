@@ -172,6 +172,17 @@ class Pipeline:
                     lambda: self.backend.generate_texture(mesh, image),
                     gpu=True,
                 )
+                if self.config["texture"].get("planar_cleanup", False):
+                    from .planar_texture import clean_planar_texture
+
+                    stage = "planar_cleanup"
+                    cleaned, report = timed("planar_cleanup", lambda: clean_planar_texture(mesh, image))
+                    attempt["planar_cleanup"] = report
+                    if report["applied"]:
+                        # Keep the untouched Paint result for visual comparison and rollback.
+                        export_glb(mesh, out / "asset_raw_paint.glb")
+                        remember("asset_raw_paint.glb")
+                    mesh = cleaned
                 stage = "export"
                 manifest["export"] = timed("export", lambda: export_glb(mesh, out / "asset.glb"))
                 remember("asset.glb")

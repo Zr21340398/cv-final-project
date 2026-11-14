@@ -14,6 +14,16 @@
 方法与版本依据见 [PILOT_METHOD.md](docs/PILOT_METHOD.md)。
 
 当前代码提供两模型适配、成对实验、白模/PBR GLB 导出、运行记录和评价工具。
+
+## 大平面随机花纹的试验性抑制
+
+对近似纯色物体，可使用 `configs/hunyuan2_planar_cleanup.yaml` 启用 Paint 后的几何感知清理：仅当输入前景颜色基本一致、某个连通平面占网格面积至少 10%、且该平面 UV 区域颜色异常分散时，才将该区域收敛为中位颜色。每次判断和阈值结果写入 `manifest.json` 的 `attempts[].planar_cleanup`；实际触发时另存 `asset_raw_paint.glb`，供逐视角对比。
+
+```bash
+asset3d generate --image data/prepared/object.png --config configs/hunyuan2_planar_cleanup.yaml --output results/object-planar-cleanup --seed 42
+```
+
+此配置是单独的候选方案，不改变已冻结的 GSO 60 项实验或其报告。彩色图案、渐变、木纹等输入会跳过清理，避免抹掉有意的纹理。单图无法判定不可见表面真实颜色，因此仍需对 `asset.glb` 与 `asset_raw_paint.glb` 做多视角人工审阅；尤其要检查 UV 重叠、接缝及平面边界。建议先在开发集试跑，再决定是否用于测试集。
 **pilot03 已在学校 L20 完成 20/20 次真实生成。** 查看 [五图预实验结果与完整多视角对比](docs/results/pilot03/README.md)、[逐项统计](docs/results/pilot03/runs.csv) 与 [完整结果附件](https://github.com/Zr21340398/cv-final-project/releases/tag/pilot03-2026-11-07)。本轮建议混元作为较低成本的展示基线，TRELLIS.2 保留为细节和材质对照；结论边界与早期失败记录见报告。工程测试验收范围见 [VALIDATION.md](docs/VALIDATION.md)。
 
 ## 预实验命令入口

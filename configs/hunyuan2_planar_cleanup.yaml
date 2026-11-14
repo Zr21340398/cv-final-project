@@ -1,0 +1,4 @@
+extends: hunyuan2_pilot_retry.yaml
+name: hunyuan2_planar_cleanup
+texture:
+  planar_cleanup: true
