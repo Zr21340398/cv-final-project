@@ -30,3 +30,6 @@ data/local/
 /experiments/*/selection.csv
 /experiments/*/resolved.json
 /experiments/*/resolved-configs/
+
+# User-specific HPC module setup and credentials remain outside Git.
+/local/

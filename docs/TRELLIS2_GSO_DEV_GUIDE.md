@@ -18,32 +18,27 @@ python scripts/run_batch.py experiments/trellis2-gso-dev-v1/batch.yaml --prepare
 
 核验原图与参考模型哈希，只使用选中的对象。相同批次的数据或配置变化时会拒绝继续；调整参数应创建新的 batch.yaml 所在目录。
 
-## 3. 单例检查与整批作业
+## 3. 提交单例与整批作业
 
-首次安装后，在已申请的 GPU 节点检查：
+安装作业完成后，先在登录节点提交单例：
 
 ```bash
 cd ~/project/cv-final-project
-source .venv-trellis2/bin/activate
 export HF_HOME="$PWD/models/huggingface"
 export ASSET3D_DINOV3_DIR="$PWD/models/dinov3-vitl16-pretrain-lvd1689m"
-export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
-asset3d doctor --gpu --backend trellis2
-asset3d generate --image datasets/gso-v1/data/rendered/gso-formal-v1/gso_01/view-000.png --config configs/trellis2_gso_dev.yaml --seed 42 --output experiments/trellis2-smoke/results
+mkdir -p logs experiments/trellis2-gso-smoke/logs
+sbatch --time=01:00:00 --output=experiments/trellis2-gso-smoke/logs/%x-%j.out slurm/trellis2_gso_dev.sbatch experiments/trellis2-gso-smoke/batch.yaml
 ```
 
-单例成功后退出 GPU 分配，在登录节点提交整批：
+该批次只生成 `gso_01`、种子 42，结果在 `experiments/trellis2-gso-smoke/results/`。检查作业完成、该目录内 `manifest.json` 显示 completed 且 GLB 可打开之后，再提交完整批次：
 
 ```bash
-cd ~/project/cv-final-project
-export HF_HOME="$PWD/models/huggingface"
-export ASSET3D_DINOV3_DIR="$PWD/models/dinov3-vitl16-pretrain-lvd1689m"
-mkdir -p logs experiments/trellis2-gso-dev-v1/logs
+mkdir -p experiments/trellis2-gso-dev-v1/logs
 sbatch --output=experiments/trellis2-gso-dev-v1/logs/%x-%j.out slurm/trellis2_gso_dev.sbatch experiments/trellis2-gso-dev-v1/batch.yaml
 squeue -u "$USER"
 ```
 
-单卡作业最多四小时，实际耗时以运行记录为准。整批输出在 `experiments/trellis2-gso-dev-v1/results/`。每次生成目录含 GLB、实际输入图片及 manifest；结果根目录有冻结计划、失败清单和 viewer 预设。同一源码、参数和数据下可重复相同命令续跑。
+完整批次包含 20 次生成，输出在 `experiments/trellis2-gso-dev-v1/results/`。每次生成目录含 GLB、实际输入图片及 manifest；结果根目录有冻结计划、失败清单和 viewer 预设。同一源码、参数和数据下可重复相同命令续跑。作业自动加载 `local/hpc4_modules.sh`，无需等待 GPU 后手动执行命令。单例和完整批次各自独立，首个对象会生成两次。
 
 ## 4. 下载和展示
 

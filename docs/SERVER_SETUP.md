@@ -58,80 +58,59 @@ unset HF_HUB_OFFLINE TRANSFORMERS_OFFLINE
 
 如果个人目录配额不足，可以将这些变量设为自己的 scratch 路径。每次下载和运行使用相同路径；权重不随实验复制。`models/` 已被 Git 忽略。
 
-## 4. 首次环境安装
+## 4. 在登录节点配置模块
 
-### GPU 环境
-
-登录节点申请一张 L20：
+你现在的 `login1` 是登录节点，默认 Python 3.9 和找不到 GPU 工具都可能出现。先在登录节点查看学校当前可用模块，不申请 GPU：
 
 ```bash
-srun --account=mscaiehpc42026 --partition=gpu-l20 --nodes=1 --ntasks=1 --gpus-per-node=1 --time=02:00:00 --pty bash
+source /opt/shared/.spack-edge/dist/bin/setup-env.sh
+module spider python
+module spider cuda
 ```
 
-在计算节点按学校当前模块列表加载 Python 3.10 或 3.11、CUDA 12.4 及编译工具。先检查：
+选择 **Python 3.10 或 3.11** 和 **CUDA toolkit 12.4**。如果 `module spider` 提示需要先加载编译器或其他模块，按它给出的顺序填写。学校模块名称以实际输出为准。
 
 ```bash
 cd ~/project/cv-final-project
-python3 --version
-nvcc --version
-nvidia-smi
+mkdir -p local logs
+cp -n configs/hpc4_modules.example.sh local/hpc4_modules.sh
+nano local/hpc4_modules.sh
 ```
 
-TRELLIS.2 执行：
+在编辑器中，删除示例文件最后的 `echo` 和 `return 1` 两行，将 `module load` 注释替换成学校实际的模块名称，例如根据实际输出填写前置模块、Python 模块和 CUDA 模块，按 Ctrl+O 保存、Enter 确认、Ctrl+X 退出。`local/` 不提交到 Git。可以先在当前终端手动执行相同的 `module load` 命令并检查 `python3 --version` 和 `nvcc --version`；作业仍会独立加载这些模块。
+
+## 5. 提交自动安装作业
+
+TRELLIS.2 环境、CUDA 扩展、DINOv3 与模型权重由一个 GPU 作业顺序完成。作业中会自动重建模块环境；请先在 Hugging Face 的 RMBG-2.0 页面接受访问条款，并在本机或服务器使用有访问权限的账号准备好可供作业读取的登录状态。若使用 `HF_TOKEN` 环境变量，提交前在当前终端安全设置并 `export`，提交后在终端 `unset HF_TOKEN`；不要把 token 写入脚本或仓库。
+
+在登录节点、项目根目录执行：
 
 ```bash
-bash scripts/install_trellis2_hpc.sh
-source .venv-trellis2/bin/activate
-asset3d doctor --gpu --backend trellis2
+cd ~/project/cv-final-project
+mkdir -p logs
+export HF_HOME="$PWD/models/huggingface"
+export ASSET3D_DINOV3_DIR="$PWD/models/dinov3-vitl16-pretrain-lvd1689m"
+sbatch slurm/install_trellis2.sbatch
 ```
 
-混元执行：
+例如返回 `Submitted batch job 123456`，数字就是作业号。系统排到 L20 后自动执行；你无需等待在终端输入后续命令。学校说明参见 [Slurm 快速入门](https://hkust-hpc-docs.readthedocs.io/latest/quick-start/index.html)。
 
 ```bash
-bash scripts/install_hpc.sh
-source .venv-hpc/bin/activate
-asset3d doctor --gpu --backend hunyuan2
+squeue -u "$USER"
+tail -f logs/trellis2-install-<作业号>.out
 ```
 
-两个环境分别保存，第三方 CUDA 扩展位于被 Git 忽略的 `third_party/`。安装需要网络与编译时间，失败时保存完整日志。学校模块与账户问题请查看学校 HPC4 文档，或联系 HPC4 支持。下载和作业应使用相同缓存路径。长时间等权限或查资料时退出 GPU 分配。
-
-
-## 5. 下载模型权重
-
-请先完成上一节的 GPU 环境安装。以下下载命令在已激活的相应环境中运行。下载需联网；GPU 推理作业使用离线缓存。
-
-### TRELLIS.2
-
-先激活 `.venv-trellis2`。固定适配器使用本地 DINOv3 ViT-L/16，其下载来源为魔搭，文件内容由适配器中的 SHA-256 检查：
+把 `<作业号>` 换成实际数字；按 Ctrl+C 只停止查看日志。`squeue` 为空时用下列命令查看最终状态：
 
 ```bash
-source .venv-trellis2/bin/activate
-python -m pip install modelscope
-python - <<'PY'
-import os
-from modelscope import snapshot_download
-snapshot_download('facebook/dinov3-vitl16-pretrain-lvd1689m', local_dir=os.environ['ASSET3D_DINOV3_DIR'])
-PY
+sacct -j <作业号> --format=JobID,State,ExitCode,Elapsed
 ```
 
-该目录应包含 `config.json`、`preprocessor_config.json`、`model.safetensors`。当前适配器要求的权重 SHA-256 是 `dcb2e45127cccbf1601e5f42fef165eea275c8e5213197e8dcf3f48822718179`；如果上游下载内容变化，程序会提示不匹配，应核对版本。
+`COMPLETED`、`ExitCode 0:0` 且日志最后有“安装和检查完成”，表示这次作业的安装和检查完成。`FAILED`、`TIMEOUT` 或其他状态需要查看日志中最后的错误。这个作业尚未在你的账户实测；需要 GPU 节点能访问软件和模型下载源，网络受限、磁盘不足或模型未授权时会停在对应阶段。默认申请一张 L20、4 CPU、32 GiB 内存和 4 小时时限；计费和可用性以学校设置为准。
 
-辅助模型 RMBG-2.0 需要在其 Hugging Face 页面完成访问授权。遇到 401/403，先在同一个缓存设置下登录有权限的账户，例如环境提供 `hf` 命令时运行 `hf auth login`。不要把 token 写进仓库。
+失败后先查看日志，排除网络、权限或模块错误，再重新提交。脚本会核对已有第三方源码版本并复用已有虚拟环境、缓存文件；若之前的 Git 仓库下载中断，可能需要先修复不完整的第三方目录，不要盲目覆盖或删除。安装完成后按 [TRELLIS.2 实验指南](TRELLIS2_GSO_DEV_GUIDE.md) 运行检查和实验。推理作业也会读取 `local/hpc4_modules.sh`。
 
-```bash
-asset3d download --config configs/trellis2_gso_dev.yaml
-```
-
-此命令下载固定版本的 TRELLIS.2 主模型、稀疏结构解码器、背景模型，并读取已准备好的 DINOv3。完成后可以退出下载节点。
-
-### 混元 3D 2.0
-
-```bash
-source .venv-hpc/bin/activate
-asset3d download --config configs/hunyuan2_pilot_retry.yaml --background
-```
-
-该命令下载固定版本的形状、上色、去光照权重，以及背景处理模型。两个模型共用缓存目录结构，使用不同权重文件与 Python 环境。
+混元环境使用独立 `.venv-hpc`；若之后需要安装混元，继续使用 `scripts/install_hpc.sh` 并在对应模型环境中执行 `asset3d download --config configs/hunyuan2_pilot_retry.yaml --background`。当前自动安装作业只负责 TRELLIS.2。
 
 ## 6. 数据检查
 

@@ -11,6 +11,8 @@
 set -euo pipefail
 : "${SLURM_SUBMIT_DIR:?请在项目根目录提交作业}"
 cd "$SLURM_SUBMIT_DIR"
+# 作业不会自动保留安装时的模块；先重建同一运行环境。
+source slurm/load_hpc4_modules.sh
 # 两个模型的环境独立；避免意外使用混元依赖。
 export ASSET3D_VENV="${TRELLIS2_VENV:-$SLURM_SUBMIT_DIR/.venv-trellis2}"
 source slurm/common.sh
