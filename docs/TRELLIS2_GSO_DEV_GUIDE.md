@@ -4,7 +4,7 @@
 
 ## 1. 准备代码、数据和权重
 
-统一按 [DATA_AND_MODELS.md](DATA_AND_MODELS.md) 操作，使用 Git 克隆代码、一次性传输共享数据目录、独立下载模型权重。无需制作或上传压缩包。环境安装见 [HPC4_SETUP.md](HPC4_SETUP.md)。服务器根目录为 `~/project/cv-final-project/`。
+统一按 [SERVER_SETUP.md](SERVER_SETUP.md) 操作，使用 Git 克隆代码、一次性传输共享数据目录、独立下载模型权重。无需制作或上传压缩包。环境安装也在该指南中。服务器根目录为 `~/project/cv-final-project/`。
 
 批次配置 `experiments/trellis2-gso-dev-v1/batch.yaml` 选择数据清单、10 个 ID、模型配置和两个种子。生成的配置快照和结果位于该批次目录。
 
@@ -53,4 +53,4 @@ squeue -u "$USER"
 .\.venv\Scripts\asset3d.exe viewer-index --experiment experiments/trellis2-gso-dev-v1/results --output experiments/trellis2-gso-dev-v1/results/viewer-manifest.json --reference-dir datasets/gso-v1/data/rendered/gso-formal-v1 --overwrite
 ```
 
-历史混元批次见 [EXPERIMENT_LAYOUT.md](EXPERIMENT_LAYOUT.md)。新服务器上只有 Git 代码时，历史生成结果需要另外下载，新的 TRELLIS 批次可以直接从共享数据生成。
+历史混元批次见 [EXPERIMENT_HISTORY.md](EXPERIMENT_HISTORY.md)。新服务器上只有 Git 代码时，历史生成结果需要另外下载，新的 TRELLIS 批次可以直接从共享数据生成。

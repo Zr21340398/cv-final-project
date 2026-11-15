@@ -58,9 +58,47 @@ unset HF_HUB_OFFLINE TRANSFORMERS_OFFLINE
 
 如果个人目录配额不足，可以将这些变量设为自己的 scratch 路径。每次下载和运行使用相同路径；权重不随实验复制。`models/` 已被 Git 忽略。
 
-## 4. 首次环境准备
+## 4. 首次环境安装
 
-查看 [HPC4_SETUP.md](HPC4_SETUP.md) 申请计算节点并安装环境。以下下载命令在已激活的相应环境中运行。下载需联网；GPU 推理作业使用离线缓存。
+### GPU 环境
+
+登录节点申请一张 L20：
+
+```bash
+srun --account=mscaiehpc42026 --partition=gpu-l20 --nodes=1 --ntasks=1 --gpus-per-node=1 --time=02:00:00 --pty bash
+```
+
+在计算节点按学校当前模块列表加载 Python 3.10 或 3.11、CUDA 12.4 及编译工具。先检查：
+
+```bash
+cd ~/project/cv-final-project
+python3 --version
+nvcc --version
+nvidia-smi
+```
+
+TRELLIS.2 执行：
+
+```bash
+bash scripts/install_trellis2_hpc.sh
+source .venv-trellis2/bin/activate
+asset3d doctor --gpu --backend trellis2
+```
+
+混元执行：
+
+```bash
+bash scripts/install_hpc.sh
+source .venv-hpc/bin/activate
+asset3d doctor --gpu --backend hunyuan2
+```
+
+两个环境分别保存，第三方 CUDA 扩展位于被 Git 忽略的 `third_party/`。安装需要网络与编译时间，失败时保存完整日志。学校模块与账户问题请查看学校 HPC4 文档，或联系 HPC4 支持。下载和作业应使用相同缓存路径。长时间等权限或查资料时退出 GPU 分配。
+
+
+## 5. 下载模型权重
+
+请先完成上一节的 GPU 环境安装。以下下载命令在已激活的相应环境中运行。下载需联网；GPU 推理作业使用离线缓存。
 
 ### TRELLIS.2
 
@@ -95,7 +133,7 @@ asset3d download --config configs/hunyuan2_pilot_retry.yaml --background
 
 该命令下载固定版本的形状、上色、去光照权重，以及背景处理模型。两个模型共用缓存目录结构，使用不同权重文件与 Python 环境。
 
-## 5. 数据检查
+## 6. 数据检查
 
 在已安装本项目的 Python 环境、仓库根目录执行：
 
