@@ -18,12 +18,12 @@
 ```bash
 cd ~
 git clone --branch trellis2-gso-dev --single-branch \
-  https://github.com/Zr21340398/cv-final-project.git asset3d-formal
-cd ~/asset3d-formal
+  https://github.com/Zr21340398/cv-final-project.git project
+cd ~/project
 mkdir -p logs results experiments/trellis2-gso-dev-v1
 ```
 
-已有 `~/asset3d-formal` 时先检查目录，避免覆盖。如果之前已克隆，进入该目录并确认分支和最新提交即可。Git 只获取源码和少量清单，模型权重和 GSO 二进制数据单独准备。
+已有 `~/project` 时先检查目录，避免覆盖。如果之前已克隆，进入该目录并确认分支和最新提交即可。Git 只获取源码和少量清单，模型权重和 GSO 二进制数据单独准备。
 
 ### 2.2 在笔记本打包并上传 10 个对象
 
@@ -32,7 +32,7 @@ mkdir -p logs results experiments/trellis2-gso-dev-v1
 ```powershell
 Set-Location 'D:\AIEproject\MAIE5421_CV\Final Project'
 .\.venv\Scripts\python.exe scripts/package_trellis2_gso_dev.py --manifest asset3d-gso-v1-20261108/data/manifests/gso-formal-v1.csv
-scp .\dist\trellis2-gso-dev-data.tar.gz hkust-hpc4:~/asset3d-formal/experiments/trellis2-gso-dev-v1/trellis2-gso-dev-data.tar.gz
+scp .\dist\trellis2-gso-dev-data.tar.gz hkust-hpc4:~/project/experiments/trellis2-gso-dev-v1/trellis2-gso-dev-data.tar.gz
 ```
 
 `hkust-hpc4` 是示例 SSH 别名；请替换成你实际配置成功的别名。第一条 Python 命令会核验数据、重新生成专用压缩包，第二条 `scp` 才会把数据上传到服务器。压缩包包含 10 张输入图片、10 个参考 GLB 和只列出这 10 个对象的清单，约 108 MiB（压缩后大小以实际输出为准）。
@@ -40,22 +40,22 @@ scp .\dist\trellis2-gso-dev-data.tar.gz hkust-hpc4:~/asset3d-formal/experiments/
 请先在服务器执行第 2.1 节创建目标文件夹，再从笔记本上传。若已按旧指南上传到服务器主目录，可以在服务器复制已有压缩包：
 
 ```bash
-mkdir -p ~/asset3d-formal/experiments/trellis2-gso-dev-v1
-cp -n ~/trellis2-gso-dev-data.tar.gz ~/asset3d-formal/experiments/trellis2-gso-dev-v1/
+mkdir -p ~/project/experiments/trellis2-gso-dev-v1
+cp -n ~/trellis2-gso-dev-data.tar.gz ~/project/experiments/trellis2-gso-dev-v1/
 ```
 
 在服务器上检查压缩包：
 
 ```bash
-tar -tzf ~/asset3d-formal/experiments/trellis2-gso-dev-v1/trellis2-gso-dev-data.tar.gz | head
+tar -tzf ~/project/experiments/trellis2-gso-dev-v1/trellis2-gso-dev-data.tar.gz | head
 ```
 
 确认目标目录没有需要保留的同名 `data/manifests/gso-dev-v1.csv` 或 `data/rendered/gso-formal-v1/` 文件，然后解压：
 
 ```bash
-tar -xzf ~/asset3d-formal/experiments/trellis2-gso-dev-v1/trellis2-gso-dev-data.tar.gz -C ~/asset3d-formal/experiments/trellis2-gso-dev-v1
-cd ~/asset3d-formal
-export GSO_MANIFEST="$HOME/asset3d-formal/experiments/trellis2-gso-dev-v1/data/manifests/gso-dev-v1.csv"
+tar -xzf ~/project/experiments/trellis2-gso-dev-v1/trellis2-gso-dev-data.tar.gz -C ~/project/experiments/trellis2-gso-dev-v1
+cd ~/project
+export GSO_MANIFEST="$HOME/project/experiments/trellis2-gso-dev-v1/data/manifests/gso-dev-v1.csv"
 ```
 
 数据和压缩包位于项目的 `experiments/trellis2-gso-dev-v1/`，生成结果仍保存在 `results/trellis2-gso-dev-v1/`。该清单只包含开发集 10 行。数据包来源及许可信息可见代码仓库的 `data/manifests/gso-selection.csv` 和 `gso-selection.metadata.json`。如实际目录不同，按实际位置修改 `GSO_MANIFEST`。
@@ -92,13 +92,13 @@ srun --account=mscaiehpc42026 --partition=gpu-l20 --nodes=1 --ntasks=1 --gpus-pe
 计算节点中：
 
 ```bash
-cd ~/asset3d-formal
+cd ~/project
 source .venv-trellis2/bin/activate
 export HF_HOME="/scratch/$USER/project3/cache/huggingface"
 export ASSET3D_DINOV3_DIR="$HOME/models/dinov3-vitl16-pretrain-lvd1689m"
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 asset3d doctor --gpu --backend trellis2
-asset3d generate --image "$HOME/asset3d-formal/experiments/trellis2-gso-dev-v1/data/rendered/gso-formal-v1/gso_01/view-000.png" \
+asset3d generate --image "$HOME/project/experiments/trellis2-gso-dev-v1/data/rendered/gso-formal-v1/gso_01/view-000.png" \
   --config configs/trellis2_gso_dev.yaml --seed 42 --output results/trellis2-smoke-gso01
 exit
 ```
@@ -110,7 +110,7 @@ exit
 在登录节点项目根目录，重新确认两个路径变量，再提交：
 
 ```bash
-export GSO_MANIFEST="$HOME/asset3d-formal/experiments/trellis2-gso-dev-v1/data/manifests/gso-dev-v1.csv"
+export GSO_MANIFEST="$HOME/project/experiments/trellis2-gso-dev-v1/data/manifests/gso-dev-v1.csv"
 export HF_HOME="/scratch/$USER/project3/cache/huggingface"
 export ASSET3D_DINOV3_DIR="$HOME/models/dinov3-vitl16-pretrain-lvd1689m"
 mkdir -p logs
