@@ -212,6 +212,12 @@ class DiscoveredDatasets(Datasets):
             return []
         # 支持 results/实验名 和 实验包/results/批次 两种固定结构。
         result_dirs = [root, root / "results"]
+        # 新结构：experiments/<批次>/results/viewer-manifest.json。
+        experiments = root / "experiments"
+        if experiments.is_dir():
+            for batch in experiments.iterdir():
+                if batch.is_dir():
+                    result_dirs.append(batch / "results")
         for child in root.iterdir():
             if child.is_dir() and not child.name.startswith("."):
                 result_dirs.append(child / "results")

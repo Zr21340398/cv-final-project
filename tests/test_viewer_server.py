@@ -144,3 +144,23 @@ def test_custom_types_arbitrary_paths_and_seedless_runs(tmp_path):
     assert service.resolve(query + "paint_after") == clean.resolve()
     with pytest.raises(FileNotFoundError):
         service.resolve(query + "not-declared")
+
+
+def test_modular_experiment_references_shared_dataset(tmp_path):
+    batch = tmp_path / "experiments/new-run/results"
+    batch.mkdir(parents=True)
+    data = tmp_path / "datasets/gso-v1"
+    data.mkdir(parents=True)
+    (data / "ref.glb").write_bytes(b"reference")
+    (batch / "output.glb").write_bytes(b"generated")
+    manifest = {"schema_version": 1, "id": "new-run",
+                "objects": [{"id": "cup", "reference": "../../../datasets/gso-v1/ref.glb"}],
+                "variants": [{"id": "trellis2"}],
+                "runs": [{"object": "cup", "variant": "trellis2", "seed": 42,
+                          "models": {"asset": "output.glb"}}]}
+    (batch / "viewer-manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    service = viewer.DiscoveredDatasets(tmp_path)
+    assert service.refresh() == []
+    item = service.catalog()["datasets"][0]
+    assert item["objects"][0]["reference"]
+    assert service.resolve(f"dataset={item['id']}&object=cup&kind=reference") == data / "ref.glb"

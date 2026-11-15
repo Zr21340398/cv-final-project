@@ -24,3 +24,9 @@ data/local/
 
 # Local TRELLIS.2 experiment bundle (data, logs and generated results).
 /asset3d-trellis2-gso-v1/
+
+# Shared local datasets and per-batch generated bookkeeping.
+/datasets/*/
+/experiments/*/selection.csv
+/experiments/*/resolved.json
+/experiments/*/resolved-configs/

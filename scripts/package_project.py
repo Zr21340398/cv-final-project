@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FOLDERS = ["src", "configs", "scripts", "slurm", "app", "tests", "docs", "data/manifests", "gso-viewer"]
 FILES = [
     "README.md",
+    "datasets/README.md",
     "pyproject.toml",
     "requirements-hpc.txt",
     "requirements-trellis2.txt",
@@ -29,6 +30,7 @@ def main():
             and not p.name.endswith(".pyc")
             and not any(part.endswith(".egg-info") for part in p.parts)
         )
+    paths.extend((ROOT / "experiments").glob("*/batch.yaml"))
     with tarfile.open(target, "w:gz") as archive:
         for path in sorted(set(paths)):
             archive.add(path, arcname="asset3d/" + path.relative_to(ROOT).as_posix(), recursive=False)

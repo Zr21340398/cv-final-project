@@ -78,3 +78,7 @@ configs/baseline.yaml、medium.yaml、fast.yaml 与原 Gradio 界面仍用于混
 
 实验说明：[GSO 正式实验协议](docs/EXPERIMENTS.md)。旧资料：[混元安装](docs/HPC4_SETUP.md)、
 [原架构](docs/ARCHITECTURE.md)。课程 PDF 与原用户文件未改动。
+
+## 模块化实验目录
+
+共享数据位于 `datasets/`，pipeline 实现位于 `src/asset3d/`，权重缓存位于 `models/`，批次位于 `experiments/<批次>/`，浏览器位于 `gso-viewer/`。每个批次只提交 `batch.yaml`，用对象 ID 引用共享数据，并自动保存配置快照及结果。新入口：`python scripts/run_batch.py experiments/trellis2-gso-dev-v1/batch.yaml --prepare-only`。详见 [当前部署指南](docs/TRELLIS2_GSO_DEV_GUIDE.md)。旧实验目录作为历史归档保留。

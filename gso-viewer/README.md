@@ -109,3 +109,8 @@ viewer 根据 `viewer-manifest.json` 中明确写出的路径加载 GLB。模型
 - `input` 明确指定该次运行的图片；没有图片写 null。参考模型也可省略。
 - 只将成功输出的模型填入 `models`，待运行或失败的项使用空对象。文件缺失时不会作为可加载类型显示。
 - 原来的 asset/shape 清单继续可用。项目的 `asset3d viewer-index` 仍是已有 batch 输出格式的适配器；其他实验直接生成上述清单即可，无需改 GLB 文件名。
+
+
+## 共享数据与批次目录
+
+自动发现支持 `experiments/<批次>/results/viewer-manifest.json`。参考模型可通过相对路径指向仓库内的 `datasets/`；所有目标仍需在 `--data-root` 之内。代码仓库作为默认数据根目录即可同时读取共享数据与多个实验。旧的 `<实验包>/results/<批次>/` 继续支持。迁移历史结果时保留原始实验记录；参考路径变化可用 `asset3d viewer-index --reference-dir ...` 重建展示清单。

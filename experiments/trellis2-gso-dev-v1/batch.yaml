@@ -1,0 +1,8 @@
+# 路径从仓库根目录解析。新增批次只需新建一个批次文件夹。
+schema_version: 1
+dataset_manifest: datasets/gso-v1/data/manifests/gso-dev-v1.csv
+split: dev
+objects: [gso_01, gso_02, gso_07, gso_08, gso_13, gso_14, gso_19, gso_20, gso_25, gso_26]
+configs: [configs/trellis2_gso_dev.yaml]
+seeds: [42, 123]
+expected_hashes: data/manifests/gso-dev-v1-frozen-hashes.json
