@@ -9,27 +9,54 @@
 - `shape_raw.glb` 是 TRELLIS.2 导出前几何，`asset.glb` 是烘焙并简化后的带材质模型。它和混元的 4 万面导出设置不同，比较时分别记录。
 - 结果单独写入 `results/trellis2-gso-dev-v1`，保留原来的混元目录。自动生成 viewer 预设及每次运行记录。
 
-## 2. 上传代码和数据
+## 2. 首次获取代码和上传数据
 
-在笔记本项目根目录执行：
+### 2.1 在服务器克隆代码
 
-```powershell
-.\.venv\Scripts\python.exe scripts/package_project.py
-```
-
-将 `dist/asset3d-source.tar.gz` 上传至服务器，再解压到你的项目目录。若目录已有文件，先核对并备份；解压会覆盖包内同名源码。安装环境、第三方仓库、模型缓存和实验结果都不在源码包中。
-
-还需上传现有 `asset3d-gso-v1-20261108/data/`，保持 `manifests/gso-formal-v1.csv` 与 `rendered/gso-formal-v1/` 的相对位置。此 CSV 包含 30 行，当前读取器会核验所有行对应的文件，因此应上传完整 data 目录；生成时只选 `dev` 的 10 行。已有文件可复用，先用下面检查确认内容。
-
-服务器进入项目根目录，假设数据放在 `~/asset3d-gso-v1-20261108/data`：
+在服务器登录节点执行：
 
 ```bash
+cd ~
+git clone --branch trellis2-gso-dev --single-branch \
+  https://github.com/Zr21340398/cv-final-project.git asset3d-formal
 cd ~/asset3d-formal
-export GSO_MANIFEST="$HOME/asset3d-gso-v1-20261108/data/manifests/gso-formal-v1.csv"
 mkdir -p logs results
 ```
 
-如果实际路径不同，修改 `GSO_MANIFEST`。不要照抄其他账户的 `/home/` 路径。
+已有 `~/asset3d-formal` 时先检查目录，避免覆盖。如果之前已克隆，进入该目录并确认分支和最新提交即可。Git 只获取源码和少量清单，模型权重和 GSO 二进制数据单独准备。
+
+### 2.2 在笔记本打包并上传 10 个对象
+
+在本机 PowerShell 中执行（项目根目录）：
+
+```powershell
+Set-Location 'D:\AIEproject\MAIE5421_CV\Final Project'
+.\.venv\Scripts\python.exe scripts/package_trellis2_gso_dev.py --manifest asset3d-gso-v1-20261108/data/manifests/gso-formal-v1.csv
+scp .\dist\trellis2-gso-dev-data.tar.gz hkust-hpc4:~/trellis2-gso-dev-data.tar.gz
+```
+
+`hkust-hpc4` 是示例 SSH 别名；请替换成你实际配置成功的别名。第一条 Python 命令会核验数据、重新生成专用压缩包，第二条 `scp` 才会把数据上传到服务器。压缩包包含 10 张输入图片、10 个参考 GLB 和只列出这 10 个对象的清单，约 108 MiB（压缩后大小以实际输出为准）。
+
+服务器上执行：
+
+```bash
+mkdir -p ~/asset3d-gso-v1-20261108
+tar -tzf ~/trellis2-gso-dev-data.tar.gz | head
+```
+
+确认目标目录没有需要保留的同名 `data/manifests/gso-dev-v1.csv` 或 `data/rendered/gso-formal-v1/` 文件，然后解压：
+
+```bash
+tar -xzf ~/trellis2-gso-dev-data.tar.gz -C ~/asset3d-gso-v1-20261108
+cd ~/asset3d-formal
+export GSO_MANIFEST="$HOME/asset3d-gso-v1-20261108/data/manifests/gso-dev-v1.csv"
+```
+
+该清单只包含开发集 10 行。数据包来源及许可信息可见代码仓库的 `data/manifests/gso-selection.csv` 和 `gso-selection.metadata.json`。如实际目录不同，按实际位置修改 `GSO_MANIFEST`。
+
+### 关于旧源码压缩包
+
+`dist/asset3d-source.tar.gz` 只有运行 `scripts/package_project.py` 后才更新，文件旧时不要直接拿它上传。本指南使用 Git 获取代码，不需要这个包。数据包是另一个文件，按 2.2 节生成并上传。
 
 ## 3. TRELLIS.2 独立环境和模型
 
@@ -46,7 +73,7 @@ asset3d download --config configs/trellis2_gso_dev.yaml
 python scripts/check_trellis2_gso_dev.py "$GSO_MANIFEST"
 ```
 
-下载前确认 DINOv3 已准备好。检查会读取全清单、校验 10 个开发样本的原图、参考模型和透明背景。出现缺文件或哈希不同，先核对上传目录。
+下载前确认 DINOv3 已准备好。检查会读取开发集清单、校验 10 个开发样本的原图、参考模型和透明背景。出现缺文件或哈希不同，先核对上传目录。
 
 ## 4. 先生成一个样例
 
@@ -77,7 +104,7 @@ exit
 在登录节点项目根目录，重新确认两个路径变量，再提交：
 
 ```bash
-export GSO_MANIFEST="$HOME/asset3d-gso-v1-20261108/data/manifests/gso-formal-v1.csv"
+export GSO_MANIFEST="$HOME/asset3d-gso-v1-20261108/data/manifests/gso-dev-v1.csv"
 export HF_HOME="/scratch/$USER/project3/cache/huggingface"
 export ASSET3D_DINOV3_DIR="$HOME/models/dinov3-vitl16-pretrain-lvd1689m"
 mkdir -p logs
