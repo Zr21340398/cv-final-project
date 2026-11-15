@@ -1,0 +1,11 @@
+id,image,reference,split
+gso_01,../rendered/gso-formal-v1/gso_01/view-000.png,../rendered/gso-formal-v1/gso_01/reference_normalized.glb,dev
+gso_02,../rendered/gso-formal-v1/gso_02/view-000.png,../rendered/gso-formal-v1/gso_02/reference_normalized.glb,dev
+gso_07,../rendered/gso-formal-v1/gso_07/view-000.png,../rendered/gso-formal-v1/gso_07/reference_normalized.glb,dev
+gso_08,../rendered/gso-formal-v1/gso_08/view-000.png,../rendered/gso-formal-v1/gso_08/reference_normalized.glb,dev
+gso_13,../rendered/gso-formal-v1/gso_13/view-000.png,../rendered/gso-formal-v1/gso_13/reference_normalized.glb,dev
+gso_14,../rendered/gso-formal-v1/gso_14/view-000.png,../rendered/gso-formal-v1/gso_14/reference_normalized.glb,dev
+gso_19,../rendered/gso-formal-v1/gso_19/view-000.png,../rendered/gso-formal-v1/gso_19/reference_normalized.glb,dev
+gso_20,../rendered/gso-formal-v1/gso_20/view-000.png,../rendered/gso-formal-v1/gso_20/reference_normalized.glb,dev
+gso_25,../rendered/gso-formal-v1/gso_25/view-000.png,../rendered/gso-formal-v1/gso_25/reference_normalized.glb,dev
+gso_26,../rendered/gso-formal-v1/gso_26/view-000.png,../rendered/gso-formal-v1/gso_26/reference_normalized.glb,dev

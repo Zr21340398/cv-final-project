@@ -43,37 +43,9 @@ GSO 提供日常物体的扫描网格、颜色贴图和元数据，可以从参�
 
 GSO 的扫描贴图可能带有原始光照，先检查是否影响观察。当前主指标围绕形状、颜色和图案，金属度与粗糙度评价需要额外材质真值。
 
-## 3. 来源记录和上传
+## 3. 来源记录和共享数据准备
 
-首次准备时，在项目根目录复制模板：
-
-~~~bash
-cp -n data/manifests/gso-selection.example.csv data/manifests/gso-selection.csv
-cp -n data/manifests/gso-formal.example.csv data/manifests/gso-formal-v1.csv
-~~~
-
-模板只有表头，需要填写真实对象信息。来源表各列：
-- id：项目使用的唯一短名，只用字母、数字、下划线和短横线。
-- gso_id、source_url：数据集原始标识及实际下载页面。
-- license：记录下载包的许可与署名要求；官方介绍为 CC BY 4.0。
-- category：上表五个类别之一。
-- duplicate_group：同款或近似重复对象的共同标识；独立对象可填写自己的 id。
-- split：dev 或 test。
-- mesh_path：实际可视网格位置，建议相对 CSV 所在目录。
-- orientation_notes：旋转方向、正面约定与处理记录。
-- selection_notes：选入原因、参考质量及替换原因。
-
-原始文件放在 data/raw/gso/<id>/，保持下载包内部结构。大文件不提交到 Git。
-源码打包仅包含 data/manifests，原始模型和渲染文件单独上传。
-
-笔记本 PowerShell，以下目录须先准备好：
-
-~~~powershell
-Set-Location 'D:\AIEproject\MAIE5421_CV\Final Project'
-scp -r '.\data\raw\gso' hkust-hpc4:~/asset3d-formal/data/raw/
-~~~
-
-服务器端先创建 ~/asset3d-formal/data/raw。模型文件、环境和数据使用自己的账户目录。
+来源记录保留在 `data/manifests/gso-selection.csv`，包含对象 ID、下载 URL、许可和划分。原始模型、渲染图片和参考网格存入 `datasets/gso-v1/data/`，各批次通过对象 ID 引用。首次传输以及权重下载见 [DATA_AND_MODELS.md](DATA_AND_MODELS.md)。后续实验无需复制数据集或制作本地包。
 
 ## 4. 在开发对象上确认渲染条件
 

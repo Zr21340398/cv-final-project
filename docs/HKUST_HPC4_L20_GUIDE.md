@@ -1,3 +1,5 @@
+当前项目的数据和权重准备请使用 [统一准备指南](DATA_AND_MODELS.md)，本文保留学校资源与模块操作参考。
+
 # HKUST HPC4：把笔记本项目放到 L20 上运行
 
 核对日期：2026-11-01。适用于 Python / PyTorch 训练和推理。默认你已经能连接学校服务器，本指南从上传代码开始。
@@ -48,42 +50,9 @@ Windows PowerShell 执行标为 powershell 的代码；服务器 Bash 执行标�
 
 退出计算节点会释放资源。共享磁盘上的代码、虚拟环境、权重和已写入的结果会保留；进程、显存内容、当前终端激活的环境会结束。下一次运行重新加载模块、激活原来的环境即可。
 
-## 4. 首次上传代码
+## 4. 获取当前项目代码和数据
 
-**服务器登录节点，整块粘贴：**
-
-```bash
-mkdir -p ~/projects/my-ai-project
-```
-
-**笔记本 PowerShell，修改本地路径后整块粘贴：**
-
-```powershell
-Set-Location 'D:\你的项目目录'
-tar --exclude=.venv --exclude=venv --exclude=.git --exclude=__pycache__ --exclude=data --exclude=outputs --exclude=logs --exclude=code-upload.tar.gz -czf code-upload.tar.gz .
-scp .\code-upload.tar.gz hkust-hpc4:~/projects/my-ai-project/
-```
-
-该压缩包只传代码和配置。Windows 的虚拟环境包含平台相关文件，服务器需要重新安装 Linux 依赖。大数据单独传，避免每次更新代码都重传。
-
-**服务器登录节点，整块粘贴：**
-
-```bash
-cd ~/projects/my-ai-project
-tar -xzf code-upload.tar.gz
-mkdir -p hpc logs outputs data
-ls
-```
-
-首次解压使用新目录；后续解压会覆盖同名源码。运行中的实验使用独立的代码副本或固定 Git 提交，等作业结束后再更新它的工作目录。
-
-**上传数据的示例，笔记本 PowerShell：**
-
-```powershell
-scp -r '.\data\small-dataset' hkust-hpc4:~/projects/my-ai-project/data/
-```
-
-大数据先在服务器创建目标目录，再传到已确认的 scratch 路径；把项目配置中的数据路径改成服务器 Linux 路径。代码中优先使用相对路径或命令行参数，检查并替换 `D:\...` 等本地绝对路径。
+本项目使用 Git 获取代码；数据目录首次传输一次，模型权重独立下载。请按 [DATA_AND_MODELS.md](DATA_AND_MODELS.md) 执行，服务器代码目录为 `~/project/cv-final-project/`。本指南其他 `my-ai-project` 路径是学校资源使用示例，不用于当前项目部署。
 
 ## 5. CPU 上准备环境
 
@@ -133,7 +102,7 @@ source /opt/shared/.spack-edge/dist/bin/setup-env.sh -y || return 1
 module load python/3.12.9 || return 1
 # 若项目编译/运行确实需要其他模块，在这里补充已经核实的 module load 行。
 source .venv/bin/activate || return 1
-export HF_HOME="/scratch/$USER/my-ai-project/cache/huggingface"
+export HF_HOME="$HOME/project/cv-final-project/models/huggingface"
 export PIP_CACHE_DIR="/scratch/$USER/my-ai-project/cache/pip"
 export PYTHONUNBUFFERED=1
 mkdir -p "$HF_HOME" "$PIP_CACHE_DIR" || return 1

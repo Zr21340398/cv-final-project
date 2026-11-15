@@ -18,16 +18,15 @@ python gso-viewer/server.py --open
 
 ## 2. 查看这次 GSO 开发集
 
-点击 **实验预设**，在“实验”下拉框选择 **asset3d-gso-v1-20261108 / gso-dev-v1**，再选择物体、种子和模型类型，点击 **对比参考模型与所有方案**。页面会放入 GSO 参考模型和 20、30、50 步的三个结果。也可在单个窗口选择一个方案加载。
+点击 **实验预设**，在“实验”下拉框选择 **experiments / asset3d-gso-v1-20261108**，再选择物体、种子和模型类型，点击 **对比参考模型与所有方案**。页面会放入 GSO 参考模型和 20、30、50 步的三个结果。也可在单个窗口选择一个方案加载。
 
 预设默认从项目根目录下读取：
 
 ~~~text
-asset3d-gso-v1-20261108/
-├── data/rendered/gso-formal-v1/gso_01/reference_normalized.glb
-└── results/gso-dev-v1/
-    ├── viewer-manifest.json
-    └── hunyuan2_steps50/gso_01/seed-42/asset.glb
+datasets/gso-v1/data/rendered/gso-formal-v1/gso_01/reference_normalized.glb
+experiments/asset3d-gso-v1-20261108/results/
+    viewer-manifest.json
+    hunyuan2_steps50/gso_01/seed-42/asset.glb
 ~~~
 
 模型文件和数据需要单独获取；它们不包含在 Git 仓库中。此目录中没有展示清单时，程序还可以读取这次旧实验的目录布局及 GSO 数据清单，不会修改原始实验记录。缺失的参考或结果文件会在页面中标记。
@@ -42,7 +41,7 @@ asset3d-gso-v1-20261108/
 - 每个实验方案的名称与完整配置；
 - 每个对象、方案和随机种子的状态、对应的输入图片及已完成的 GLB 路径。
 
-工作台默认在项目根目录的 results/实验名/，以及 实验包/results/实验名/ 中查找 viewer-manifest.json。放入新的实验目录后，点击工作台上的 **刷新实验列表**，就能选择新实验；同名结果放在不同实验包中会分别列出。清单里记录的是实验方案，选择实验后，对象、种子、模型类型和输入图片来源会随该实验的实际记录变化。
+工作台默认在 experiments/批次/results/、results/实验名/，以及历史 实验包/results/实验名/ 中查找 viewer-manifest.json。放入新的实验目录后，点击工作台上的 **刷新实验列表**，就能选择新实验；同名结果放在不同实验包中会分别列出。清单里记录的是实验方案，选择实验后，对象、种子、模型类型和输入图片来源会随该实验的实际记录变化。
 
 清单路径以清单所在目录为基准，例如 方案名/gso_01/seed-42/asset.glb。参考模型可以放在结果目录之外、同一数据根目录之内，路径可能以 ../../data/ 开头。复制给其他人时，请连同模型与参考数据保持相对目录结构；JSON 本身不包含模型。
 
@@ -60,9 +59,9 @@ python gso-viewer/server.py --data-root "D:\实验数据" --manifest "D:\实验�
 
 ~~~powershell
 .\.venv\Scripts\python.exe -m asset3d.cli viewer-index `
-  --experiment "asset3d-gso-v1-20261108/results/gso-dev-v1" `
-  --reference-dir "asset3d-gso-v1-20261108/data/rendered/gso-formal-v1" `
-  --output "asset3d-gso-v1-20261108/results/gso-dev-v1/viewer-manifest.json"
+  --experiment "experiments/asset3d-gso-v1-20261108/results" `
+  --reference-dir "datasets/gso-v1/data/rendered/gso-formal-v1" `
+  --output "experiments/asset3d-gso-v1-20261108/results/viewer-manifest.json"
 ~~~
 
 默认不会覆盖已有索引；确需重建时添加 --overwrite。指定的参考模型与实验记录中的摘要会进行核对。Windows 上清单和对应数据需位于同一盘符，迁移时保留相对布局。
