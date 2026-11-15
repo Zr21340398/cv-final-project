@@ -1,0 +1,3 @@
+# TRELLIS.2 正式开发集基线，沿用已完成预实验的 1024 cascade 设置。
+extends: trellis2.yaml
+name: trellis2_gso_dev

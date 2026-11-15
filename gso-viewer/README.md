@@ -72,3 +72,40 @@ python gso-viewer/server.py --data-root "D:\实验数据" --manifest "D:\实验�
 ## 5. 运行要求
 
 需要 Python 3.10 或更新版本，以及支持 WebGL 的现代浏览器。Babylon.js 和官方 glTF 加载器 7.54.3 已包含在 vendor 目录，许可证见 vendor/BABYLON-LICENSE.md。本地服务只监听 127.0.0.1。
+
+
+## 通用实验预设接口
+
+viewer 根据 `viewer-manifest.json` 中明确写出的路径加载 GLB。模型文件和目录可以自由命名，路径以清单所在目录为基准，所有文件需位于启动时的 `--data-root` 内。独立清单可通过 `--manifest <清单路径>` 指定；自动发现仍使用上文约定的 results 目录层级。
+
+下面是一次前后处理对比的完整清单示例（将路径替换为实际文件）：
+
+```json
+{
+  "schema_version": 1,
+  "id": "texture-repair-demo",
+  "label": "纹理修复对照",
+  "model_types": {"surface": "表面模型"},
+  "objects": [{"id": "speaker", "label": "音箱", "reference": "refs/speaker.glb"}],
+  "variants": [
+    {"id": "original", "label": "原始贴图"},
+    {"id": "repaired", "label": "修复后贴图"}
+  ],
+  "runs": [
+    {"object": "speaker", "variant": "original", "seed": null,
+     "input": "images/front.png", "status": "completed",
+     "models": {"surface": "models/before-any-name.glb"}},
+    {"object": "speaker", "variant": "repaired", "seed": null,
+     "input": "images/front.png", "status": "completed",
+     "models": {"surface": "processed/after-any-name.glb"}}
+  ]
+}
+```
+
+- `objects` 和 `variants` 的 id 用字符串，分别唯一；每个对象、方案、种子组合只有一条 run。
+- 并排比较前后处理时，把它们定义为不同方案，并使用同一个模型类型，如示例中的 `surface`。
+- `models` 的键可自定义；`model_types` 提供显示名称，未提供名称时显示键本身。`reference` 是参考模型的保留名称。
+- 无随机种子的步骤使用 `seed: null` 或省略 seed，界面显示“无随机种子”；字符串 `None` 保留给这个选项。
+- `input` 明确指定该次运行的图片；没有图片写 null。参考模型也可省略。
+- 只将成功输出的模型填入 `models`，待运行或失败的项使用空对象。文件缺失时不会作为可加载类型显示。
+- 原来的 asset/shape 清单继续可用。项目的 `asset3d viewer-index` 仍是已有 batch 输出格式的适配器；其他实验直接生成上述清单即可，无需改 GLB 文件名。

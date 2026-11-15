@@ -44,7 +44,7 @@
   }
   function updateSeeds() {
     const seeds = [...new Set(objectRuns().map(r => String(r.seed)).filter(Boolean))].sort((a,b) => a.localeCompare(b, undefined, {numeric:true}));
-    values(seed, seeds.map(s => ({id:s,label:s})), seed.value);
+    values(seed, seeds.map(s => ({id:s,label:s === 'None' ? '无随机种子' : s})), seed.value);
     updateKinds();
   }
   function updateKinds() {

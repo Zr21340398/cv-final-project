@@ -126,20 +126,23 @@ class Datasets:
                         "reference": self.available(base, o.get("reference"))} for o in data["objects"]]
             runs, seeds, kinds = [], set(), set()
             for run in data["runs"]:
+                # 无随机种子的确定性后处理也作为可选择的一次运行。
                 seed = run.get("seed")
-                if seed is None:
-                    continue
+                seed = "None" if seed is None else seed
                 seeds.add(seed)
                 available = [k for k, p in run.get("models", {}).items()
-                             if k in ("asset", "shape") and self.available(base, p)]
+                             if k != "reference" and self.available(base, p) and Path(p).suffix.lower() == ".glb"]
                 kinds.update(available)
                 runs.append({"object": run["object"], "variant": run["variant"], "seed": seed,
                              "status": run.get("status", "unknown"), "kinds": available})
+            # 类型由清单声明；旧清单保留原来的中文显示名称。
             names = {"asset": "带纹理模型", "shape": "原始白模"}
+            names.update(data.get("model_types", {}))
+            ordered_kinds = [k for k in names if k in kinds] + sorted(kinds - names.keys())
             output.append({"id": data["id"], "label": data.get("label") or data["id"],
                            "objects": objects, "variants": data["variants"], "runs": runs,
                            "seeds": sorted(seeds, key=lambda value: (not isinstance(value, int), value)),
-                           "kinds": [{"id": k, "label": names[k]} for k in ("asset", "shape") if k in kinds],
+                           "kinds": [{"id": k, "label": names.get(k, k)} for k in ordered_kinds],
                            "reference": any(o["reference"] for o in objects)})
         return {"datasets": output}
 
@@ -180,8 +183,8 @@ class Datasets:
                                 break
             else:
                 kind = one("kind")
-                if kind not in ("asset", "shape"):
-                    raise ValueError("Invalid kind")
+                if kind not in runs[0].get("models", {}):
+                    raise FileNotFoundError("Model kind not available in this run")
                 value = runs[0].get("models", {}).get(kind)
         path = self.path(base, value)
         expected = (".png", ".jpg", ".jpeg") if image else (".glb",)
