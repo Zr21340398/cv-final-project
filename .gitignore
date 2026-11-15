@@ -21,3 +21,6 @@ data/local/
 
 # Curated pilot reports and small comparison images are versioned.
 !docs/results/
+
+# Local TRELLIS.2 experiment bundle (data, logs and generated results).
+/asset3d-trellis2-gso-v1/
