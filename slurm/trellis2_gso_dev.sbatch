@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --gpus-per-node=1
-#SBATCH --time=04:00:00
+#SBATCH --time=10:00:00
 #SBATCH --output=logs/%x-%j.out
 
 set -euo pipefail
