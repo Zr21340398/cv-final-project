@@ -279,10 +279,55 @@ class DiscoveredDatasets(Datasets):
 
 def make_handler(datasets: Datasets):
     class Handler(BaseHTTPRequestHandler):
+        def json_response(self, value, status=200):
+            body = json.dumps(value, ensure_ascii=False).encode('utf-8')
+            self.send_response(status)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Cache-Control', 'no-store')
+            self.end_headers()
+            self.wfile.write(body)
+
+        def do_POST(self):
+            # 浏览器必须来自本机工作台；拒绝其他网站跨站触发 GPU 作业。
+            origin = self.headers.get('Origin')
+            expected = 'http://127.0.0.1:' + str(self.server.server_port)
+            if self.headers.get('X-Asset3D') != 'workbench' or origin not in (None, expected):
+                self.json_response({'error': 'Invalid origin'}, 403)
+                return
+            try:
+                import generation
+                if self.path == '/api/generate':
+                    size = int(self.headers.get('Content-Length', '0'))
+                    if not 0 < size <= 20 * 1024 * 1024:
+                        raise ValueError('请选择 20 MiB 以内的 JPG 或 PNG 图片')
+                    data = self.rfile.read(size)
+                    if not (data.startswith(b'\x89PNG\r\n\x1a\n') or data.startswith(b'\xff\xd8\xff')):
+                        raise ValueError('仅支持 JPG 或 PNG 图片')
+                    self.json_response(generation.create(data), 202)
+                elif self.path.startswith('/api/generation-retry/'):
+                    ident = self.path.rsplit('/', 1)[-1]
+                    task = generation.read(ident)
+                    if not task.get('job_id'):
+                        raise ValueError('任务未记录作业号，请查看连接错误并检查服务器队列后重新提交')
+                    generation.launch(ident, generation.update)
+                    self.json_response({'ok': True})
+                else:
+                    self.send_error(404)
+            except (ValueError, OSError, RuntimeError) as error:
+                self.json_response({'error': str(error)}, 400)
+
         def do_GET(self):
             parsed = urlsplit(self.path)
             try:
-                if parsed.path == "/api/catalog":
+                if parsed.path == '/api/generation-jobs':
+                    import generation
+                    self.json_response(generation.tasks())
+                    return
+                if parsed.path.startswith('/api/generated/'):
+                    import generation
+                    path = generation.folder(parsed.path.rsplit('/', 1)[-1]) / 'asset.glb'
+                elif parsed.path == "/api/catalog":
                     problems = datasets.refresh() if isinstance(datasets, DiscoveredDatasets) else []
                     listing = datasets.catalog()
                     listing["warnings"] = problems
@@ -293,7 +338,7 @@ def make_handler(datasets: Datasets):
                     self.end_headers()
                     self.wfile.write(payload)
                     return
-                if parsed.path in ("/api/model", "/api/input"):
+                elif parsed.path in ("/api/model", "/api/input"):
                     path = datasets.resolve(parsed.query, image=parsed.path.endswith("input"))
                 else:
                     routes = {"/": "frontend/index.html", "/index.html": "frontend/index.html",

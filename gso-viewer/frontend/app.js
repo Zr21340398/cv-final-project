@@ -225,5 +225,54 @@
     for(let i=0;i<3;i++) addPanel();
     await refreshCatalog();
   }
+  const displayedJobs = new Set();
+  async function displayGenerated(id) {
+    const panel = addPanel();
+    await loadBlob(panel, async () => {
+      const response = await fetch('/api/generated/' + id);
+      if (!response.ok) throw new Error('下载模型失败');
+      return response.blob();
+    }, 'TRELLIS.2 生成结果', id.slice(0, 8));
+  }
+  $('#generate-submit').addEventListener('click', async () => {
+    const file = $('#generate-image').files[0];
+    const message = $('#generate-message');
+    if (!file) { message.textContent = '请先选择照片'; return; }
+    if (file.size > 20 * 1024 * 1024) { message.textContent = '图片请小于 20 MiB'; return; }
+    $('#generate-submit').disabled = true;
+    try {
+      const response = await fetch('/api/generate', {method:'POST', headers:{'X-Asset3D':'workbench'}, body:file});
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error);
+      message.textContent = '任务已创建，可在下方查看进度。';
+    } catch (error) { message.textContent = error.message; }
+    finally { $('#generate-submit').disabled = false; }
+  });
+  async function pollGeneration() {
+    try {
+      const response = await fetch('/api/generation-jobs', {cache:'no-store'});
+      if (!response.ok) throw new Error('任务服务不可用');
+      const jobs = await response.json();
+      const target = $('#generation-jobs'); target.replaceChildren();
+      for (const job of jobs) {
+        const row = document.createElement('div');
+        const text = document.createElement('span');
+        text.textContent = job.id.slice(0,8) + ' · ' + job.state + (job.job_id ? ' · 作业 ' + job.job_id : '') + (job.error ? ' · ' + job.error : '');
+        row.append(text);
+        if (job.state === '完成') {
+          const button = document.createElement('button'); button.textContent = '查看模型';
+          button.onclick = () => displayGenerated(job.id); row.append(button);
+          if (!displayedJobs.has(job.id)) { displayedJobs.add(job.id); await displayGenerated(job.id); }
+        } else if (job.error && job.job_id) {
+          const button = document.createElement('button'); button.textContent = '重新查询 / 下载';
+          button.onclick = () => fetch('/api/generation-retry/' + job.id, {method:'POST',headers:{'X-Asset3D':'workbench'}});
+          row.append(button);
+        }
+        target.append(row);
+      }
+    } catch(error) { $('#generate-message').textContent = error.message; }
+    finally { setTimeout(pollGeneration, 10000); }
+  }
+  pollGeneration();
   initialize().catch(error=>{notice.textContent=error.message;console.error(error);});
 })();

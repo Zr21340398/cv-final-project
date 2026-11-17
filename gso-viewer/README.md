@@ -113,3 +113,5 @@ viewer 根据 `viewer-manifest.json` 中明确写出的路径加载 GLB。模型
 ## 共享数据与批次目录
 
 自动发现支持 `experiments/<批次>/results/viewer-manifest.json`。参考模型可通过相对路径指向仓库内的 `datasets/`；所有目标仍需在 `--data-root` 之内。代码仓库作为默认数据根目录即可同时读取共享数据与多个实验。旧的 `<实验包>/results/<批次>/` 继续支持。迁移历史结果时保留原始实验记录；参考路径变化可用 `asset3d viewer-index --reference-dir ...` 重建展示清单。
+
+自动图片生成入口见 [自动生成说明](../docs/AUTOMATED_GENERATION.md)。
