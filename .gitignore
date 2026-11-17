@@ -33,3 +33,7 @@ data/local/
 
 # User-specific HPC module setup and credentials remain outside Git.
 /local/
+
+# Generated application jobs and all future experiment batches stay local.
+/local/web-jobs/
+/experiments/

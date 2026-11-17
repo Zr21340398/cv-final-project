@@ -1,46 +1,93 @@
-"""GPU 作业内执行单图生成，并写出供本地工作台读取的状态。"""
+"""两种模式共用的单图预处理与推理执行器。"""
 import json
 import sys
+from copy import deepcopy
 from pathlib import Path
 from PIL import Image, ImageOps
 from asset3d.backends.trellis2 import TrellisBackend
 from asset3d.config import load_config
 from asset3d.pipeline import Pipeline
+from asset3d.job_spec import validate
+from asset3d.recording import save_json
 
-job = Path(sys.argv[1]).resolve()
-def status(state, error=None):
-    temporary = job / 'status.tmp'
-    temporary.write_text(json.dumps({'state': state, 'error': error}, ensure_ascii=False), encoding='utf-8')
-    temporary.replace(job / 'status.json')
 
-try:
-    status('加载模型')
-    config = load_config(job / 'code/configs/trellis2_gso_dev.yaml')
-    backend = TrellisBackend(config)
-    backend.begin()
-    backend.load_shape()
-    status('抠图')
-    import torch
-    import numpy as np
-    with Image.open(job / 'input') as opened:
-        image = ImageOps.exif_transpose(opened).convert('RGB')
-    if max(image.size) > 2048:
-        image.thumbnail((2048, 2048))
-    image.save(job / 'source.png')
-    with torch.inference_mode():
-        remover = backend.pipeline.rembg_model
-        remover.to(backend.pipeline.device)
-        try:
-            masked = remover(image).convert('RGBA')
-        finally:
-            remover.cpu()
-    alpha = np.asarray(masked.getchannel('A'))
-    if alpha.min() == 255 or not (alpha > 204).any():
-        raise ValueError('没有识别出有效前景，请使用主体清楚的图片')
-    masked.save(job / 'masked.png')
-    status('生成形状与材质并导出')
-    Pipeline(config, backend).run(job / 'masked.png', job / 'output', seed=42)
-    status('完成')
-except Exception as error:
-    status('失败', str(error))
-    raise
+def execute(job):
+    spec = json.loads((job/'request.json').read_text(encoding='utf-8'))
+    total = validate(spec)
+    base = load_config(Path(__file__).resolve().parent/'configs/trellis2_gso_dev.yaml')
+    results = job/'results'
+    results.mkdir(exist_ok=True)
+    viewer = {'schema_version':1,'id':spec['name'],'label':spec['name'],
+              'objects':[], 'variants':[], 'runs':[]}
+    failures = []
+    done = 0
+    for i, name in enumerate(spec['images']):
+        viewer['objects'].append({'id':f'image_{i:03d}','label':name,'reference':None})
+    for variant in spec['variants']:
+        c = deepcopy(base)
+        c['name'] = variant['name']
+        for key in ('decimation_target','texture_size'):
+            if key in variant:
+                c['texture'][key] = variant[key]
+        viewer['variants'].append({'id':c['name'],'label':c['name'],'config':c})
+        backend = TrellisBackend(c)
+        backend.begin()
+        backend.load_shape()
+        pipeline = Pipeline(c,backend)
+        for i, name in enumerate(spec['images']):
+            ident = f'image_{i:03d}'
+            masked_path = job/'prepared'/f'{ident}.png'
+            if not masked_path.exists():
+                import torch
+                import numpy as np
+                with Image.open(job/'inputs'/name) as opened:
+                    image = ImageOps.exif_transpose(opened).convert('RGBA')
+                image.thumbnail((2048,2048))
+                # 已有透明前景时保留蒙版；普通照片使用同一个官方抠图模型。
+                if image.getchannel('A').getextrema()[0] == 255:
+                    with torch.inference_mode():
+                        remover = backend.pipeline.rembg_model
+                        remover.to(backend.pipeline.device)
+                        try:
+                            image = remover(image.convert('RGB')).convert('RGBA')
+                        finally:
+                            remover.cpu()
+                if not (np.asarray(image.getchannel('A')) > 204).any():
+                    raise ValueError(f'{name}: 未识别出前景')
+                masked_path.parent.mkdir(exist_ok=True)
+                image.save(masked_path)
+            for seed in spec['seeds']:
+                relative = f'{c["name"]}/{ident}/seed-{seed}'
+                run = {'object':ident,'variant':c['name'],'seed':seed,'status':'failed','models':{}}
+                status(job, f'生成 {done+1}/{total}：{name} / {c["name"]} / {seed}')
+                try:
+                    pipeline.run(masked_path,results/relative,seed=seed)
+                    run.update(status='completed',input=relative+'/input.png',
+                               models={'asset':relative+'/asset.glb','shape':relative+'/shape_raw.glb'})
+                except Exception as error:
+                    failures.append({'run':relative,'error':str(error)})
+                viewer['runs'].append(run)
+                done += 1
+                save_json(results/'viewer-manifest.json',viewer)
+                save_json(results/'failures.json',failures)
+        # 方案间释放 GPU 内存，避免多套模型同时驻留。
+        del pipeline, backend
+        import gc
+        import torch
+        gc.collect()
+        torch.cuda.empty_cache()
+    status(job,'完成',failures=failures)
+
+
+def status(job,state,**extra):
+    save_json(job/'status.json',{'state':state,**extra})
+
+
+if __name__ == '__main__':
+    job = Path(sys.argv[1]).resolve()
+    try:
+        status(job,'加载模型')
+        execute(job)
+    except Exception as error:
+        status(job,'失败',error=str(error))
+        raise

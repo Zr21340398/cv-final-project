@@ -75,8 +75,9 @@ def legacy_manifest(root: Path, data_root: Path, labels: dict[str, str]) -> dict
                     status = "unreadable"
                 runs.append({"object": obj.name, "variant": variant.name, "seed": int(m.group(1)),
                              "status": status, "input": str(seed / "input.png"),
-                             "models": ({"asset": str(seed / "asset.glb"),
-                                         "shape": str(seed / "shape_raw.glb")} if status == "completed" else {})})
+                             "models": ({kind: str(seed / name) for kind, name in
+                                         (("asset", "asset.glb"), ("shape", "shape_raw.glb"))
+                                         if (seed / name).is_file()} if status == "completed" else {})})
     if not runs:
         return None
     return {"schema_version": 1, "id": "gso-dev-v1", "label": "GSO 开发集：混元步数对照",
@@ -297,14 +298,33 @@ def make_handler(datasets: Datasets):
                 return
             try:
                 import generation
-                if self.path == '/api/generate':
+                if urlsplit(self.path).path == '/api/generate':
                     size = int(self.headers.get('Content-Length', '0'))
                     if not 0 < size <= 20 * 1024 * 1024:
                         raise ValueError('请选择 20 MiB 以内的 JPG 或 PNG 图片')
                     data = self.rfile.read(size)
                     if not (data.startswith(b'\x89PNG\r\n\x1a\n') or data.startswith(b'\xff\xd8\xff')):
                         raise ValueError('仅支持 JPG 或 PNG 图片')
-                    self.json_response(generation.create(data), 202)
+                    params = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
+                    def option(name):
+                        values = params.get(name, [])
+                        if len(values) != 1:
+                            raise ValueError('缺少或重复的设置：' + name)
+                        return values[0]
+                    shape = option('download_shape')
+                    if shape not in ('true', 'false'):
+                        raise ValueError('下载白模设置无效')
+                    options = {'host': option('host'), 'project': option('project'),
+                               'time_limit': option('time_limit'), 'download_shape': shape == 'true'}
+                    self.json_response(generation.create(data, options), 202)
+                elif self.path == '/api/generate-batch':
+                    import base64
+                    size = int(self.headers.get('Content-Length','0'))
+                    if not 0 < size <= 100*1024*1024:
+                        raise ValueError('批次上传请求上限 100 MiB')
+                    body = json.loads(self.rfile.read(size))
+                    images = {name:base64.b64decode(data,validate=True) for name,data in body['images'].items()}
+                    self.json_response(generation.create(None,body['connection'],body['experiment'],images),202)
                 elif self.path.startswith('/api/generation-retry/'):
                     ident = self.path.rsplit('/', 1)[-1]
                     task = generation.read(ident)
@@ -314,19 +334,32 @@ def make_handler(datasets: Datasets):
                     self.json_response({'ok': True})
                 else:
                     self.send_error(404)
-            except (ValueError, OSError, RuntimeError) as error:
+            except (ValueError, OSError, RuntimeError, KeyError, TypeError) as error:
                 self.json_response({'error': str(error)}, 400)
 
         def do_GET(self):
             parsed = urlsplit(self.path)
             try:
+                if parsed.path == '/api/generation-settings':
+                    import generation
+                    self.json_response(generation.config())
+                    return
                 if parsed.path == '/api/generation-jobs':
                     import generation
                     self.json_response(generation.tasks())
                     return
                 if parsed.path.startswith('/api/generated/'):
                     import generation
-                    path = generation.folder(parsed.path.rsplit('/', 1)[-1]) / 'asset.glb'
+                    task = generation.read(parsed.path.rsplit('/',1)[-1])
+                    local = generation.location(task)
+                    if task.get('local_dir'):
+                        index = json.loads((local/'results/viewer-manifest.json').read_text(encoding='utf-8'))
+                        runs = [r for r in index['runs'] if r['status'] == 'completed']
+                        if not runs:
+                            raise FileNotFoundError()
+                        path = within(local,local/'results'/runs[0]['models']['asset'])
+                    else:
+                        path = local/'asset.glb'
                 elif parsed.path == "/api/catalog":
                     problems = datasets.refresh() if isinstance(datasets, DiscoveredDatasets) else []
                     listing = datasets.catalog()

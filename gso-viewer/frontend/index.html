@@ -3,10 +3,21 @@
 <body>
   <header><div><span class="eyebrow">IMAGE TO 3D · MODEL WORKSPACE</span><h1>3D 模型工作台</h1><p>把模型放在一起查看，也可以载入实验结果进行对比。</p></div><span class="tag">本地运行</span></header>
   <main>
-    <section class="toolbar" aria-label="图片生成三维资产">
+    <section class="toolbar"><button id="single-mode" type="button">单张图片输入</button><button id="batch-mode" type="button" style="margin-left:auto">批量导入</button></section>
+    <section id="single-form" class="toolbar" hidden aria-label="图片生成三维资产">
       <label>选择物体照片 <input id="generate-image" type="file" accept="image/jpeg,image/png"></label>
+      <label>SSH 别名 <input id="generate-host" type="text" required></label>
+      <label>服务器项目绝对路径 <input id="generate-project" type="text" size="42" required></label>
+      <label>作业运行上限 (HH:MM:SS) <input id="generate-time" type="text" size="9" value="02:00:00" required></label>
+      <label><input id="generate-shape" type="checkbox"> 下载白模</label>
       <button id="generate-submit" class="primary" type="button">用 TRELLIS.2 生成</button>
-      <span id="generate-message" role="status">自动上传、排队生成、下载并展示；每次使用一张 L20，最长两小时。</span>
+      <span id="generate-message" role="status">自动上传、排队生成、下载并展示；每次使用一张 L20。</span>
+    </section>
+    <section id="batch-form" class="toolbar" hidden>
+      <label>实验配置 JSON <input id="batch-config" type="file" accept=".json"></label>
+      <label>实验图片 <input id="batch-images" type="file" accept="image/png,image/jpeg" multiple></label>
+      <button id="batch-submit" type="button">上传并运行实验</button>
+      <span id="batch-message">配置包含连接设置、实验名、images、seeds 和 variants。结果自动加入实验预设。</span>
     </section>
     <section id="generation-jobs" class="tips" aria-live="polite"></section>
     <section class="toolbar" aria-label="工作台操作"><button type="button" id="add-panel" class="primary">＋ 添加对比窗口</button><button type="button" id="reset">重置所有视角</button><button type="button" id="preset-toggle" aria-expanded="false">实验预设 ▾</button><span id="notice" role="status">将 GLB 模型拖入窗口，或点击窗口中的加号。</span></section>
