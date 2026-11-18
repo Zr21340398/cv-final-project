@@ -56,3 +56,9 @@ experiments/trellis-photo-size-v1/
 ## Git 保存范围
 
 `local/`（含单图任务、任务状态和共享代码缓存）、`experiments/` 下新增的实验批次、模型权重和数据集均由 `.gitignore` 排除。共享执行代码、通用配置示例和文档继续提交。此前已提交的历史实验配置及源码记录保留在 Git 中；本规则适用于后续新增批次，不改写已有历史。
+
+### 服务器 GSO 面数实验
+
+在原工作台选择「批量导入」，选择 `configs/gso_lod_six.json`，图片选择栏留空。配置的 `experiment.dataset` 为 `gso-v1` 时，`images` 中的路径相对于服务器项目的 `datasets/gso-v1/data/raw/gso/`。提交器在申请 GPU 前检查每张图片的可读性。已有的上传模式继续使用文件名列表并在页面选图。
+
+此次使用 gso_01 的正面 2.jpg，以及 gso_03、18、23、27、29 的 0.jpg。插件 `shared_lod` 对每个样本和种子运行一次推理，基于同一原生形状和材质导出 100 万、50 万、20 万、10 万目标面的 GLB。种子为 42，贴图固定 2048。作业完成后在实验预设中比较各档，并运行 `python scripts/summarize_lod.py experiments/gso-lod-fridge-six-v1/results` 生成实际面数、字节数和体积降幅的 CSV。

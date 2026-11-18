@@ -236,10 +236,12 @@
       const body = JSON.parse(await config.text());
       const spec = body.experiment;
       const files = [...$('#batch-images').files];
-      if (files.length !== spec.images.length || new Set(files.map(f=>f.name)).size !== files.length || files.some(f=>!spec.images.includes(f.name))) throw new Error('图片文件名必须与配置 images 一致');
+      if (spec.dataset && files.length) throw new Error('本配置使用服务器图片，请清空手动选择的图片。');
+      if (!spec.dataset && (files.length !== spec.images.length || new Set(files.map(f=>f.name)).size !== files.length || files.some(f=>!spec.images.includes(f.name)))) throw new Error('图片文件名必须与配置 images 一致');
       if (files.reduce((n,f)=>n+f.size,0) > 70*1024*1024) throw new Error('所选图片合计请小于 70 MiB');
-      const count = files.length * spec.seeds.length * spec.variants.length;
-      if (!confirm(`实验 ${spec.name}：${files.length} 张图片 × ${spec.seeds.length} 个种子 × ${spec.variants.length} 个方案 = ${count} 次生成。提交 GPU 作业？`)) return;
+      const generations = spec.images.length * spec.seeds.length;
+      const count = generations * spec.variants.length;
+      if (!confirm(`实验 ${spec.name}：${spec.images.length} 张图片 × ${spec.seeds.length} 个种子 × ${spec.variants.length} 个方案 = ${count} 个输出（${spec.export_plugin === 'shared_lod' ? generations : count} 次推理）。提交 GPU 作业？`)) return;
       body.images = {};
       for (const file of files) {
         const encoded = await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result.split(',')[1]);reader.onerror=reject;reader.readAsDataURL(file);});
@@ -248,7 +250,7 @@
       const response = await fetch('/api/generate-batch',{method:'POST',headers:{'X-Asset3D':'workbench','Content-Type':'application/json'},body:JSON.stringify(body)});
       const result = await response.json();
       if (!response.ok) throw new Error(result.error);
-      message.textContent = `已提交 ${count} 次生成，完成后在实验预设查看。`;
+      message.textContent = `已提交 ${count} 个输出，完成后在实验预设查看。`;
     } catch(error) { message.textContent=error.message; }
     finally { $('#batch-submit').disabled=false; }
   };
@@ -287,12 +289,14 @@
         const row = document.createElement('div');
         const text = document.createElement('span');
         text.textContent = (job.name || job.id.slice(0,8)) + ' · ' + job.state + (job.job_id ? ' · 作业 ' + job.job_id : '') + (job.error ? ' · ' + job.error : '');
+        if (Number.isInteger(job.downloaded_models)) text.textContent += ' · 已收到 ' + job.downloaded_models + ' 个模型';
+        if (job.checked_at) text.textContent += ' · 最近同步 ' + new Date(job.checked_at*1000).toLocaleTimeString();
         row.append(text);
         if (job.state === '完成') {
           const button = document.createElement('button'); button.textContent = job.mode === 'batch' ? '刷新实验预设' : '查看模型';
           button.onclick = () => job.mode === 'batch' ? refreshCatalog() : displayGenerated(job.id); row.append(button);
           if (job.failures?.length) text.textContent += ` · ${job.failures.length} 项失败，详见 failures.json`;
-          if (!displayedJobs.has(job.id)) { displayedJobs.add(job.id); if(job.mode === 'batch') await refreshCatalog(); else if(!job.failures?.length) await displayGenerated(job.id); }
+          if (!displayedJobs.has(job.id)) { displayedJobs.add(job.id); if(job.mode === 'batch') void refreshCatalog(); else if(!job.failures?.length) void displayGenerated(job.id).catch(console.error); }
         } else if (job.error && job.job_id) {
           const button = document.createElement('button'); button.textContent = '重新查询 / 下载';
           button.onclick = () => fetch('/api/generation-retry/' + job.id, {method:'POST',headers:{'X-Asset3D':'workbench'}});
@@ -300,8 +304,8 @@
         }
         target.append(row);
       }
-    } catch(error) { $('#generate-message').textContent = error.message; }
-    finally { setTimeout(pollGeneration, 10000); }
+    } catch(error) { $('#generation-jobs').textContent = '任务列表暂时不可用，正在重试：' + error.message; }
+    finally { setTimeout(pollGeneration, 3000); }
   }
   fetch('/api/generation-settings').then(r => { if (!r.ok) throw new Error('无法读取生成设置'); return r.json(); }).then(c => {
     $('#generate-host').value = c.host;

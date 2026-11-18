@@ -209,15 +209,21 @@ class TrellisBackend:
         return {"cold": False, "seconds": 0.0}
 
     def generate_texture(self, mesh, image):
-        import o_voxel
         import torch
 
         if self.native is None:
             raise RuntimeError("Native material state missing; restart TRELLIS.2 generation")
-        c, native = self.config["texture"], self.native
         with torch.inference_mode():
-            # 原始白模已保存；这里先满足官方光栅化器的面数上限。
-            native.simplify(16777216)
+            self.native.simplify(16777216)
+        return self.bake_native(self.config["texture"])
+
+    def bake_native(self, c):
+        """在已准备好的原生数据上按目标面数简化，并重新烘焙 PBR 材质。"""
+        import o_voxel
+        import torch
+
+        native = self.native
+        with torch.inference_mode():
             # 烘焙把空间中的材质属性转换成网格贴图，连同 UV 对应关系封装进 GLB。
             # UV 描述三维表面各位置应读取贴图的哪个位置。
             return o_voxel.postprocess.to_glb(

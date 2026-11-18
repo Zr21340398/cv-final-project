@@ -66,6 +66,8 @@ def test_batch_collection_and_viewer(local,monkeypatch):
         calls.append(src)
         Path(dest).write_text(json.dumps(viewer) if src.endswith('viewer-manifest.json') else '[]')
     monkeypatch.setattr(generation,'scp',copy)
+    import result_transfer
+    monkeypatch.setattr(result_transfer,'collect',lambda h,r,d,names:calls.extend(names))
     monkeypatch.setattr(generation,'ssh',lambda *a:json.dumps({'state':'完成'}))
     generation.update(task)
     output=generation.location(task)/'results/viewer-manifest.json'
@@ -81,3 +83,50 @@ def test_code_cache_hit(local,monkeypatch):
     monkeypatch.setattr(generation,'ssh',lambda *a:'ready')
     monkeypatch.setattr(generation,'scp',lambda *a:pytest.fail('cache should skip upload'))
     assert 'code-releases/' in generation.deploy(task)
+
+def test_server_dataset_submission(local,monkeypatch):
+    config_path = Path(__file__).resolve().parents[1]/'configs/gso_lod_six.json'
+    spec = json.loads(config_path.read_text(encoding='utf-8'))['experiment']
+    task = generation.create(None,OPTIONS,spec,{})
+    assert task['count'] == 24
+    assert spec['images'][0] == 'gso_01/thumbnails/2.jpg'
+    monkeypatch.setattr(generation,'deploy',lambda task:'/project/release')
+    commands, uploads = [], []
+    def ssh(host, cmd):
+        commands.append(cmd)
+        return '12345' if 'sbatch' in cmd else ''
+    monkeypatch.setattr(generation,'ssh',ssh)
+    monkeypatch.setattr(generation,'scp',lambda host,source,dest:uploads.append(dest))
+    generation.submit(task)
+    assert all('/inputs/' not in dest for dest in uploads)
+    assert all(any('test -r' in cmd and name in cmd for cmd in commands) for name in spec['images'])
+    with pytest.raises(ValueError):
+        generation.create(None,OPTIONS,{**spec,'images':['../outside.jpg']},{})
+def test_result_transfer_reuses_completed_files(local,monkeypatch):
+    import io
+    import tarfile
+    import subprocess
+    import result_transfer
+    out = local/'received'
+    out.mkdir()
+    real_popen = subprocess.Popen
+    calls=[]
+    def fake_ssh(args, **kwargs):
+        listing=kwargs['stdin']
+        names=listing.read().decode().splitlines()
+        calls.append(names)
+        stream=io.BytesIO()
+        with tarfile.open(fileobj=stream,mode='w') as archive:
+            for name in names:
+                data=name.encode()
+                info=tarfile.TarInfo(name)
+                info.size=len(data)
+                archive.addfile(info,io.BytesIO(data))
+        source=local/'test_payload.tar'
+        source.write_bytes(stream.getvalue())
+        return real_popen([sys.executable,'-c','import sys;sys.stdout.buffer.write(open(sys.argv[1],"rb").read())',str(source)],**kwargs)
+    monkeypatch.setattr(result_transfer.subprocess,'Popen',fake_ssh)
+    result_transfer.collect('host','/results',out,['v/asset.glb','v/input.png'])
+    result_transfer.collect('host','/results',out,['v/asset.glb','v/input.png','failures.json'])
+    assert calls == [['v/asset.glb','v/input.png'],['failures.json']]
+    assert (out/'v/asset.glb').read_bytes()==b'v/asset.glb'

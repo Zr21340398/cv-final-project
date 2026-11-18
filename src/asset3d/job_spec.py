@@ -2,7 +2,7 @@
 import re
 
 def validate(spec):
-    if not isinstance(spec, dict) or set(spec) != {'name', 'seeds', 'variants', 'images'}:
+    if not isinstance(spec, dict) or set(spec) - {"export_plugin", "dataset"} != {'name', 'seeds', 'variants', 'images'}:
         raise ValueError('配置必须包含 name、seeds、variants、images')
     safe = lambda x: isinstance(x, str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,79}', x)
     if not safe(spec['name']):
@@ -11,11 +11,22 @@ def validate(spec):
     if not isinstance(seeds, list) or not seeds or any(type(s) is not int or not 0 <= s < 2**32 for s in seeds) or len(set(seeds)) != len(seeds):
         raise ValueError('seeds 必须为不同的非负整数')
     images = spec['images']
-    if not isinstance(images, list) or not images or any(not isinstance(s, str) or not re.fullmatch(r'[A-Za-z0-9_.-]+\.(png|jpg|jpeg)', s, re.I) for s in images) or len(set(images)) != len(images):
-        raise ValueError('images 请填写不同的 JPG/PNG 文件名，仅支持英文、数字、点、短横线、下划线')
+    pattern = r'[A-Za-z0-9_.-]+\.(png|jpg|jpeg)'
+    if 'dataset' in spec:
+        if spec['dataset'] != 'gso-v1':
+            raise ValueError('服务器数据集目前支持 gso-v1')
+        pattern = r'gso_[0-9]{2}/thumbnails/[0-9]+\.jpg'
+    if (not isinstance(images, list) or not images
+            or any(not isinstance(name, str) or not re.fullmatch(pattern, name, re.I) for name in images)
+            or len(images) != len(set(images))):
+        raise ValueError('请检查 images 中的文件名、样本路径及重复项')
     variants = spec['variants']
     if not isinstance(variants, list) or not variants:
         raise ValueError('至少需要一个方案')
+    if 'export_plugin' in spec and spec['export_plugin'] != 'shared_lod':
+        raise ValueError('未知导出插件')
+    if spec.get('export_plugin') and any(not isinstance(v,dict) or not {'decimation_target','texture_size'} <= v.keys() for v in variants):
+        raise ValueError('共享导出实验须显式指定各档面数和贴图大小')
     names = set()
     for v in variants:
         if not isinstance(v, dict) or set(v) - {'name','decimation_target','texture_size'} or not safe(v.get('name')) or v['name'] in names:

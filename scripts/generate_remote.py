@@ -9,11 +9,14 @@ from asset3d.config import load_config
 from asset3d.pipeline import Pipeline
 from asset3d.job_spec import validate
 from asset3d.recording import save_json
+from asset3d.viewer_manifest import attach_gso_references
 
 
 def execute(job):
     spec = json.loads((job/'request.json').read_text(encoding='utf-8'))
     total = validate(spec)
+    # 作业脚本先 cd 到服务器项目根目录，直接读取共享数据。
+    inputs = Path.cwd()/'datasets/gso-v1/data/raw/gso' if 'dataset' in spec else job/'inputs'
     base = load_config(Path(__file__).resolve().parent/'configs/trellis2_gso_dev.yaml')
     results = job/'results'
     results.mkdir(exist_ok=True)
@@ -23,13 +26,17 @@ def execute(job):
     done = 0
     for i, name in enumerate(spec['images']):
         viewer['objects'].append({'id':f'image_{i:03d}','label':name,'reference':None})
-    for variant in spec['variants']:
+    attach_gso_references(viewer, spec, Path.cwd(), results)
+    shared = spec.get('export_plugin') == 'shared_lod'
+    for index, variant in enumerate(spec['variants']):
         c = deepcopy(base)
         c['name'] = variant['name']
         for key in ('decimation_target','texture_size'):
             if key in variant:
                 c['texture'][key] = variant[key]
         viewer['variants'].append({'id':c['name'],'label':c['name'],'config':c})
+        if shared and index > 0:
+            continue
         backend = TrellisBackend(c)
         backend.begin()
         backend.load_shape()
@@ -40,7 +47,7 @@ def execute(job):
             if not masked_path.exists():
                 import torch
                 import numpy as np
-                with Image.open(job/'inputs'/name) as opened:
+                with Image.open(inputs/name) as opened:
                     image = ImageOps.exif_transpose(opened).convert('RGBA')
                 image.thumbnail((2048,2048))
                 # 已有透明前景时保留蒙版；普通照片使用同一个官方抠图模型。
@@ -67,6 +74,19 @@ def execute(job):
                 except Exception as error:
                     failures.append({'run':relative,'error':str(error)})
                 viewer['runs'].append(run)
+                if shared:
+                    from asset3d.lod_export import export_levels
+                    extra = spec['variants'][1:]
+                    if run['status'] == 'completed':
+                        derived = export_levels(backend,extra,relative,results,ident,seed)
+                    else:
+                        derived = (dict(object=ident,variant=v['name'],seed=seed,status='failed',
+                                        models={},error='基准生成失败') for v in extra)
+                    for item in derived:
+                        viewer['runs'].append(item)
+                        if item['status'] == 'failed':
+                            failures.append({'run':f"{item['variant']}/{ident}/seed-{seed}",'error':item['error']})
+                        done += 1
                 done += 1
                 save_json(results/'viewer-manifest.json',viewer)
                 save_json(results/'failures.json',failures)
@@ -76,6 +96,7 @@ def execute(job):
         import torch
         gc.collect()
         torch.cuda.empty_cache()
+    save_json(results/'viewer-manifest.json',viewer)
     status(job,'完成',failures=failures)
 
 

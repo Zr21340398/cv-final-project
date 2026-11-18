@@ -422,6 +422,9 @@ def main():
         parser.error(str(error))
     server = ThreadingHTTPServer(("127.0.0.1", args.port), make_handler(datasets))
     print(f"Open http://127.0.0.1:{server.server_port}/  (Ctrl+C to stop)", flush=True)
+    import generation
+    stop = threading.Event()
+    threading.Thread(target=generation.monitor, args=(stop,), daemon=True).start()
     if args.open:
         threading.Timer(0.5, webbrowser.open, args=(f"http://127.0.0.1:{server.server_port}/",)).start()
     try:
@@ -429,6 +432,7 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
+        stop.set()
         server.server_close()
 
 

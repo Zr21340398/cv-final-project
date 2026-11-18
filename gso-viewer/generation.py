@@ -8,6 +8,8 @@ import shlex
 import subprocess
 import tarfile
 import threading
+import time
+import logging
 import uuid
 from pathlib import Path
 
@@ -20,6 +22,8 @@ ACTIVE = set()
 
 def command(args, timeout=120):
     result = subprocess.run(args, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=timeout)
+    if result.returncode == 255:
+        raise ConnectionError((result.stderr or 'SSH 连接中断')[-1000:])
     if result.returncode:
         raise RuntimeError((result.stderr or result.stdout)[-3000:])
     return result.stdout.strip()
@@ -78,15 +82,24 @@ def launch(ident, action):
             return
         ACTIVE.add(ident)
     def worker():
-        task = read(ident)
         try:
-            action(task)
-            task.pop('error', None)
-        except Exception as error:
-            task['error'] = str(error)
-            task['state'] = '连接或执行异常'
-        finally:
+            task = read(ident)
+            try:
+                action(task)
+                task.pop('error', None)
+                task.pop('retry_at', None)
+            except (ConnectionError, subprocess.TimeoutExpired) as error:
+                task['error'] = str(error)
+                if action is update and task.get('job_id'):
+                    task['state'] = '连接中断，稍后自动重查'
+                    task['retry_at'] = time.time() + 30
+                else:
+                    task['state'] = '连接或执行异常'
+            except Exception as error:
+                task['error'] = str(error)
+                task['state'] = '连接或执行异常'
             save(task)
+        finally:
             with LOCK:
                 ACTIVE.discard(ident)
     threading.Thread(target=worker, daemon=True).start()
@@ -103,7 +116,8 @@ def create(data, options=None, spec=None, images=None):
         spec = {'name':ident,'seeds':[42],'variants':[{'name':'trellis2'}],'images':['input.png']}
         images = {'input.png':data}
     count = validate_spec(spec)
-    if set(images) != set(spec['images']):
+    expected_uploads = set() if 'dataset' in spec else set(spec['images'])
+    if set(images) != expected_uploads:
         raise ValueError('选择的图片必须与配置中的 images 完全一致')
     for image in images.values():
         if not 0 < len(image) <= 20*1024*1024 or not (image.startswith(b'\x89PNG\r\n\x1a\n') or image.startswith(b'\xff\xd8\xff')):
@@ -162,8 +176,14 @@ def submit(task):
     ssh(host, f'mkdir -p {q(str(Path(remote).parent).replace(chr(92),"/"))} && mkdir {q(remote)} && mkdir {q(remote+"/inputs")}')
     spec = json.loads((local/'request.json').read_text(encoding='utf-8'))
     scp(host,local/'request.json',remote+'/request.json')
-    for name in spec['images']:
-        scp(host,local/'inputs'/name,remote+'/inputs/'+name)
+    if spec.get('dataset') == 'gso-v1':
+        # 在登录节点检查每张图可读，通过后才申请 GPU。
+        for name in spec['images']:
+            path = q(root + '/datasets/gso-v1/data/raw/gso/' + name)
+            ssh(host, f'test -r {path} || {{ echo "缺少图片" {path} >&2; exit 1; }}')
+    else:
+        for name in spec['images']:
+            scp(host,local/'inputs'/name,remote+'/inputs/'+name)
     script = '\n'.join([
         '#!/bin/bash', '#SBATCH --account=mscaiehpc42026', '#SBATCH --partition=gpu-l20',
         '#SBATCH --nodes=1', '#SBATCH --ntasks=1', '#SBATCH --gpus-per-node=1', '#SBATCH --time=' + task.get('time_limit', '02:00:00'),
@@ -190,6 +210,7 @@ def update(task):
     host, remote = task['host'], task['remote']
     q = shlex.quote
     raw = ssh(host, f'if test -f {q(remote + "/status.json")}; then cat {q(remote + "/status.json")}; fi')
+    task['checked_at'] = time.time()
     state = json.loads(raw) if raw else {}
     task['state'] = state.get('state', '排队等待 GPU')
     if state.get('error'):
@@ -197,6 +218,7 @@ def update(task):
     if task['state'] == '完成' and not task.get('local_dir'):
         # 兼容升级前已提交的单图任务，它们仍使用 output/ 布局。
         task['state'] = '下载带纹理模型'
+        task.pop('error', None)
         save(task)
         for name in ['asset.glb','manifest.json','foreground.png'] + (['shape_raw.glb'] if task.get('download_shape') else []):
             dest = folder(task['id'])/name
@@ -207,12 +229,19 @@ def update(task):
         return
     if task['state'] == '完成':
         task['state'] = '下载带纹理模型'
+        task.pop('error', None)
         save(task)
         local = location(task)
         results = local/'results'
         results.mkdir(exist_ok=True)
         scp(host,remote+'/results/viewer-manifest.json',results/'viewer-manifest.pending',download=True)
         viewer = json.loads((results/'viewer-manifest.pending').read_text(encoding='utf-8'))
+        # 兼容远端旧作业的 null 引用，收取结果时按本地共享数据布局重建。
+        from asset3d.viewer_manifest import attach_gso_references
+        request = local/'request.json'
+        if request.is_file():
+            attach_gso_references(viewer,json.loads(request.read_text(encoding='utf-8')),ROOT,results)
+        files = ['failures.json']
         for run in viewer['runs']:
             if run['status'] != 'completed':
                 continue
@@ -223,17 +252,11 @@ def update(task):
                 run['models'].pop('shape',None)
             parent = str(Path(run['input']).parent).replace(chr(92),'/')
             names += [parent+'/manifest.json',parent+'/foreground.png']
-            for name in names:
-                dest = (results/name).resolve()
-                if not dest.is_relative_to(results.resolve()):
-                    raise ValueError('服务器返回的文件路径越界')
-                dest.parent.mkdir(parents=True,exist_ok=True)
-                temp = dest.with_suffix(dest.suffix+'.part')
-                scp(host,remote+'/results/'+name,temp,download=True)
-                temp.replace(dest)
+            files.extend(names)
+        from result_transfer import collect
+        collect(host,remote+'/results',results,files)
         (results/'viewer-manifest.json').write_text(json.dumps(viewer,ensure_ascii=False,indent=2),encoding='utf-8')
         (results/'viewer-manifest.pending').unlink()
-        scp(host,remote+'/results/failures.json',results/'failures.json',download=True)
         task['failures'] = state.get('failures',[])
         task['state'] = '完成'
     else:
@@ -249,7 +272,23 @@ def tasks():
     result = []
     for p in sorted(STORE.glob('*/task.json'), key=lambda p:p.stat().st_mtime, reverse=True):
         task = json.loads(p.read_text(encoding='utf-8'))
+        if task['state'] == '下载带纹理模型':
+            progress = location(task)/'results/.received.json'
+            if progress.is_file():
+                names = json.loads(progress.read_text())
+                task['downloaded_models'] = sum(name.endswith('/asset.glb') for name in names)
         result.append(task)
-        if task.get('job_id') and task['state'] not in ('完成', '连接或执行异常'):
-            launch(task['id'], update)
     return result
+
+
+def monitor(stop):
+    # 页面仅读取快照；SSH 查询和下载随本地服务持续运行。
+    while not stop.is_set():
+        try:
+            for task in tasks():
+                if (task.get('job_id') and task['state'] not in ('完成', '连接或执行异常')
+                        and task.get('retry_at', 0) <= time.time()):
+                    launch(task['id'], update)
+        except (ValueError, OSError):
+            logging.exception('读取生成任务失败')
+        stop.wait(10)

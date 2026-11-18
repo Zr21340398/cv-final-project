@@ -18,6 +18,20 @@ def _relative(path, anchor):
         raise ValueError("Viewer index and data must be on the same drive") from exc
 
 
+def attach_gso_references(viewer, spec, project, results):
+    """通过批次的原始样本 ID 关联 GSO 真值，使用可随项目搬运的相对路径。"""
+    if spec.get("dataset") != "gso-v1":
+        return
+    images = {f"image_{i:03d}": name for i, name in enumerate(spec["images"])}
+    for obj in viewer["objects"]:
+        source = images[obj["id"]]
+        ident = source.split("/", 1)[0]
+        if not re.fullmatch(r"gso_[0-9]{2}", ident):
+            raise ValueError(f"Invalid GSO object: {source}")
+        reference = Path(project) / "datasets/gso-v1/data/rendered/gso-formal-v1" / ident / "reference_normalized.glb"
+        obj["reference"] = _relative(reference.resolve(), results.resolve())
+
+
 def build_viewer_manifest(experiment, destination, reference_dir=None):
     root = Path(experiment).resolve()
     dest = Path(destination).resolve()
