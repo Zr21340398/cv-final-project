@@ -113,7 +113,9 @@ def create(data, options=None, spec=None, images=None):
     ident = uuid.uuid4().hex
     batch = spec is not None
     if not batch:
-        spec = {'name':ident,'seeds':[42],'variants':[{'name':'trellis2'}],'images':['input.png']}
+        spec = {'name': ident, 'seeds': [42], 'images': ['input.png'],
+                'export_plugin': 'surface_repair',
+                'variants': [{'name': 'trellis2', 'decimation_target': 500000, 'texture_size': 2048}]}
         images = {'input.png':data}
     count = validate_spec(spec)
     expected_uploads = set() if 'dataset' in spec else set(spec['images'])

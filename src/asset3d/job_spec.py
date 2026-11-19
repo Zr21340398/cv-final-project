@@ -23,9 +23,9 @@ def validate(spec):
     variants = spec['variants']
     if not isinstance(variants, list) or not variants:
         raise ValueError('至少需要一个方案')
-    if 'export_plugin' in spec and spec['export_plugin'] != 'shared_lod':
+    if 'export_plugin' in spec and spec['export_plugin'] not in ('shared_lod', 'surface_repair'):
         raise ValueError('未知导出插件')
-    if spec.get('export_plugin') and any(not isinstance(v,dict) or not {'decimation_target','texture_size'} <= v.keys() for v in variants):
+    if spec.get('export_plugin') == 'shared_lod' and any(not isinstance(v,dict) or not {'decimation_target','texture_size'} <= v.keys() for v in variants):
         raise ValueError('共享导出实验须显式指定各档面数和贴图大小')
     names = set()
     for v in variants:

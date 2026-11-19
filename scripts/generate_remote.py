@@ -31,6 +31,8 @@ def execute(job):
     for index, variant in enumerate(spec['variants']):
         c = deepcopy(base)
         c['name'] = variant['name']
+        if spec.get('export_plugin') == 'surface_repair':
+            c['texture']['repair_surface'] = True
         for key in ('decimation_target','texture_size'):
             if key in variant:
                 c['texture'][key] = variant[key]

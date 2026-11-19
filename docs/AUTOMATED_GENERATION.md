@@ -62,3 +62,11 @@ experiments/trellis-photo-size-v1/
 在原工作台选择「批量导入」，选择 `configs/gso_lod_six.json`，图片选择栏留空。配置的 `experiment.dataset` 为 `gso-v1` 时，`images` 中的路径相对于服务器项目的 `datasets/gso-v1/data/raw/gso/`。提交器在申请 GPU 前检查每张图片的可读性。已有的上传模式继续使用文件名列表并在页面选图。
 
 此次使用 gso_01 的正面 2.jpg，以及 gso_03、18、23、27、29 的 0.jpg。插件 `shared_lod` 对每个样本和种子运行一次推理，基于同一原生形状和材质导出 100 万、50 万、20 万、10 万目标面的 GLB。种子为 42，贴图固定 2048。作业完成后在实验预设中比较各档，并运行 `python scripts/summarize_lod.py experiments/gso-lod-fridge-six-v1/results` 生成实际面数、字节数和体积降幅的 CSV。
+
+### 单图默认导出与表面修复
+
+单张图片默认使用一个种子和 50 万目标三角面，烘焙一次 2048 贴图。模型先生成原生形状与材质，再按目标面数导出。面数主要影响简化、烘焙及文件写入。端到端用时可在各任务的 manifest.json 中查看 attempts 下的 wall_seconds，并结合 native_shape_material、pbr_bake 和 export 分段分析。
+
+单图自动启用 surface_repair。插件在写 GLB 前运行，局部修正与三角面严重反向的光照法线，并填补不透明贴图中四邻域材质一致的孤立全零采样点。修复计数和耗时在 manifest.json 的 export.surface_repair 中。几何重叠、模型推测出的图案或较大缺失区域需要另外诊断。
+
+批量对照时可在 experiment 中设置 "export_plugin": "surface_repair"，并在 variants 中指定相同的 decimation_target 和 texture_size。对照批次省略 export_plugin，其他参数和种子保持一致。历史 shared_lod 配置继续用于多档面数实验。

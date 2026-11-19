@@ -24,6 +24,10 @@ def test_modes_separate_data_and_snapshot_options(local):
     batch=generation.create(None,OPTIONS,SPEC,{'cup.png':PNG})
     assert generation.location(single).parent == local/'local/web-jobs'
     assert generation.location(batch) == local/'experiments/sample'
+    single_spec = json.loads((generation.location(single)/'request.json').read_text())
+    assert single['count'] == 1
+    assert single_spec['variants'] == [{'name':'trellis2','decimation_target':500000,'texture_size':2048}]
+    assert single_spec['export_plugin'] == 'surface_repair'
     assert batch['count']==4
     assert generation.read(batch['id'])['download_shape'] is True
     with pytest.raises(FileExistsError):

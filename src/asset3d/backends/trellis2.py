@@ -37,8 +37,10 @@ def validate_config(c):
         raise ValueError("Invalid generation keys")
     if c["generation"]["pipeline_type"] not in ("512", "1024", "1024_cascade", "1536_cascade"):
         raise ValueError("Invalid pipeline_type")
-    if set(c["texture"]) != {"enabled", "texture_size", "decimation_target", "remesh"}:
+    if set(c["texture"]) - {"repair_surface"} != {"enabled", "texture_size", "decimation_target", "remesh"}:
         raise ValueError("Invalid texture keys")
+    if type(c["texture"].get("repair_surface", False)) is not bool:
+        raise ValueError("repair_surface must be a boolean")
     if c["texture"]["enabled"] is not True:
         raise ValueError("TRELLIS.2 pilot uses full native shape+material generation")
     for v in (c["model"]["local_files_only"], c["generation"]["low_vram"], c["texture"]["remesh"]):
@@ -226,7 +228,7 @@ class TrellisBackend:
         with torch.inference_mode():
             # 烘焙把空间中的材质属性转换成网格贴图，连同 UV 对应关系封装进 GLB。
             # UV 描述三维表面各位置应读取贴图的哪个位置。
-            return o_voxel.postprocess.to_glb(
+            mesh = o_voxel.postprocess.to_glb(
                 vertices=native.vertices,
                 faces=native.faces,
                 attr_volume=native.attrs,
@@ -241,6 +243,12 @@ class TrellisBackend:
                 remesh_project=0,
                 verbose=True,
             )
+
+        if c.get("repair_surface"):
+            from ..surface_repair import repair_surface
+
+            mesh = repair_surface(mesh)
+        return mesh
 
     def synchronize(self):
         import torch

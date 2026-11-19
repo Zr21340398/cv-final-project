@@ -45,6 +45,8 @@ def export_glb(mesh, path, require_texture=True):
     try:
         temp.write_bytes(mesh.export(file_type="glb"))
         report = check_glb(temp, require_texture)
+        if hasattr(mesh, "surface_repair_report"):
+            report["surface_repair"] = mesh.surface_repair_report
         os.replace(temp, path)
         return report
     finally:
