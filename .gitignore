@@ -21,3 +21,19 @@ data/local/
 
 # Curated pilot reports and small comparison images are versioned.
 !docs/results/
+
+# Local TRELLIS.2 experiment bundle (data, logs and generated results).
+/asset3d-trellis2-gso-v1/
+
+# Shared local datasets and per-batch generated bookkeeping.
+/datasets/*/
+/experiments/*/selection.csv
+/experiments/*/resolved.json
+/experiments/*/resolved-configs/
+
+# User-specific HPC module setup and credentials remain outside Git.
+/local/
+
+# Generated application jobs and all future experiment batches stay local.
+/local/web-jobs/
+/experiments/

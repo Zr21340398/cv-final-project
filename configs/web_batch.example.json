@@ -1,0 +1,17 @@
+{
+  "connection": {
+    "host": "hkust-hpc4",
+    "project": "/home/rzhoubf/projects/cv-final-project",
+    "time_limit": "04:00:00",
+    "download_shape": false
+  },
+  "experiment": {
+    "name": "trellis-photo-size-v1",
+    "images": ["fridge.jpg", "speaker.jpg"],
+    "seeds": [42, 123],
+    "variants": [
+      {"name": "faces1000k", "decimation_target": 1000000, "texture_size": 2048},
+      {"name": "faces200k", "decimation_target": 200000, "texture_size": 2048}
+    ]
+  }
+}

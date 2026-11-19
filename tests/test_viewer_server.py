@@ -119,3 +119,48 @@ def test_run_input_uses_its_own_image_and_never_falls_back_on_explicit_null(tmp_
     assert service.resolve("dataset=a&object=cup&variant=old&seed=1", image=True) == image.resolve()
     with pytest.raises(FileNotFoundError):
         service.resolve("dataset=a&object=cup&variant=new&seed=1", image=True)
+
+
+def test_custom_types_arbitrary_paths_and_seedless_runs(tmp_path):
+    folder = tmp_path / "any-layout"
+    folder.mkdir()
+    raw = folder / "before-any-name.glb"
+    clean = folder / "after-any-name.glb"
+    raw.write_bytes(b"raw")
+    clean.write_bytes(b"clean")
+    service = viewer.Datasets(tmp_path)
+    service.add({"id": "custom", "objects": [{"id": "speaker"}],
+                 "model_types": {"paint_before": "Before", "paint_after": "After"},
+                 "variants": [{"id": "cleanup", "label": "Cleanup"}],
+                 "runs": [{"object": "speaker", "variant": "cleanup", "input": None,
+                           "models": {"paint_before": "any-layout/before-any-name.glb",
+                                      "paint_after": "any-layout/after-any-name.glb"}}]}, tmp_path)
+    catalog = service.catalog()["datasets"][0]
+    assert catalog["seeds"] == ["None"]
+    assert catalog["kinds"] == [{"id": "paint_before", "label": "Before"},
+                                {"id": "paint_after", "label": "After"}]
+    query = "dataset=custom&object=speaker&variant=cleanup&seed=None&kind="
+    assert service.resolve(query + "paint_before") == raw.resolve()
+    assert service.resolve(query + "paint_after") == clean.resolve()
+    with pytest.raises(FileNotFoundError):
+        service.resolve(query + "not-declared")
+
+
+def test_modular_experiment_references_shared_dataset(tmp_path):
+    batch = tmp_path / "experiments/new-run/results"
+    batch.mkdir(parents=True)
+    data = tmp_path / "datasets/gso-v1"
+    data.mkdir(parents=True)
+    (data / "ref.glb").write_bytes(b"reference")
+    (batch / "output.glb").write_bytes(b"generated")
+    manifest = {"schema_version": 1, "id": "new-run",
+                "objects": [{"id": "cup", "reference": "../../../datasets/gso-v1/ref.glb"}],
+                "variants": [{"id": "trellis2"}],
+                "runs": [{"object": "cup", "variant": "trellis2", "seed": 42,
+                          "models": {"asset": "output.glb"}}]}
+    (batch / "viewer-manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+    service = viewer.DiscoveredDatasets(tmp_path)
+    assert service.refresh() == []
+    item = service.catalog()["datasets"][0]
+    assert item["objects"][0]["reference"]
+    assert service.resolve(f"dataset={item['id']}&object=cup&kind=reference") == data / "ref.glb"

@@ -75,8 +75,9 @@ def legacy_manifest(root: Path, data_root: Path, labels: dict[str, str]) -> dict
                     status = "unreadable"
                 runs.append({"object": obj.name, "variant": variant.name, "seed": int(m.group(1)),
                              "status": status, "input": str(seed / "input.png"),
-                             "models": ({"asset": str(seed / "asset.glb"),
-                                         "shape": str(seed / "shape_raw.glb")} if status == "completed" else {})})
+                             "models": ({kind: str(seed / name) for kind, name in
+                                         (("asset", "asset.glb"), ("shape", "shape_raw.glb"))
+                                         if (seed / name).is_file()} if status == "completed" else {})})
     if not runs:
         return None
     return {"schema_version": 1, "id": "gso-dev-v1", "label": "GSO 开发集：混元步数对照",
@@ -126,20 +127,23 @@ class Datasets:
                         "reference": self.available(base, o.get("reference"))} for o in data["objects"]]
             runs, seeds, kinds = [], set(), set()
             for run in data["runs"]:
+                # 无随机种子的确定性后处理也作为可选择的一次运行。
                 seed = run.get("seed")
-                if seed is None:
-                    continue
+                seed = "None" if seed is None else seed
                 seeds.add(seed)
                 available = [k for k, p in run.get("models", {}).items()
-                             if k in ("asset", "shape") and self.available(base, p)]
+                             if k != "reference" and self.available(base, p) and Path(p).suffix.lower() == ".glb"]
                 kinds.update(available)
                 runs.append({"object": run["object"], "variant": run["variant"], "seed": seed,
                              "status": run.get("status", "unknown"), "kinds": available})
+            # 类型由清单声明；旧清单保留原来的中文显示名称。
             names = {"asset": "带纹理模型", "shape": "原始白模"}
+            names.update(data.get("model_types", {}))
+            ordered_kinds = [k for k in names if k in kinds] + sorted(kinds - names.keys())
             output.append({"id": data["id"], "label": data.get("label") or data["id"],
                            "objects": objects, "variants": data["variants"], "runs": runs,
                            "seeds": sorted(seeds, key=lambda value: (not isinstance(value, int), value)),
-                           "kinds": [{"id": k, "label": names[k]} for k in ("asset", "shape") if k in kinds],
+                           "kinds": [{"id": k, "label": names.get(k, k)} for k in ordered_kinds],
                            "reference": any(o["reference"] for o in objects)})
         return {"datasets": output}
 
@@ -180,8 +184,8 @@ class Datasets:
                                 break
             else:
                 kind = one("kind")
-                if kind not in ("asset", "shape"):
-                    raise ValueError("Invalid kind")
+                if kind not in runs[0].get("models", {}):
+                    raise FileNotFoundError("Model kind not available in this run")
                 value = runs[0].get("models", {}).get(kind)
         path = self.path(base, value)
         expected = (".png", ".jpg", ".jpeg") if image else (".glb",)
@@ -209,6 +213,12 @@ class DiscoveredDatasets(Datasets):
             return []
         # 支持 results/实验名 和 实验包/results/批次 两种固定结构。
         result_dirs = [root, root / "results"]
+        # 新结构：experiments/<批次>/results/viewer-manifest.json。
+        experiments = root / "experiments"
+        if experiments.is_dir():
+            for batch in experiments.iterdir():
+                if batch.is_dir():
+                    result_dirs.append(batch / "results")
         for child in root.iterdir():
             if child.is_dir() and not child.name.startswith("."):
                 result_dirs.append(child / "results")
@@ -270,10 +280,87 @@ class DiscoveredDatasets(Datasets):
 
 def make_handler(datasets: Datasets):
     class Handler(BaseHTTPRequestHandler):
+        def json_response(self, value, status=200):
+            body = json.dumps(value, ensure_ascii=False).encode('utf-8')
+            self.send_response(status)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Cache-Control', 'no-store')
+            self.end_headers()
+            self.wfile.write(body)
+
+        def do_POST(self):
+            # 浏览器必须来自本机工作台；拒绝其他网站跨站触发 GPU 作业。
+            origin = self.headers.get('Origin')
+            expected = 'http://127.0.0.1:' + str(self.server.server_port)
+            if self.headers.get('X-Asset3D') != 'workbench' or origin not in (None, expected):
+                self.json_response({'error': 'Invalid origin'}, 403)
+                return
+            try:
+                import generation
+                if urlsplit(self.path).path == '/api/generate':
+                    size = int(self.headers.get('Content-Length', '0'))
+                    if not 0 < size <= 20 * 1024 * 1024:
+                        raise ValueError('请选择 20 MiB 以内的 JPG 或 PNG 图片')
+                    data = self.rfile.read(size)
+                    if not (data.startswith(b'\x89PNG\r\n\x1a\n') or data.startswith(b'\xff\xd8\xff')):
+                        raise ValueError('仅支持 JPG 或 PNG 图片')
+                    params = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
+                    def option(name):
+                        values = params.get(name, [])
+                        if len(values) != 1:
+                            raise ValueError('缺少或重复的设置：' + name)
+                        return values[0]
+                    shape = option('download_shape')
+                    if shape not in ('true', 'false'):
+                        raise ValueError('下载白模设置无效')
+                    options = {'host': option('host'), 'project': option('project'),
+                               'time_limit': option('time_limit'), 'download_shape': shape == 'true'}
+                    self.json_response(generation.create(data, options), 202)
+                elif self.path == '/api/generate-batch':
+                    import base64
+                    size = int(self.headers.get('Content-Length','0'))
+                    if not 0 < size <= 100*1024*1024:
+                        raise ValueError('批次上传请求上限 100 MiB')
+                    body = json.loads(self.rfile.read(size))
+                    images = {name:base64.b64decode(data,validate=True) for name,data in body['images'].items()}
+                    self.json_response(generation.create(None,body['connection'],body['experiment'],images),202)
+                elif self.path.startswith('/api/generation-retry/'):
+                    ident = self.path.rsplit('/', 1)[-1]
+                    task = generation.read(ident)
+                    if not task.get('job_id'):
+                        raise ValueError('任务未记录作业号，请查看连接错误并检查服务器队列后重新提交')
+                    generation.launch(ident, generation.update)
+                    self.json_response({'ok': True})
+                else:
+                    self.send_error(404)
+            except (ValueError, OSError, RuntimeError, KeyError, TypeError) as error:
+                self.json_response({'error': str(error)}, 400)
+
         def do_GET(self):
             parsed = urlsplit(self.path)
             try:
-                if parsed.path == "/api/catalog":
+                if parsed.path == '/api/generation-settings':
+                    import generation
+                    self.json_response(generation.config())
+                    return
+                if parsed.path == '/api/generation-jobs':
+                    import generation
+                    self.json_response(generation.tasks())
+                    return
+                if parsed.path.startswith('/api/generated/'):
+                    import generation
+                    task = generation.read(parsed.path.rsplit('/',1)[-1])
+                    local = generation.location(task)
+                    if task.get('local_dir'):
+                        index = json.loads((local/'results/viewer-manifest.json').read_text(encoding='utf-8'))
+                        runs = [r for r in index['runs'] if r['status'] == 'completed']
+                        if not runs:
+                            raise FileNotFoundError()
+                        path = within(local,local/'results'/runs[0]['models']['asset'])
+                    else:
+                        path = local/'asset.glb'
+                elif parsed.path == "/api/catalog":
                     problems = datasets.refresh() if isinstance(datasets, DiscoveredDatasets) else []
                     listing = datasets.catalog()
                     listing["warnings"] = problems
@@ -284,7 +371,7 @@ def make_handler(datasets: Datasets):
                     self.end_headers()
                     self.wfile.write(payload)
                     return
-                if parsed.path in ("/api/model", "/api/input"):
+                elif parsed.path in ("/api/model", "/api/input"):
                     path = datasets.resolve(parsed.query, image=parsed.path.endswith("input"))
                 else:
                     routes = {"/": "frontend/index.html", "/index.html": "frontend/index.html",
@@ -335,6 +422,9 @@ def main():
         parser.error(str(error))
     server = ThreadingHTTPServer(("127.0.0.1", args.port), make_handler(datasets))
     print(f"Open http://127.0.0.1:{server.server_port}/  (Ctrl+C to stop)", flush=True)
+    import generation
+    stop = threading.Event()
+    threading.Thread(target=generation.monitor, args=(stop,), daemon=True).start()
     if args.open:
         threading.Timer(0.5, webbrowser.open, args=(f"http://127.0.0.1:{server.server_port}/",)).start()
     try:
@@ -342,6 +432,7 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
+        stop.set()
         server.server_close()
 
 

@@ -1,0 +1,23 @@
+schema_version: 1
+dataset_manifest: datasets/gso-v1/data/manifests/gso-dev-v1.csv
+split: dev
+objects:
+- gso_01
+- gso_02
+- gso_07
+- gso_08
+- gso_13
+- gso_14
+- gso_19
+- gso_20
+- gso_25
+- gso_26
+configs:
+- experiments/asset3d-gso-v1-20261108/configs/hunyuan2_steps50.json
+- experiments/asset3d-gso-v1-20261108/configs/hunyuan2_steps30.json
+- experiments/asset3d-gso-v1-20261108/configs/hunyuan2_steps20.json
+seeds:
+- 42
+- 123
+expected_hashes: data/manifests/gso-dev-v1-frozen-hashes.json
+archived: true

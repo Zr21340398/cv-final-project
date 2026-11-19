@@ -54,4 +54,4 @@ mkdir -p logs
 # 保存真实安装版本并检查 GPU，方便后续复现和排查安装问题。
 python -m pip freeze > logs/environment-trellis2.freeze.txt
 python -m asset3d.cli doctor --gpu --backend trellis2 --output logs/environment-trellis2.json
-echo 'Candidate environment installed. Download pinned weights before offline jobs; see docs/PILOT_GUIDE.md.'
+echo 'Candidate environment installed. Download pinned weights before offline jobs; see docs/SERVER_SETUP.md.'

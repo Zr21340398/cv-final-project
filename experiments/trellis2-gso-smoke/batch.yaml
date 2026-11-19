@@ -1,0 +1,8 @@
+# 小样例与正式批次分开，生成 1 个模型。
+schema_version: 1
+dataset_manifest: datasets/gso-v1/data/manifests/gso-dev-v1.csv
+split: dev
+objects: [gso_01]
+configs: [configs/trellis2_gso_dev.yaml]
+seeds: [42]
+expected_hashes: data/manifests/gso-dev-v1-frozen-hashes.json

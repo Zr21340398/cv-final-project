@@ -37,8 +37,10 @@ def validate_config(c):
         raise ValueError("Invalid generation keys")
     if c["generation"]["pipeline_type"] not in ("512", "1024", "1024_cascade", "1536_cascade"):
         raise ValueError("Invalid pipeline_type")
-    if set(c["texture"]) != {"enabled", "texture_size", "decimation_target", "remesh"}:
+    if set(c["texture"]) - {"repair_surface"} != {"enabled", "texture_size", "decimation_target", "remesh"}:
         raise ValueError("Invalid texture keys")
+    if type(c["texture"].get("repair_surface", False)) is not bool:
+        raise ValueError("repair_surface must be a boolean")
     if c["texture"]["enabled"] is not True:
         raise ValueError("TRELLIS.2 pilot uses full native shape+material generation")
     for v in (c["model"]["local_files_only"], c["generation"]["low_vram"], c["texture"]["remesh"]):
@@ -209,18 +211,24 @@ class TrellisBackend:
         return {"cold": False, "seconds": 0.0}
 
     def generate_texture(self, mesh, image):
-        import o_voxel
         import torch
 
         if self.native is None:
             raise RuntimeError("Native material state missing; restart TRELLIS.2 generation")
-        c, native = self.config["texture"], self.native
         with torch.inference_mode():
-            # 原始白模已保存；这里先满足官方光栅化器的面数上限。
-            native.simplify(16777216)
+            self.native.simplify(16777216)
+        return self.bake_native(self.config["texture"])
+
+    def bake_native(self, c):
+        """在已准备好的原生数据上按目标面数简化，并重新烘焙 PBR 材质。"""
+        import o_voxel
+        import torch
+
+        native = self.native
+        with torch.inference_mode():
             # 烘焙把空间中的材质属性转换成网格贴图，连同 UV 对应关系封装进 GLB。
             # UV 描述三维表面各位置应读取贴图的哪个位置。
-            return o_voxel.postprocess.to_glb(
+            mesh = o_voxel.postprocess.to_glb(
                 vertices=native.vertices,
                 faces=native.faces,
                 attr_volume=native.attrs,
@@ -235,6 +243,12 @@ class TrellisBackend:
                 remesh_project=0,
                 verbose=True,
             )
+
+        if c.get("repair_surface"):
+            from ..surface_repair import repair_surface
+
+            mesh = repair_surface(mesh)
+        return mesh
 
     def synchronize(self):
         import torch

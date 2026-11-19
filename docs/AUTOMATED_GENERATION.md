@@ -1,0 +1,72 @@
+# 单图应用与批量实验
+
+工作台顶部有“单张图片输入”和“批量导入”两个按钮，点击后展开对应表单。两种模式都复用 `Pipeline` 和 `TrellisBackend`，使用同一个远端执行入口 `scripts/generate_remote.py`。本阶段保持既有 TRELLIS.2 模型与采样配置。
+
+## 单图应用
+
+启动 `gso-viewer/start.bat`，点击“单张图片输入”，选择 JPG/PNG，填写 SSH 别名、服务器项目绝对路径、作业时间上限，选择是否下载白模，再提交。单图默认种子 42、100 万面目标、2048 贴图。完成后自动在 viewer 中打开带纹理 GLB。
+
+本机和服务器的单图输入、配置、预处理及结果都位于项目的 `local/web-jobs/<任务编号>/`。本机 `local/generation-jobs/` 只存任务状态与远端作业编号，旧版任务数据仍保留。
+
+## 批量实验
+
+参考 `configs/web_batch.example.json` 修改配置，在“批量导入”中选择 JSON 文件和对应的多张图片。图片名必须与 `experiment.images` 完全一致；目前文件名仅支持英文、数字、点、下划线、短横线。页面提交前显示图片数、种子数、方案数和总生成次数。
+
+示例包含 2 张图 × 2 个种子 × 2 个方案，共 8 次生成。每个方案支持：
+
+- `name`：唯一方案名。
+- `decimation_target`：减面目标，1000 至 1000000。
+- `texture_size`：1024、2048 或 4096。
+
+`seeds` 为不同的非负整数。实验名与方案名采用字母、数字、下划线、短横线。单批次最多 200 次生成；图片每张最多 20 MiB，网页合计最多 70 MiB。未知方案字段会报错，采样步数目前仍使用固定版本官方默认设置。
+
+本机及服务器都创建同名 `experiments/<experiment.name>/`，已有目录会拒绝覆盖：
+
+```text
+experiments/trellis-photo-size-v1/
+  request.json                  本次实验配置
+  inputs/                       原始输入，只保存一次
+  prepared/                     服务器抠图结果，多个方案复用
+  job.sh、job.log、status.json   服务器作业和运行记录
+  results/
+    viewer-manifest.json
+    failures.json
+    faces1000k/image_000/seed-42/
+      asset.glb
+      shape_raw.glb             服务器保存；可选择下载
+      input.png、foreground.png、manifest.json
+```
+
+每个方案下逐图、逐种子运行，同一作业内串行使用一张 L20。当前每个组合独立生成，没有实现一次生成、多档导出复用。普通单次推理失败会记录到 failures.json 并继续；环境初始化或抠图失败会中断整个作业。完成后自动下载成功结果和 viewer 清单，点击“刷新实验预设”，再在实验预设中选择该实验、对象、种子和方案。失败组合保留失败记录。参考真值模型未在此上传格式中定义。
+
+## 代码共享与版本固定
+
+原实现每任务上传完整 src 会造成重复。本版把生成源码、配置和远端入口的内容计算为 SHA256，部署到服务器的 `local/code-releases/<摘要>/`。首次上传并完整解压后才写入可用标记；后续相同代码跳过上传，任务记录引用的代码摘要。代码更新形成新版本，正在运行的任务继续使用原版本。数据与结果目录都不保存源码副本。
+
+共享的是项目执行代码；Python 环境 `.venv-trellis2`、模型权重 `models/`、学校模块配置及上游 TRELLIS.2 仍复用服务器已有安装。环境变更需单独部署。配置默认值可在 `local/generation.json` 中设置，批量模式以选中的 JSON 为准。学校账户 `mscaiehpc42026` 和分区 `gpu-l20` 目前固定，其他集群需调整。
+
+## 进度、恢复与边界
+
+本机通过 SSH/SCP 传输、提交 Slurm 并约每十秒查询一次状态；GPU 申请受学校规则约束。已提交作业在关闭页面后继续运行，重新打开工作台可继续查询和收取结果。查询/下载失败可重试原作业。提交返回前断线时，需要先查队列以避免重复提交。
+
+默认只下载带纹理 GLB、输入/前景图、manifest 和失败记录；勾选后增加白模。下载的清单会移除未下载白模的路径。批量下载发生在整个作业正常结束后；超时作业的部分服务器结果保留，目前需人工收取，不会自动重提 GPU 作业。
+
+旧的 GSO 历史批次及原批次执行命令保持原状。真实 GPU 的两种新模式闭环尚待联调，本地测试覆盖配置、目录隔离、代码复用、任务提交参数、结果收取与 viewer。
+
+## Git 保存范围
+
+`local/`（含单图任务、任务状态和共享代码缓存）、`experiments/` 下新增的实验批次、模型权重和数据集均由 `.gitignore` 排除。共享执行代码、通用配置示例和文档继续提交。此前已提交的历史实验配置及源码记录保留在 Git 中；本规则适用于后续新增批次，不改写已有历史。
+
+### 服务器 GSO 面数实验
+
+在原工作台选择「批量导入」，选择 `configs/gso_lod_six.json`，图片选择栏留空。配置的 `experiment.dataset` 为 `gso-v1` 时，`images` 中的路径相对于服务器项目的 `datasets/gso-v1/data/raw/gso/`。提交器在申请 GPU 前检查每张图片的可读性。已有的上传模式继续使用文件名列表并在页面选图。
+
+此次使用 gso_01 的正面 2.jpg，以及 gso_03、18、23、27、29 的 0.jpg。插件 `shared_lod` 对每个样本和种子运行一次推理，基于同一原生形状和材质导出 100 万、50 万、20 万、10 万目标面的 GLB。种子为 42，贴图固定 2048。作业完成后在实验预设中比较各档，并运行 `python scripts/summarize_lod.py experiments/gso-lod-fridge-six-v1/results` 生成实际面数、字节数和体积降幅的 CSV。
+
+### 单图默认导出与表面修复
+
+单张图片默认使用一个种子和 50 万目标三角面，烘焙一次 2048 贴图。模型先生成原生形状与材质，再按目标面数导出。面数主要影响简化、烘焙及文件写入。端到端用时可在各任务的 manifest.json 中查看 attempts 下的 wall_seconds，并结合 native_shape_material、pbr_bake 和 export 分段分析。
+
+单图自动启用 surface_repair。插件在写 GLB 前运行，局部修正与三角面严重反向的光照法线，并填补不透明贴图中四邻域材质一致的孤立全零采样点。修复计数和耗时在 manifest.json 的 export.surface_repair 中。几何重叠、模型推测出的图案或较大缺失区域需要另外诊断。
+
+批量对照时可在 experiment 中设置 "export_plugin": "surface_repair"，并在 variants 中指定相同的 decimation_target 和 texture_size。对照批次省略 export_plugin，其他参数和种子保持一致。历史 shared_lod 配置继续用于多档面数实验。

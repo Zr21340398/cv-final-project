@@ -1,0 +1,46 @@
+{
+  "connection": {
+    "host": "hkust-hpc4",
+    "project": "/home/rzhoubf/projects/cv-final-project",
+    "time_limit": "06:00:00",
+    "download_shape": false
+  },
+  "experiment": {
+    "name": "gso-lod-fridge-six-v1",
+    "export_plugin": "shared_lod",
+    "images": [
+      "gso_01/thumbnails/2.jpg",
+      "gso_03/thumbnails/0.jpg",
+      "gso_18/thumbnails/0.jpg",
+      "gso_23/thumbnails/0.jpg",
+      "gso_27/thumbnails/0.jpg",
+      "gso_29/thumbnails/0.jpg"
+    ],
+    "seeds": [
+      42
+    ],
+    "variants": [
+      {
+        "name": "faces1000k",
+        "decimation_target": 1000000,
+        "texture_size": 2048
+      },
+      {
+        "name": "faces500k",
+        "decimation_target": 500000,
+        "texture_size": 2048
+      },
+      {
+        "name": "faces200k",
+        "decimation_target": 200000,
+        "texture_size": 2048
+      },
+      {
+        "name": "faces100k",
+        "decimation_target": 100000,
+        "texture_size": 2048
+      }
+    ],
+    "dataset": "gso-v1"
+  }
+}
