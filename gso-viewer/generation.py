@@ -19,6 +19,7 @@ from asset3d.job_spec import validate as validate_spec
 STORE = ROOT / 'local/generation-jobs'
 LOCK = threading.Lock()
 ACTIVE = set()
+CONFIRM_LOCK = threading.Lock()
 
 def command(args, timeout=120):
     result = subprocess.run(args, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=timeout)
@@ -76,11 +77,12 @@ def save(task):
     temp.write_text(json.dumps(task, ensure_ascii=False), encoding='utf-8')
     temp.replace(path)
 
-def launch(ident, action):
-    with LOCK:
-        if ident in ACTIVE:
-            return
-        ACTIVE.add(ident)
+def launch(ident, action, *, claimed=False):
+    if not claimed:
+        with LOCK:
+            if ident in ACTIVE:
+                return
+            ACTIVE.add(ident)
     def worker():
         try:
             task = read(ident)
@@ -90,7 +92,7 @@ def launch(ident, action):
                 task.pop('retry_at', None)
             except (ConnectionError, subprocess.TimeoutExpired) as error:
                 task['error'] = str(error)
-                if action is update and task.get('job_id'):
+                if action is update and active_job(task):
                     task['state'] = '连接中断，稍后自动重查'
                     task['retry_at'] = time.time() + 30
                 else:
@@ -108,15 +110,20 @@ def location(task):
     return ROOT/task['local_dir'] if task.get('local_dir') else folder(task['id'])
 
 
-def create(data, options=None, spec=None, images=None):
+def create(data, options=None, spec=None, images=None, foreground_selection=None):
     host, root, duration, shape = validate_options(options if options is not None else config())
     ident = uuid.uuid4().hex
     batch = spec is not None
+    if batch and (foreground_selection is not None or 'foreground_selection' in spec):
+        raise ValueError('主体选择仅适用于单张图片预览')
     if not batch:
         spec = {'name': ident, 'seeds': [42], 'images': ['input.png'],
                 'export_plugin': 'surface_repair',
                 'variants': [{'name': 'trellis2', 'decimation_target': 500000, 'texture_size': 2048}]}
         images = {'input.png':data}
+        if foreground_selection is not None:
+            from asset3d.target_foreground import validate_selection
+            spec['foreground_selection'] = validate_selection(foreground_selection)
     count = validate_spec(spec)
     expected_uploads = set() if 'dataset' in spec else set(spec['images'])
     if set(images) != expected_uploads:
@@ -135,8 +142,14 @@ def create(data, options=None, spec=None, images=None):
     task = {'id':ident,'mode':'batch' if batch else 'single','name':spec['name'],
             'host':host,'root':root,'remote':root+'/'+local_dir,'local_dir':local_dir,
             'state':'上传图片和代码','time_limit':duration,'download_shape':shape,'count':count}
-    save(task)
-    launch(ident,submit)
+    if not batch:
+        task.update(preview_required=True, phase='preview', state='上传照片，准备前景预览')
+    with LOCK:
+        save(task)
+        # Publish the task and claim its worker together so polling cannot
+        # mistake a newly created preview for an interrupted submission.
+        ACTIVE.add(ident)
+    launch(ident,submit,claimed=True)
     return task
 
 
@@ -186,6 +199,17 @@ def submit(task):
     else:
         for name in spec['images']:
             scp(host,local/'inputs'/name,remote+'/inputs/'+name)
+    preview = task.get('preview_required', False)
+    submit_script(task, code, preview=preview)
+
+
+def submit_script(task, code, *, preview=False, confirmed_preview=None):
+    host, root, remote = task['host'], task['root'], task['remote']
+    local, q = location(task), shlex.quote
+    script_name = 'preview-job.sh' if preview else 'job.sh'
+    log_name = 'preview-job.log' if preview else 'job.log'
+    arguments = ' --prepare' if preview else (
+        ' --confirmed-preview ' + q(confirmed_preview) if confirmed_preview else '')
     script = '\n'.join([
         '#!/bin/bash', '#SBATCH --account=mscaiehpc42026', '#SBATCH --partition=gpu-l20',
         '#SBATCH --nodes=1', '#SBATCH --ntasks=1', '#SBATCH --gpus-per-node=1', '#SBATCH --time=' + task.get('time_limit', '02:00:00'),
@@ -195,18 +219,150 @@ def submit(task):
         'export ASSET3D_DINOV3_DIR="$PWD/models/dinov3-vitl16-pretrain-lvd1689m"',
         'export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 PYTHONUNBUFFERED=1',
         'export PYTHONPATH=' + q(code + '/src'),
-        'python ' + q(code + '/generate_remote.py') + ' ' + q(remote), ''
+        'python ' + q(code + '/generate_remote.py') + ' ' + q(remote) + arguments, ''
     ])
-    (local / 'job.sh').write_text(script, encoding='utf-8', newline='\n')
-    scp(host, local / 'job.sh', remote + '/job.sh')
+    (local / script_name).write_text(script, encoding='utf-8', newline='\n')
+    scp(host, local / script_name, remote + '/' + script_name)
     # 单独保存提交返回值；网络中断时不会自动重复提交收费作业。
-    output = ssh(host, f'cd {q(remote)} && sbatch --parsable --job-name=web-{task["id"][:8]} --output={q(remote + "/job.log")} job.sh')
+    output = ssh(host, f'cd {q(remote)} && sbatch --parsable --job-name={"preview" if preview else "web"}-{task["id"][:8]} --output={q(remote + "/" + log_name)} {script_name}')
     job_id = output.splitlines()[-1].split(';')[0]
     if not job_id.isdigit():
         raise ValueError('提交返回信息异常：' + output)
-    task.update(job_id=job_id, state='排队等待 GPU')
+    if preview:
+        task.update(preview_job_id=job_id, state='前景预处理排队等待 GPU')
+    else:
+        task.update(job_id=job_id, state='排队等待 GPU')
+
+def active_job(task):
+    return task.get('preview_job_id') if task.get('phase') == 'preview' else task.get('job_id')
+
+
+def sha256(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def validate_preview(task):
+    """Bind confirmation to the exact files downloaded from this task's preparation job."""
+    local = location(task)
+    record = json.loads((local/'preview.json').read_text(encoding='utf-8'))
+    request = json.loads((local/'request.json').read_text(encoding='utf-8'))
+    targeted = 'foreground_selection' in request
+    if record.get('schema_version') != (2 if targeted else 1):
+        raise ValueError('前景预览版本无效，请重新选图')
+    paths = {
+        'input_sha256': local/'inputs/input.png',
+        'request_sha256': local/'request.json',
+        'foreground_sha256': local/'prepared/foreground.png',
+        'model_input_sha256': local/'prepared/model_input.png',
+    }
+    if targeted:
+        paths['segmentation_sha256'] = local/'segmentation.json'
+    for key, path in paths.items():
+        if not re.fullmatch(r'[0-9a-f]{64}', str(record.get(key, ''))) or sha256(path) != record[key]:
+            raise ValueError('照片或前景预览已改变，请重新选图并预处理')
+    if not re.fullmatch(r'[0-9a-f]{64}', str(record.get('config_sha256', ''))):
+        raise ValueError('前景配置摘要无效')
+    return sha256(local/'preview.json')
+
+
+def preview_info(ident):
+    task = read(ident)
+    if not task.get('preview_required') or task.get('phase') != 'awaiting_confirmation':
+        raise ValueError('前景尚未准备好，或已经提交生成')
+    digest = validate_preview(task)
+    if digest != task.get('preview_sha256'):
+        raise ValueError('前景预览记录已改变，请重新选图')
+    prefix = '/api/generation-preview/' + ident
+    return dict(id=ident, preview_sha256=digest, original_url=prefix+'/original',
+                foreground_url=prefix+'/foreground', model_input_url=prefix+'/model-input')
+
+
+def confirm_preview(ident, payload):
+    if not isinstance(payload, dict) or payload.get('confirmed') is not True:
+        raise ValueError('请先检查前景并确认主体完整、背景无残留')
+    # Persist the transition before launching. Repeated clicks or a lost HTTP response
+    # return the same task and never submit a second generation job.
+    with CONFIRM_LOCK:
+        task = read(ident)
+        digest = payload.get('preview_sha256')
+        if not task.get('preview_required') or not digest or digest != task.get('preview_sha256'):
+            raise ValueError('确认与当前预览不匹配，请重新检查前景')
+        if task.get('phase') == 'generation':
+            return task
+        if task.get('phase') != 'awaiting_confirmation':
+            raise ValueError('前景尚未准备好')
+        with LOCK:
+            if ident in ACTIVE:
+                raise ValueError('前景正在同步，请稍后确认')
+            if validate_preview(task) != digest:
+                raise ValueError('前景预览记录已改变，请重新选图')
+            task.update(phase='generation', state='提交已确认的前景', confirmed_at=time.time())
+            task.pop('error', None)
+            task.pop('retry_at', None)
+            save(task)
+            ACTIVE.add(ident)
+        launch(ident, submit_confirmed, claimed=True)
+        return task
+
+
+def submit_confirmed(task):
+    if task.get('phase') != 'generation' or not task.get('confirmed_at'):
+        raise ValueError('生成前必须确认前景')
+    if task.get('job_id'):
+        return
+    digest = validate_preview(task)
+    if digest != task.get('preview_sha256'):
+        raise ValueError('确认后的前景已改变')
+    version = task.get('code_version', '')
+    if not re.fullmatch(r'[0-9a-f]{64}', version):
+        raise ValueError('预处理代码版本缺失，请重新选图')
+    code = task['root']+'/local/code-releases/'+version
+    # Use the original immutable code release; do not redeploy a changed local version.
+    submit_script(task, code, confirmed_preview=digest)
+
+
+def update_preview(task):
+    if not task.get('preview_job_id'):
+        return
+    host, remote, q = task['host'], task['remote'], shlex.quote
+    raw = ssh(host, f'if test -f {q(remote+"/preview-status.json")}; then cat {q(remote+"/preview-status.json")}; fi')
+    state = json.loads(raw) if raw else {}
+    task['checked_at'] = time.time()
+    if state.get('error'):
+        raise RuntimeError('前景预处理失败：' + str(state['error']))
+    # A status file may be written before the Slurm allocation exits. Only expose a
+    # confirmable preview after successful completion, releasing the GPU while the user checks.
+    accounting = ssh(host, 'sacct -n -X -j ' + task['preview_job_id'] + ' --format=State,ExitCode --parsable2')
+    rows = [line.strip().split('|') for line in accounting.splitlines() if line.strip()]
+    success = any(row[:2] == ['COMPLETED', '0:0'] for row in rows)
+    if success and state.get('state') == '前景待确认':
+        local = location(task)
+        (local/'prepared').mkdir(exist_ok=True)
+        names = ['preview.json', 'prepared/foreground.png', 'prepared/model_input.png']
+        if 'foreground_selection' in json.loads((local/'request.json').read_text(encoding='utf-8')):
+            names.append('segmentation.json')
+        for name in names:
+            dest = local/name
+            temp = dest.with_suffix(dest.suffix+'.part')
+            scp(host, remote+'/'+name, temp, download=True)
+            temp.replace(dest)
+        digest = validate_preview(task)
+        task.update(phase='awaiting_confirmation', state='前景待确认', preview_sha256=digest)
+        return
+    if any(row[0].split()[0] in ('COMPLETED', 'FAILED', 'CANCELLED', 'TIMEOUT', 'OUT_OF_MEMORY',
+                                  'NODE_FAIL', 'PREEMPTED', 'BOOT_FAIL', 'DEADLINE') for row in rows):
+        log = ssh(host, 'tail -c 2500 '+q(remote+'/preview-job.log'))
+        raise RuntimeError('前景预处理未成功完成：'+accounting+'\n'+log)
+    task['state'] = state.get('state', '前景预处理排队等待 GPU')
+    if task['state'] == '前景待确认':
+        task['state'] = '前景已处理，正在等待作业结束'
+
 
 def update(task):
+    if task.get('phase') == 'awaiting_confirmation':
+        return
+    if task.get('phase') == 'preview':
+        return update_preview(task)
     if task.get('state') == '完成' or not task.get('job_id'):
         return
     host, remote = task['host'], task['remote']
@@ -254,6 +410,8 @@ def update(task):
                 run['models'].pop('shape',None)
             parent = str(Path(run['input']).parent).replace(chr(92),'/')
             names += [parent+'/manifest.json',parent+'/foreground.png']
+            if task.get('preview_required'):
+                names.append(parent+'/model_input.png')
             files.extend(names)
         from result_transfer import collect
         collect(host,remote+'/results',results,files)
@@ -274,6 +432,23 @@ def tasks():
     result = []
     for p in sorted(STORE.glob('*/task.json'), key=lambda p:p.stat().st_mtime, reverse=True):
         task = json.loads(p.read_text(encoding='utf-8'))
+        phase = task.get('phase')
+        submission = {
+            'preview': ('preview_job_id', '上传照片，准备前景预览', '预处理', 'preview-'),
+            'generation': ('job_id', '提交已确认的前景', '生成', 'web-'),
+        }.get(phase)
+        if submission and not task.get(submission[0]) and task['state'] == submission[1]:
+            with LOCK:
+                # A submission worker may have saved its job ID after the first
+                # read and released ACTIVE. Never overwrite that newer record.
+                task = read(task['id'])
+                if (task['id'] not in ACTIVE and task.get('phase') == phase
+                        and not task.get(submission[0]) and task['state'] == submission[1]):
+                    task['state'] = '提交结果未知，请核对服务器队列'
+                    task['error'] = ('本地服务在记录' + submission[2]
+                                     + '作业号前中断。请核对服务器队列中 ' + submission[3]
+                                     + task['id'][:8] + ' 的作业；为避免重复提交，不会自动重新提交。')
+                    save(task)
         if task['state'] == '下载带纹理模型':
             progress = location(task)/'results/.received.json'
             if progress.is_file():
@@ -288,7 +463,7 @@ def monitor(stop):
     while not stop.is_set():
         try:
             for task in tasks():
-                if (task.get('job_id') and task['state'] not in ('完成', '连接或执行异常')
+                if (active_job(task) and task.get('phase') != 'awaiting_confirmation' and task['state'] not in ('完成', '连接或执行异常')
                         and task.get('retry_at', 0) <= time.time()):
                     launch(task['id'], update)
         except (ValueError, OSError):

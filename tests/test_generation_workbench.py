@@ -15,7 +15,8 @@ SPEC = {'name':'sample','seeds':[42,123],'images':['cup.png'],
 def local(tmp_path,monkeypatch):
     monkeypatch.setattr(generation,'ROOT',tmp_path)
     monkeypatch.setattr(generation,'STORE',tmp_path/'local/generation-jobs')
-    monkeypatch.setattr(generation,'launch',lambda *a:None)
+    monkeypatch.setattr(generation,'ACTIVE',set())
+    monkeypatch.setattr(generation,'launch',lambda *a,**kwargs:None)
     return tmp_path
 
 
@@ -53,10 +54,12 @@ def test_submission_uses_shared_code(local,monkeypatch):
     monkeypatch.setattr(generation,'scp',lambda *a,**kw: calls.append(a))
     monkeypatch.setattr(generation,'ssh',lambda h,s:'1234' if 'sbatch' in s else '')
     generation.submit(task)
-    script=(generation.location(task)/'job.sh').read_text()
+    script=(generation.location(task)/'preview-job.sh').read_text()
     assert '#SBATCH --time=03:15:00' in script
     assert 'code-releases/hash/src' in script
-    assert task['job_id']=='1234'
+    assert '--prepare' in script
+    assert task['preview_job_id']=='1234'
+    assert 'job_id' not in task
     assert not any('code.tar.gz' in str(c) for c in calls)
 
 

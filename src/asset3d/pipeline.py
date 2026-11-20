@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import time
@@ -29,7 +30,8 @@ class Pipeline:
                 backend = HunyuanBackend(config)
         self.backend = backend
 
-    def run(self, image_path, output_dir, seed=42, resume=False):
+    def run(self, image_path, output_dir, seed=42, resume=False, prepared_input=None,
+            prepared_sha256=None):
         if type(seed) is not int or not 0 <= seed < 2**32:
             raise ValueError("seed must be an integer in [0, 2**32)")
         image_path = Path(image_path).resolve()
@@ -39,6 +41,25 @@ class Pipeline:
             "config_sha256": object_hash(self.config),
             "seed": seed,
         }
+        prepared = None
+        if prepared_input is not None:
+            from .foreground_preview import read_prepared
+
+            if prepared_sha256 is not None and (
+                identity['input_sha256'] != prepared_sha256['input_sha256']
+                or identity['config_sha256'] != prepared_sha256['config_sha256']
+            ):
+                raise ValueError('Confirmed photo or configuration changed before generation')
+            if not callable(getattr(self.backend, "generate_shape_prepared", None)):
+                raise ValueError("Backend does not support confirmed model inputs")
+            if (prepared_sha256 is not None and "input_sha256" in prepared_sha256
+                    and prepared_sha256["input_sha256"] != identity["input_sha256"]):
+                raise ValueError("已确认的原图发生变化，请重新预览")
+            prepared = read_prepared(prepared_input, prepared_sha256)
+            identity["prepared_input"] = {
+                key + "_sha256": hashlib.sha256(data).hexdigest()
+                for key, data in prepared[0].items()
+            }
         out = Path(output_dir).resolve()
         out.mkdir(parents=True, exist_ok=True)
         # 独占锁防止两个作业同时写入同一个结果目录。
@@ -49,11 +70,11 @@ class Pipeline:
             raise RuntimeError(f"Run is locked: {lock}. Check the job before removing a stale lock.") from exc
         os.close(fd)
         try:
-            return self._run(image_path, out, identity, resume)
+            return self._run(image_path, out, identity, resume, prepared)
         finally:
             lock.unlink(missing_ok=True)
 
-    def _run(self, image_path, out, identity, resume):
+    def _run(self, image_path, out, identity, resume, prepared=None):
         manifest_path = out / "manifest.json"
         if manifest_path.exists():
             manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -120,7 +141,25 @@ class Pipeline:
             backend_ready = True
             stage = "preprocess"
             # 保存实际送入模型的前景图，方便检查抠图是否误删了物体细节。
-            if not cached("foreground.png"):
+            if prepared is not None:
+                contents, images = prepared
+                for key, data in contents.items():
+                    name = key + ".png"
+                    if cached(name):
+                        if manifest["artifacts"][name] != identity["prepared_input"][key + "_sha256"]:
+                            raise ValueError("Cached foreground differs from the confirmed preview")
+                        attempt["reused"].append(name)
+                    else:
+                        (out / name).write_bytes(data)
+                        remember(name)
+                if not cached("input.png"):
+                    with Image.open(image_path) as original:
+                        original.save(out / "input.png")
+                    remember("input.png")
+                image = images["foreground"]
+                model_input = images["model_input"]
+                attempt["reused"].append("confirmed_preview")
+            elif not cached("foreground.png"):
                 image = timed(
                     "preprocess",
                     lambda: prepare_image(
@@ -146,7 +185,8 @@ class Pipeline:
                 attempt["loads"]["shape"] = self.backend.load_shape()
                 mesh = timed(
                     getattr(self.backend, "generation_stage", "shape"),
-                    lambda: self.backend.generate_shape(image, identity["seed"]),
+                    (lambda: self.backend.generate_shape_prepared(model_input, identity["seed"]))
+                    if prepared is not None else lambda: self.backend.generate_shape(image, identity["seed"]),
                     gpu=True,
                 )
                 # 先保留未经最终简化处理的几何模型，用于白模检查和几何指标评估。

@@ -180,11 +180,44 @@ class TrellisBackend:
 
     def generate_shape(self, image, seed):
         import numpy as np
-        import torch
-        import trimesh
 
         if image.mode != "RGBA" or np.asarray(image.getchannel("A")).min() == 255:
             raise ValueError("Provide a transparent foreground PNG from pilot-prepare")
+        return self._generate_shape(image, seed, preprocess=True)
+
+    def prepare_foreground(self, image):
+        """Use the same pinned remover as batch generation, without running 3D inference."""
+        import torch
+
+        if image.mode != "RGBA":
+            raise ValueError("Expected an oriented RGBA photo")
+        if image.getchannel("A").getextrema()[0] < 255:
+            return image.copy()
+        with torch.inference_mode():
+            remover = self.pipeline.rembg_model
+            remover.to(self.pipeline.device)
+            try:
+                return remover(image.convert("RGB")).convert("RGBA")
+            finally:
+                remover.cpu()
+
+    def prepare_model_input(self, image):
+        from ..foreground_preview import validate_foreground
+
+        validate_foreground(image)
+        # The pinned official implementation crops and alpha-composites to RGB.
+        # Saving its output permits run(preprocess_image=False) after confirmation.
+        return self.pipeline.preprocess_image(image.copy())
+
+    def generate_shape_prepared(self, image, seed):
+        if image.mode != "RGB" or min(image.size) < 2:
+            raise ValueError("Expected the confirmed RGB model input")
+        return self._generate_shape(image, seed, preprocess=False)
+
+    def _generate_shape(self, image, seed, preprocess):
+        import torch
+        import trimesh
+
         c = self.config["generation"]
         # 官方 run 内部提取图片特征，生成稀疏空间布局，再生成并解码形状、材质表示。
         # native 同时保留几何和材质数据，后面的 GLB 导出会继续使用这些信息。
@@ -193,7 +226,7 @@ class TrellisBackend:
                 image,
                 seed=seed,
                 num_samples=1,
-                preprocess_image=True,
+                preprocess_image=preprocess,
                 pipeline_type=c["pipeline_type"],
                 max_num_tokens=c["max_num_tokens"],
             )[0]

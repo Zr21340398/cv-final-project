@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3D 模型工作台</title><link rel="stylesheet" href="/style.css"><script defer src="/vendor/babylon.js"></script><script defer src="/vendor/babylonjs.loaders.min.js"></script><script defer src="/app.js"></script></head>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3D 模型工作台</title><link rel="stylesheet" href="/style.css"><script defer src="/vendor/babylon.js"></script><script defer src="/vendor/babylonjs.loaders.min.js"></script><script defer src="/target-selection.js"></script><script defer src="/foreground-preview.js"></script><script defer src="/app.js"></script></head>
 <body>
   <header><div><span class="eyebrow">IMAGE TO 3D · MODEL WORKSPACE</span><h1>3D 模型工作台</h1><p>把模型放在一起查看，也可以载入实验结果进行对比。</p></div><span class="tag">本地运行</span></header>
   <main>
@@ -10,8 +10,36 @@
       <label>服务器项目绝对路径 <input id="generate-project" type="text" size="42" required></label>
       <label>作业运行上限 (HH:MM:SS) <input id="generate-time" type="text" size="9" value="02:00:00" required></label>
       <label><input id="generate-shape" type="checkbox"> 下载白模</label>
-      <button id="generate-submit" class="primary" type="button">用 TRELLIS.2 生成</button>
-      <span id="generate-message" role="status">目标 50 万面，2048 贴图，自动修复表面并展示。</span>
+      <button id="generate-prepare" class="primary" type="button" disabled>1. 预处理并预览</button>
+      <button id="generate-reselect" type="button">重新选图</button>
+      <span id="generate-message" role="status">先检查自动抠图结果，再提交 3D 生成。预处理需要等待学校 GPU 排队。</span>
+      <details id="target-selection" class="target-selection" hidden>
+        <summary>自动抠图不准确？选定主体（可选）</summary>
+        <p>先在原图上拖框圈出整个物体，再用<strong>保留点 ＋</strong>标记物体，用<strong>排除点 −</strong>标记手或杂物。没有选择时使用自动抠图；修改后需重新预处理。被手遮住的部分不能靠抠图恢复。</p>
+        <div class="target-tools" role="group" aria-label="主体选择工具">
+          <button id="target-box" type="button" aria-pressed="true">圈选主体</button>
+          <button id="target-include" type="button" aria-pressed="false">保留点 ＋</button>
+          <button id="target-exclude" type="button" aria-pressed="false">排除点 −</button>
+          <button id="target-undo" type="button" disabled>撤销上一个点</button>
+          <button id="target-clear" type="button" disabled>清除选择</button>
+        </div>
+        <div class="target-stage"><canvas id="target-canvas" aria-label="原图主体选区：拖框圈选，切换保留点或排除点后点击标记" hidden></canvas></div>
+        <p id="target-status" role="status">选择原图后可以圈选主体。</p>
+      </details>
+      <section id="foreground-review" class="foreground-review" hidden aria-label="生成前检查前景" aria-busy="false">
+        <div class="review-heading"><h2>2. 检查前景</h2><span id="foreground-context"></span></div>
+        <p>对比原图检查主体、把手和细小边缘是否完整，桌面、杂物和阴影是否已去除。点击图片可放大查看；有问题可选定主体并重新预处理，或重新选图。</p>
+        <div class="review-images">
+          <figure><figcaption>原始照片</figcaption><a class="review-image original" target="_blank" rel="noopener" aria-label="放大原始照片"><img id="review-original" alt="本次上传的原始照片" hidden></a></figure>
+          <figure><figcaption>透明前景 · 检查抠图边界</figcaption><a class="review-image checkerboard" target="_blank" rel="noopener" aria-label="放大透明前景"><img id="review-foreground" alt="自动抠图后的透明前景" hidden></a></figure>
+          <figure><figcaption>模型实际输入 · 黑底</figcaption><a class="review-image model-input" target="_blank" rel="noopener" aria-label="放大模型实际输入"><img id="review-model-input" alt="将用于 3D 生成的实际输入图片" hidden></a></figure>
+        </div>
+        <p>棋盘格仅用于显示透明区域。右侧是完成裁剪和背景合成后、实际送入生成流程的图片。</p>
+        <div class="review-actions">
+          <label class="review-confirm"><input id="foreground-confirm" type="checkbox" disabled> 我已检查主体完整、背景无明显残留</label>
+          <button id="generate-submit" class="primary" type="button" disabled>3. 确认前景并生成 3D</button>
+        </div>
+      </section>
     </section>
     <section id="batch-form" class="toolbar" hidden>
       <label>实验配置 JSON <input id="batch-config" type="file" accept=".json"></label>
