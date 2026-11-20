@@ -110,15 +110,20 @@ def location(task):
     return ROOT/task['local_dir'] if task.get('local_dir') else folder(task['id'])
 
 
-def create(data, options=None, spec=None, images=None):
+def create(data, options=None, spec=None, images=None, foreground_selection=None):
     host, root, duration, shape = validate_options(options if options is not None else config())
     ident = uuid.uuid4().hex
     batch = spec is not None
+    if batch and (foreground_selection is not None or 'foreground_selection' in spec):
+        raise ValueError('主体选择仅适用于单张图片预览')
     if not batch:
         spec = {'name': ident, 'seeds': [42], 'images': ['input.png'],
                 'export_plugin': 'surface_repair',
                 'variants': [{'name': 'trellis2', 'decimation_target': 500000, 'texture_size': 2048}]}
         images = {'input.png':data}
+        if foreground_selection is not None:
+            from asset3d.target_foreground import validate_selection
+            spec['foreground_selection'] = validate_selection(foreground_selection)
     count = validate_spec(spec)
     expected_uploads = set() if 'dataset' in spec else set(spec['images'])
     if set(images) != expected_uploads:
@@ -240,7 +245,9 @@ def validate_preview(task):
     """Bind confirmation to the exact files downloaded from this task's preparation job."""
     local = location(task)
     record = json.loads((local/'preview.json').read_text(encoding='utf-8'))
-    if record.get('schema_version') != 1:
+    request = json.loads((local/'request.json').read_text(encoding='utf-8'))
+    targeted = 'foreground_selection' in request
+    if record.get('schema_version') != (2 if targeted else 1):
         raise ValueError('前景预览版本无效，请重新选图')
     paths = {
         'input_sha256': local/'inputs/input.png',
@@ -248,6 +255,8 @@ def validate_preview(task):
         'foreground_sha256': local/'prepared/foreground.png',
         'model_input_sha256': local/'prepared/model_input.png',
     }
+    if targeted:
+        paths['segmentation_sha256'] = local/'segmentation.json'
     for key, path in paths.items():
         if not re.fullmatch(r'[0-9a-f]{64}', str(record.get(key, ''))) or sha256(path) != record[key]:
             raise ValueError('照片或前景预览已改变，请重新选图并预处理')
@@ -329,7 +338,10 @@ def update_preview(task):
     if success and state.get('state') == '前景待确认':
         local = location(task)
         (local/'prepared').mkdir(exist_ok=True)
-        for name in ('preview.json', 'prepared/foreground.png', 'prepared/model_input.png'):
+        names = ['preview.json', 'prepared/foreground.png', 'prepared/model_input.png']
+        if 'foreground_selection' in json.loads((local/'request.json').read_text(encoding='utf-8')):
+            names.append('segmentation.json')
+        for name in names:
             dest = local/name
             temp = dest.with_suffix(dest.suffix+'.part')
             scp(host, remote+'/'+name, temp, download=True)

@@ -89,6 +89,45 @@ def test_preview_stops_before_generation_and_uses_separate_status(preview_job, m
     assert backend.mask_calls == 1
 
 
+def test_targeted_preview_binds_selection_and_segmentation_without_remasking(preview_job, monkeypatch):
+    job, config = preview_job
+    request = json.loads((job/'request.json').read_text())
+    selection = {'box':[0.1, 0.1, 0.9, 0.9], 'include_points':[[0.5, 0.5]],
+                 'exclude_points':[[0.02, 0.02]]}
+    request['foreground_selection'] = selection
+    (job/'request.json').write_text(json.dumps(request))
+    calls = []
+
+    def segment(image, selected):
+        calls.append(selected)
+        foreground = image.copy()
+        foreground.putalpha(0)
+        ImageDraw.Draw(foreground).rectangle((8, 8, image.width-9, image.height-9),
+                                             fill=(150, 80, 25, 255))
+        return foreground, {'method':'sam2', 'selection':selected, 'test_fixture':True}
+
+    monkeypatch.setattr('asset3d.target_foreground.segment_target', segment)
+    backend = PreviewBackend()
+    prepare_preview(job, config, backend)
+    assert calls == [selection]
+    assert backend.mask_calls == backend.shapes == 0
+    assert backend.model_calls == 1
+    record = json.loads((job/'preview.json').read_text())
+    assert record['schema_version'] == 2
+    assert record['segmentation_sha256'] == file_hash(job/'segmentation.json')
+    digest = file_hash(job/'preview.json')
+    validate_preview(job, config, digest)
+    original_request = (job/'request.json').read_bytes()
+    request['foreground_selection']['box'][0] = 0.15
+    (job/'request.json').write_text(json.dumps(request))
+    with pytest.raises(ValueError):
+        validate_preview(job, config, digest)
+    (job/'request.json').write_bytes(original_request)
+    (job/'segmentation.json').write_text('{}')
+    with pytest.raises(ValueError):
+        validate_preview(job, config, digest)
+
+
 def test_confirmed_pipeline_preserves_approved_bytes_and_pixels(preview_job, monkeypatch):
     job, config = preview_job
     preparation = PreviewBackend()

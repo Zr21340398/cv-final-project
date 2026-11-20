@@ -1,6 +1,7 @@
 /* Single-image review: only a loaded, current server preview can be confirmed. */
 (() => {
-  function createForegroundReview({document, fetch, URL, AbortController, setTimeout, clearTimeout}) {
+  function createForegroundReview({document, fetch, URL, AbortController, setTimeout, clearTimeout,
+    createTargetSelection = typeof window !== 'undefined' ? window.createTargetSelection : null}) {
     const $ = selector => document.querySelector(selector);
     const imageInput = $('#generate-image');
     const fields = ['host', 'project', 'time', 'shape'].map(name => $('#generate-' + name));
@@ -10,21 +11,31 @@
     const pictures = ['original', 'foreground', 'model-input'].map(name => $('#review-' + name));
     let revision = 0, activeTask = null, ready = null, loading = false, failed = false;
     let busy = false, submitting = false, touched = false, controller = null, objectURL = null;
+    const targetEditor = createTargetSelection?.({document, URL, onChange() {
+      touched = true;
+      invalidate('主体范围或标记已更改。请重新预处理，检查新前景后再确认生成。');
+      showOriginal();
+      refresh();
+    }});
 
     function options() {
-      return {host:fields[0].value.trim(), project:fields[1].value.trim(),
+      const settings = {host:fields[0].value.trim(), project:fields[1].value.trim(),
         time_limit:fields[2].value.trim(), download_shape:String(fields[3].checked)};
+      const selection = targetEditor?.value();
+      if (selection) settings.foreground_selection = JSON.stringify(selection);
+      return settings;
     }
     function refresh() {
       const settings = options();
       const file = imageInput.files[0];
       const validFile = file && file.size > 0 && file.size <= 20 * 1024 * 1024 && /\.(png|jpe?g)$/i.test(file.name);
       prepare.disabled = busy || submitting || Boolean(activeTask) || !validFile
-        || !settings.host || !settings.project || !settings.time_limit;
+        || !settings.host || !settings.project || !settings.time_limit || targetEditor?.canPrepare() === false;
       submit.disabled = submitting || !ready || !checked.checked;
       checked.disabled = submitting || !ready;
       reselect.disabled = submitting;
       [imageInput, ...fields].forEach(field => { field.disabled = submitting; });
+      targetEditor?.setDisabled(submitting);
       review.setAttribute('aria-busy', String(loading));
     }
     function clearPictures() {
@@ -50,12 +61,20 @@
       touched = true;
       invalidate('先预处理图片，检查主体完整且背景干净后，再提交 3D 生成。');
       const file = imageInput.files[0];
+      targetEditor?.setFile(null);
       if (!file) return;
       if (file.size === 0 || file.size > 20 * 1024 * 1024 || !/\.(png|jpe?g)$/i.test(file.name)) {
         message.textContent = '请选择 20 MiB 以内的 JPG 或 PNG 图片。';
         prepare.disabled = true;
         return;
       }
+      targetEditor?.setFile(file);
+      showOriginal();
+      refresh();
+    }
+    function showOriginal() {
+      const file = imageInput.files[0];
+      if (!file) return;
       objectURL = URL.createObjectURL(file);
       pictures[0].src = objectURL;
       pictures[0].hidden = false;
@@ -111,7 +130,8 @@
         await Promise.all(pictures.map((picture, index) => loadPicture(picture, urls[index], request.signal)));
         if (current !== revision || activeTask !== task.id) return;
         ready = {id:task.id, digest:data.preview_sha256};
-        message.textContent = '请对比三张图：把手、边缘是否完整？桌面、杂物和阴影是否残留？有问题请重新选图。';
+        message.textContent = '请检查主体是否完整、手和杂物是否残留。有问题可选定主体并重新预处理，或重新选图。'
+          + (imageInput.files[0] ? '' : ' 修改选区需要先重新选择原始照片。');
       } catch (error) {
         if (current === revision && activeTask === task.id) {
           failed = true; ready = null; request.abort();
@@ -126,6 +146,7 @@
       touched = true;
       invalidate();
       imageInput.value = '';
+      targetEditor?.setFile(null, {restored:true});
       fields[0].value = task.host; fields[1].value = task.root;
       fields[2].value = task.time_limit; fields[3].checked = Boolean(task.download_shape);
       activeTask = task.id;
@@ -152,6 +173,7 @@
       if (submitting) return;
       touched = true;
       imageInput.value = '';
+      targetEditor?.setFile(null);
       invalidate('请选择新的照片。旧前景确认已清除。');
       imageInput.click();
     });
@@ -190,6 +212,7 @@
         if (current !== revision) return;
         if (!response.ok) throw new Error(task.error || '确认提交失败');
         ready = null; activeTask = null; checked.checked = false; imageInput.value = '';
+        targetEditor?.setFile(null);
         message.textContent = task.error || (String(task.state).includes('未知')
           ? task.state : '已确认这份前景并提交 3D 生成，可在下方查看进度。');
       } catch (error) {

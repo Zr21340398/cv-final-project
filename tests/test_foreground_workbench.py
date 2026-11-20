@@ -58,6 +58,42 @@ def test_single_create_does_not_start_generation(service):
     assert len(calls) == 1
 
 
+def test_target_selection_is_saved_with_single_request_and_invalid_input_is_rejected(service):
+    task, calls = service
+    original = (generation.location(task)/'inputs/input.png').read_bytes()
+    options = dict(host='test', project='/project', time_limit='00:30:00', download_shape=False)
+    selection = {'box':[0.1, 0.2, 0.9, 0.8], 'include_points':[[0.5, 0.4]],
+                 'exclude_points':[[0.2, 0.7]]}
+    targeted = generation.create(original, options, foreground_selection=selection)
+    request = json.loads((generation.location(targeted)/'request.json').read_text())
+    assert request['foreground_selection'] == selection
+    assert targeted['phase'] == 'preview' and 'job_id' not in targeted
+    for bad in ({'box':[0.8, 0.1, 0.2, 0.9]}, {'box':[0, 0, 1, 1], 'mode':'unexpected'}):
+        with pytest.raises(ValueError):
+            generation.create(original, options, foreground_selection=bad)
+    assert len(calls) == 2
+
+
+def test_targeted_local_confirmation_verifies_segmentation_record(service):
+    task, _ = service
+    ready(task)
+    local = generation.location(task)
+    request = json.loads((local/'request.json').read_text())
+    request['foreground_selection'] = {'box':[0.1, 0.1, 0.9, 0.9], 'include_points':[], 'exclude_points':[]}
+    (local/'request.json').write_text(json.dumps(request))
+    (local/'segmentation.json').write_text(json.dumps({'method':'sam2', 'test_fixture':True}))
+    record = json.loads((local/'preview.json').read_text())
+    record.update(schema_version=2, request_sha256=generation.sha256(local/'request.json'),
+                  segmentation_sha256=generation.sha256(local/'segmentation.json'))
+    (local/'preview.json').write_text(json.dumps(record))
+    task['preview_sha256'] = generation.sha256(local/'preview.json')
+    generation.save(task)
+    assert generation.validate_preview(task) == task['preview_sha256']
+    (local/'segmentation.json').write_text('{}')
+    with pytest.raises(ValueError):
+        generation.confirm_preview(task['id'], {'confirmed':True, 'preview_sha256':task['preview_sha256']})
+
+
 def test_new_preview_is_claimed_before_worker_launch(service, monkeypatch):
     task, _ = service
     launched = []

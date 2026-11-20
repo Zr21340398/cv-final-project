@@ -68,7 +68,7 @@ def prepared_paths(job):
 
 def validate_preview(job, config, confirmed_hash):
     job = Path(job)
-    single_request(job)
+    spec = single_request(job)
     if not isinstance(confirmed_hash, str) or not re.fullmatch(r"[0-9a-f]{64}", confirmed_hash):
         raise ValueError("缺少有效的前景确认记录")
     data = (job / "preview.json").read_bytes()
@@ -76,11 +76,13 @@ def validate_preview(job, config, confirmed_hash):
         raise ValueError("前景确认记录发生变化，请重新预览")
     record = json.loads(data)
     expected = {
-        "schema_version": 1,
+        "schema_version": 2 if 'foreground_selection' in spec else 1,
         "input_sha256": file_hash(job / "inputs/input.png"),
         "request_sha256": file_hash(job / "request.json"),
         "config_sha256": object_hash(config),
     }
+    if 'foreground_selection' in spec:
+        expected['segmentation_sha256'] = file_hash(job / 'segmentation.json')
     if (set(record) != set(expected) | {"foreground_sha256", "model_input_sha256"}
             or any(record.get(key) != value for key, value in expected.items())):
         raise ValueError("原图或生成设置发生变化，请重新预览")
@@ -92,7 +94,7 @@ def validate_preview(job, config, confirmed_hash):
 def prepare_preview(job, config, backend):
     """Run only masking and image preparation; never call a 3D generation method."""
     job = Path(job)
-    single_request(job)
+    spec = single_request(job)
     lock = job / ".preview.lock"
     try:
         fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
@@ -104,7 +106,8 @@ def prepare_preview(job, config, backend):
             validate_preview(job, config, file_hash(job / "preview.json"))
             return
         source = job / "inputs/input.png"
-        record = {"schema_version": 1, "input_sha256": file_hash(source),
+        selection = spec.get('foreground_selection')
+        record = {"schema_version": 2 if selection is not None else 1, "input_sha256": file_hash(source),
                   "request_sha256": file_hash(job / "request.json"),
                   "config_sha256": object_hash(config)}
         with Image.open(source) as opened:
@@ -113,9 +116,15 @@ def prepare_preview(job, config, backend):
             raise ValueError("图片每边至少需要 32 像素")
         image.info.clear()  # The orientation has already been applied.
         image.thumbnail((2048, 2048))
+        if selection is not None:
+            from .target_foreground import segment_target
+            masked, metadata = segment_target(image, selection)
+            save_json(job / 'segmentation.json', metadata)
+            record['segmentation_sha256'] = file_hash(job / 'segmentation.json')
         backend.begin()
         backend.load_shape()
-        masked = backend.prepare_foreground(image)
+        if selection is None:
+            masked = backend.prepare_foreground(image)
         validate_foreground(masked)
         paths = prepared_paths(job)
         paths["foreground"].parent.mkdir(exist_ok=True)

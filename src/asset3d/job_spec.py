@@ -2,7 +2,7 @@
 import re
 
 def validate(spec):
-    if not isinstance(spec, dict) or set(spec) - {"export_plugin", "dataset"} != {'name', 'seeds', 'variants', 'images'}:
+    if not isinstance(spec, dict) or set(spec) - {"export_plugin", "dataset", "foreground_selection"} != {'name', 'seeds', 'variants', 'images'}:
         raise ValueError('配置必须包含 name、seeds、variants、images')
     safe = lambda x: isinstance(x, str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,79}', x)
     if not safe(spec['name']):
@@ -37,6 +37,11 @@ def validate(spec):
         if v.get('texture_size',2048) not in (1024,2048,4096):
             raise ValueError('texture_size 可选 1024、2048、4096')
     count = len(images)*len(seeds)*len(variants)
+    if 'foreground_selection' in spec:
+        if images != ['input.png'] or len(seeds) != 1 or len(variants) != 1 or 'dataset' in spec:
+            raise ValueError('主体选择仅适用于单张图片预览')
+        from .target_foreground import validate_selection
+        validate_selection(spec['foreground_selection'])
     if count > 200:
         raise ValueError('单批次最多 200 次生成，请拆分实验')
     return count

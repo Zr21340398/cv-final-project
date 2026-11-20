@@ -29,7 +29,7 @@ const preview = {id:ID, preview_sha256:SHA,
   foreground_url:`/api/generation-preview/${ID}/foreground`,
   model_input_url:`/api/generation-preview/${ID}/model-input`};
 const tick = () => new Promise(resolve => setImmediate(resolve));
-function setup(respond = async () => ({ok:true, json:async () => preview})) {
+function setup(respond = async () => ({ok:true, json:async () => preview}), createTargetSelection) {
   const elements = new Map(), calls = [], revoked = [];
   const $ = name => {
     if (!elements.has(name)) elements.set(name, new Element());
@@ -40,6 +40,7 @@ function setup(respond = async () => ({ok:true, json:async () => preview})) {
     fetch:async (url, options) => { calls.push({url, options}); return respond(url, options); },
     URL:{createObjectURL:() => 'blob:photo', revokeObjectURL:value => revoked.push(value)},
     AbortController, setTimeout, clearTimeout,
+    createTargetSelection,
   });
   review.configure({host:'school', project:'/project', time_limit:'02:00:00', download_shape:false});
   async function loadPictures() {
@@ -167,4 +168,67 @@ test('an idempotent confirmation with an unknown submission result does not clai
   assert.equal(env.$('#generate-message').textContent, error);
   assert.equal(env.$('#generate-submit').disabled, true);
   assert.doesNotMatch(env.$('#generate-message').textContent, /已确认这份前景并提交/);
+});
+
+test('target edits invalidate old confirmation and send normalized prompts with the same photo', async () => {
+  let selection = null, changed, editable = true;
+  const factory = options => {
+    changed = options.onChange;
+    return {value:() => selection, canPrepare:() => editable, setDisabled() {},
+      setFile() { selection = null; }};
+  };
+  const env = setup(async url => ({ok:true, json:async () => url.startsWith('/api/generate?')
+    ? {...task, phase:'preview'} : preview}), factory);
+  await env.choose();
+  await env.$('#generate-prepare').click();
+  assert.equal(new URL(env.calls[0].url, 'http://local').searchParams.has('foreground_selection'), false);
+  env.review.observe(task);
+  await tick(); await env.loadPictures(); await tick();
+  env.$('#foreground-confirm').checked = true;
+  await env.$('#foreground-confirm').emit('change');
+  assert.equal(env.$('#generate-submit').disabled, false);
+  selection = {box:[.1,.2,.8,.9], include_points:[[.5,.4]], exclude_points:[[.8,.8]]};
+  editable = false; changed(); // Starting a new box must immediately revoke confirmation.
+  assert.equal(env.$('#foreground-confirm').checked, false);
+  assert.equal(env.$('#generate-submit').disabled, true);
+  assert.equal(env.$('#generate-prepare').disabled, true);
+  editable = true; changed();
+  assert.equal(env.$('#generate-prepare').disabled, false);
+  const count = env.calls.length;
+  env.review.observe(task); await tick();
+  assert.equal(env.calls.length, count); // A late poll cannot revive the old result.
+  await env.$('#generate-prepare').click();
+  const request = env.calls.at(-1);
+  assert.deepEqual(JSON.parse(new URL(request.url, 'http://local').searchParams.get('foreground_selection')), selection);
+  assert.equal(request.options.body.name, 'cup.jpg');
+  assert.equal(env.calls.some(call => call.url.includes('generation-confirm')), false);
+});
+
+test('restoring a server preview clears stale target prompts and requires the original file for editing', async () => {
+  let selection = {box:[0,0,1,1], include_points:[], exclude_points:[]};
+  const files = [];
+  const env = setup(undefined, () => ({value:() => selection, canPrepare:() => true, setDisabled() {},
+    setFile(file, options) { files.push({file, options}); selection = null; }}));
+  await env.ready();
+  assert.equal(selection, null);
+  assert.deepEqual(files.at(-1), {file:null, options:{restored:true}});
+  assert.match(env.$('#generate-message').textContent, /重新选择原始照片/);
+  assert.equal(env.$('#generate-prepare').disabled, true);
+});
+
+test('choosing a new photo clears an invalid box and re-enables preprocessing', async () => {
+  let valid = true, changed;
+  const env = setup(undefined, options => {
+    changed = options.onChange;
+    return {value:() => null, canPrepare:() => valid, setDisabled() {}, setFile() { valid = true; }};
+  });
+  await env.choose('first.jpg');
+  assert.equal(env.$('#generate-prepare').disabled, false);
+  valid = false; changed(); // A too-small or cancelled drag blocks the current photo.
+  assert.equal(env.$('#generate-prepare').disabled, true);
+  await env.choose('second.jpg');
+  assert.equal(env.$('#generate-prepare').disabled, false);
+  assert.equal(env.$('#foreground-confirm').checked, false);
+  assert.equal(env.$('#generate-submit').disabled, true);
+  assert.equal(env.$('#foreground-context').textContent, 'second.jpg');
 });

@@ -50,7 +50,7 @@ def execute(job, confirmed_preview=None):
     base = base_config()
     prepared = None
     preview_record = None
-    if confirmed_preview is None and (job/'preview-status.json').exists():
+    if confirmed_preview is None and ('foreground_selection' in spec or (job/'preview-status.json').exists()):
         raise ValueError('请先检查前景并确认，再提交 3D 生成')
     if confirmed_preview is not None:
         single_request(job)
