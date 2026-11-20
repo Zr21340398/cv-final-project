@@ -325,10 +325,16 @@ def make_handler(datasets: Datasets):
                     body = json.loads(self.rfile.read(size))
                     images = {name:base64.b64decode(data,validate=True) for name,data in body['images'].items()}
                     self.json_response(generation.create(None,body['connection'],body['experiment'],images),202)
+                elif self.path.startswith('/api/generation-confirm/'):
+                    size = int(self.headers.get('Content-Length', '0'))
+                    if not 0 < size <= 4096:
+                        raise ValueError('前景确认请求无效')
+                    self.json_response(generation.confirm_preview(
+                        self.path.rsplit('/', 1)[-1], json.loads(self.rfile.read(size))), 202)
                 elif self.path.startswith('/api/generation-retry/'):
                     ident = self.path.rsplit('/', 1)[-1]
                     task = generation.read(ident)
-                    if not task.get('job_id'):
+                    if not generation.active_job(task):
                         raise ValueError('任务未记录作业号，请查看连接错误并检查服务器队列后重新提交')
                     generation.launch(ident, generation.update)
                     self.json_response({'ok': True})
@@ -348,7 +354,22 @@ def make_handler(datasets: Datasets):
                     import generation
                     self.json_response(generation.tasks())
                     return
-                if parsed.path.startswith('/api/generated/'):
+                if parsed.path.startswith('/api/generation-preview/'):
+                    import generation
+                    parts = parsed.path.split('/')
+                    if len(parts) not in (4, 5):
+                        raise FileNotFoundError()
+                    info = generation.preview_info(parts[3])
+                    if len(parts) == 4:
+                        self.json_response(info)
+                        return
+                    names = {'original': 'inputs/input.png', 'foreground': 'prepared/foreground.png',
+                             'model-input': 'prepared/model_input.png'}
+                    if parts[4] not in names:
+                        raise FileNotFoundError()
+                    local = generation.location(generation.read(parts[3]))
+                    path = within(local, local/names[parts[4]])
+                elif parsed.path.startswith('/api/generated/'):
                     import generation
                     task = generation.read(parsed.path.rsplit('/',1)[-1])
                     local = generation.location(task)
@@ -376,6 +397,7 @@ def make_handler(datasets: Datasets):
                 else:
                     routes = {"/": "frontend/index.html", "/index.html": "frontend/index.html",
                               "/style.css": "frontend/style.css", "/app.js": "frontend/app.js",
+                              "/foreground-preview.js": "frontend/foreground-preview.js",
                               "/vendor/babylon.js": "vendor/babylon.js",
                               "/vendor/babylonjs.loaders.min.js": "vendor/babylonjs.loaders.min.js"}
                     if parsed.path not in routes:
