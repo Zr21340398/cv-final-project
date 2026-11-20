@@ -15,7 +15,8 @@ SPEC = {'name':'sample','seeds':[42,123],'images':['cup.png'],
 def local(tmp_path,monkeypatch):
     monkeypatch.setattr(generation,'ROOT',tmp_path)
     monkeypatch.setattr(generation,'STORE',tmp_path/'local/generation-jobs')
-    monkeypatch.setattr(generation,'launch',lambda *a:None)
+    monkeypatch.setattr(generation,'ACTIVE',set())
+    monkeypatch.setattr(generation,'launch',lambda *a,**kwargs:None)
     return tmp_path
 
 

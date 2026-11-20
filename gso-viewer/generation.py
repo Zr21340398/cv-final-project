@@ -139,8 +139,12 @@ def create(data, options=None, spec=None, images=None):
             'state':'上传图片和代码','time_limit':duration,'download_shape':shape,'count':count}
     if not batch:
         task.update(preview_required=True, phase='preview', state='上传照片，准备前景预览')
-    save(task)
-    launch(ident,submit)
+    with LOCK:
+        save(task)
+        # Publish the task and claim its worker together so polling cannot
+        # mistake a newly created preview for an interrupted submission.
+        ACTIVE.add(ident)
+    launch(ident,submit,claimed=True)
     return task
 
 
@@ -416,17 +420,22 @@ def tasks():
     result = []
     for p in sorted(STORE.glob('*/task.json'), key=lambda p:p.stat().st_mtime, reverse=True):
         task = json.loads(p.read_text(encoding='utf-8'))
-        if (task.get('phase') == 'generation' and not task.get('job_id')
-                and task['state'] == '提交已确认的前景'):
+        phase = task.get('phase')
+        submission = {
+            'preview': ('preview_job_id', '上传照片，准备前景预览', '预处理', 'preview-'),
+            'generation': ('job_id', '提交已确认的前景', '生成', 'web-'),
+        }.get(phase)
+        if submission and not task.get(submission[0]) and task['state'] == submission[1]:
             with LOCK:
                 # A submission worker may have saved its job ID after the first
                 # read and released ACTIVE. Never overwrite that newer record.
                 task = read(task['id'])
-                if (task['id'] not in ACTIVE and task.get('phase') == 'generation'
-                        and not task.get('job_id') and task['state'] == '提交已确认的前景'):
+                if (task['id'] not in ACTIVE and task.get('phase') == phase
+                        and not task.get(submission[0]) and task['state'] == submission[1]):
                     task['state'] = '提交结果未知，请核对服务器队列'
-                    task['error'] = ('本地服务在记录生成作业号前中断。请核对服务器队列中 web-'
-                                     + task['id'][:8] + ' 的作业；为避免重复生成，不会自动重新提交。')
+                    task['error'] = ('本地服务在记录' + submission[2]
+                                     + '作业号前中断。请核对服务器队列中 ' + submission[3]
+                                     + task['id'][:8] + ' 的作业；为避免重复提交，不会自动重新提交。')
                     save(task)
         if task['state'] == '下载带纹理模型':
             progress = location(task)/'results/.received.json'

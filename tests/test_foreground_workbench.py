@@ -45,6 +45,7 @@ def ready(task):
     task.update(phase='awaiting_confirmation', state='前景待确认', preview_job_id='100',
                 preview_sha256=generation.sha256(local/'preview.json'), code_version='b'*64)
     generation.save(task)
+    generation.ACTIVE.discard(task['id'])  # The preparation worker has finished.
     return {'confirmed': True, 'preview_sha256': task['preview_sha256']}
 
 
@@ -55,6 +56,48 @@ def test_single_create_does_not_start_generation(service):
     with pytest.raises(ValueError):
         generation.confirm_preview(task['id'], {'confirmed': True, 'preview_sha256': 'a'*64})
     assert len(calls) == 1
+
+
+def test_new_preview_is_claimed_before_worker_launch(service, monkeypatch):
+    task, _ = service
+    launched = []
+
+    def inspect_before_worker_start(ident, action, *, claimed=False):
+        launched.append(ident)
+        assert claimed and ident in generation.ACTIVE
+        observed = next(item for item in generation.tasks() if item['id'] == ident)
+        assert observed['state'] == '上传照片，准备前景预览'
+        assert 'error' not in observed
+
+    monkeypatch.setattr(generation, 'launch', inspect_before_worker_start)
+    original = (generation.location(task)/'inputs/input.png').read_bytes()
+    created = generation.create(original, dict(host='test', project='/project',
+                                              time_limit='00:30:00', download_shape=False))
+    assert launched == [created['id']]
+
+
+def test_preview_restart_reports_unknown_submission_without_retry(service):
+    task, calls = service
+    assert generation.tasks()[0]['state'] == '上传照片，准备前景预览'
+    generation.ACTIVE.clear()  # The service exited before saving preview_job_id.
+    observed, = generation.tasks()
+    assert observed['state'] == '提交结果未知，请核对服务器队列'
+    assert 'preview-'+task['id'][:8] in observed['error']
+    assert '预处理作业号' in observed['error']
+    assert not generation.active_job(observed)
+    with pytest.raises(ValueError):
+        generation.confirm_preview(task['id'], {'confirmed': True, 'preview_sha256': 'a'*64})
+
+    class OneCycle:
+        done = False
+        def is_set(self):
+            return self.done
+        def wait(self, _):
+            self.done = True
+
+    generation.monitor(OneCycle())
+    assert calls == [(task['id'], generation.submit)]
+    assert generation.read(task['id']) == observed
 
 
 def test_confirmation_is_required_and_concurrent_requests_are_idempotent(service):
@@ -115,9 +158,10 @@ def test_restart_after_confirmation_reports_unknown_submission_without_retry(ser
     assert [action for _, action in calls].count(generation.submit_confirmed) == 1
 
 
-def test_task_poll_preserves_job_id_saved_after_its_initial_snapshot(service, monkeypatch):
+@pytest.mark.parametrize('phase,job_field', [('preview', 'preview_job_id'), ('generation', 'job_id')])
+def test_task_poll_preserves_job_id_saved_after_its_initial_snapshot(service, monkeypatch, phase, job_field):
     task, _ = service
-    confirmed = generation.confirm_preview(task['id'], ready(task))
+    submitting = task if phase == 'preview' else generation.confirm_preview(task['id'], ready(task))
     task_path = generation.folder(task['id'])/'task.json'
     original_read = Path.read_text
     finished = False
@@ -127,17 +171,17 @@ def test_task_poll_preserves_job_id_saved_after_its_initial_snapshot(service, mo
         snapshot = original_read(path, *args, **kwargs)
         if path == task_path and not finished:
             finished = True
-            generation.save({**confirmed, 'job_id': '200', 'state': '排队等待 GPU'})
+            generation.save({**submitting, job_field: '200', 'state': '排队等待 GPU'})
             generation.ACTIVE.discard(task['id'])
         return snapshot
 
     monkeypatch.setattr(Path, 'read_text', finish_submission_after_read)
     observed, = generation.tasks()
     assert finished
-    assert observed['job_id'] == '200'
+    assert observed[job_field] == '200'
     assert observed['state'] == '排队等待 GPU'
     persisted = generation.read(task['id'])
-    assert persisted['job_id'] == '200'
+    assert persisted[job_field] == '200'
     assert 'error' not in persisted
 
 
