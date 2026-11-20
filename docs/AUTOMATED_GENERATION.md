@@ -32,6 +32,8 @@ export ASSET3D_SAM2_CHECKPOINT=/absolute/path/to/sam2.1_hiera_tiny.pt
 
 选择记录进入 `request.json`；精修方法、固定版本、选择提示及候选分数进入 `segmentation.json`，其摘要一并纳入版本 2 的 `preview.json`。候选分数仅用于模型选取，不是人工质量评分。确认后的生成仍使用已核验的同一份 PNG，不再次分割。
 
+真实手机照片验证中，手持杯子的手臂可以被去除，但与杯壁相贴的小票仍可能残留，增加排除点也可能误删杯身。更高计算精度或更大分割模型不保证解决这类问题；必须逐次检查预览。有遮挡不等于抠图失败：3D 模型可以推测不可见区域，但这不保证真实还原，也不能替代对可见主体误删和杂物残留的检查。
+
 本机和服务器的单图输入、配置、预处理及结果都位于项目的 `local/web-jobs/<任务编号>/`。本机 `local/generation-jobs/` 只存任务状态与远端作业编号，旧版任务数据仍保留。
 
 新单图任务还保存 `preview.json`、`prepared/foreground.png`、`prepared/model_input.png`、`preview-job.sh`、服务器 `preview-job.log` 和 `preview-status.json`。正式结果额外保存已确认的 `model_input.png`，并在 manifest 的 identity 中记录其摘要；原始照片保留为输入记录。预处理失败时可重新选图，预处理作业查询或下载中断可重查原作业。提交返回前断线仍须先核实服务器队列，不自动重提。
