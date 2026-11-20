@@ -4,8 +4,9 @@ import hashlib
 import os
 import subprocess
 import sys
+from contextlib import nullcontext
 from pathlib import Path
-from types import ModuleType
+from types import ModuleType, SimpleNamespace
 
 import numpy as np
 import pytest
@@ -191,3 +192,59 @@ def test_offline_predictor_disables_automatic_hole_filling(tmp_path, monkeypatch
         {"device": "cuda", "apply_postprocessing": False},
     )
     assert calls["predictor"] == {"max_hole_area": 0.0, "max_sprinkle_area": 0.0}
+
+
+@pytest.mark.parametrize("invalid_prior", [False, "shape", "nonfinite"])
+def test_single_object_refinement_reuses_raw_logits_and_identical_prompts(monkeypatch, invalid_prior):
+    calls, released = [], []
+    mask = np.zeros((1, 64, 80), dtype=bool)
+    mask[:, 8:56, 8:72] = True
+    mask[:, 20:25, 20:25] = False  # A genuine hole must not be filled by postprocessing.
+    image = Image.new("RGB", (80, 64), (11, 22, 33))
+    logits = [np.full((1, 256, 256), -0.75, np.float32),
+              np.full((1, 256, 256), 0.125, np.float32)]
+    if invalid_prior == "shape":
+        logits[0] = np.zeros((1, 64, 80), np.float32)
+    elif invalid_prior == "nonfinite":
+        logits[0][0, 0, 0] = np.nan
+
+    class Predictor:
+        def set_image(self, value):
+            assert value.flags.writeable and np.array_equal(value, np.asarray(image))
+
+        def predict(self, **kwargs):
+            step = len(calls)
+            calls.append(kwargs)
+            assert kwargs["multimask_output"] is False
+            np.testing.assert_array_equal(kwargs["box"], [8, 6, 72, 58])
+            np.testing.assert_array_equal(kwargs["point_coords"], [[30, 30], [1, 1]])
+            np.testing.assert_array_equal(kwargs["point_labels"], [1, 0])
+            if step == 0:
+                assert kwargs["mask_input"] is None
+            else:
+                np.testing.assert_array_equal(kwargs["mask_input"], logits[step - 1])
+                assert not np.shares_memory(kwargs["mask_input"], logits[step - 1])
+            return mask, np.array([0.9]), logits[min(step, 1)]
+
+        def reset_predictor(self):
+            released.append("reset")
+
+    torch = ModuleType("torch")
+    torch.bfloat16 = object()
+    torch.inference_mode = nullcontext
+    torch.autocast = lambda *args, **kwargs: nullcontext()
+    torch.cuda = SimpleNamespace(is_available=lambda: True, is_bf16_supported=lambda: True,
+                                 empty_cache=lambda: released.append("cache"))
+    monkeypatch.setitem(sys.modules, "torch", torch)
+    monkeypatch.setattr(target, "_load_predictor", Predictor)
+    args = (image, [8, 6, 72, 58], [[30, 30], [1, 1]], [1, 0])
+    if invalid_prior:
+        with pytest.raises(RuntimeError, match="中间蒙版"):
+            target._predict_masks(*args)
+        assert len(calls) == 1
+    else:
+        actual, _ = target._predict_masks(*args)
+        assert len(calls) == 3
+        np.testing.assert_array_equal(actual, mask)
+        assert target.MASK_STRATEGY == "single_mask_logits_refinement_v1"
+    assert released == ["reset", "cache"]

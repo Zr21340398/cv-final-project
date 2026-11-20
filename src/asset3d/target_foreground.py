@@ -18,6 +18,8 @@ SAM2_CHECKPOINT_REVISION = "de431c4043854a71d8101e17995dfe596bf101a5"
 SAM2_CHECKPOINT_SHA256 = "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69"
 SAM2_CHECKPOINT_SIZE = 156_008_466
 SAM2_CONFIG = "configs/sam2.1/sam2.1_hiera_t.yaml"
+MASK_REFINEMENT_PASSES = 2
+MASK_STRATEGY = "single_mask_logits_refinement_v1"
 SAM2_CHECKPOINT_URL = (
     "https://huggingface.co/facebook/sam2.1-hiera-tiny/resolve/"
     + SAM2_CHECKPOINT_REVISION
@@ -144,12 +146,23 @@ def _predict_masks(rgb, box, points, labels):
             # PIL's array view can be read-only; torchvision converts this array
             # to a tensor, so provide owned, writable storage explicitly.
             predictor.set_image(np.array(rgb, copy=True))
-            masks, scores, _ = predictor.predict(
-                box=np.asarray(box, dtype=np.float32),
-                point_coords=np.asarray(points, dtype=np.float32) if points else None,
-                point_labels=np.asarray(labels, dtype=np.int32) if labels else None,
-                multimask_output=True,
-            )
+            prompts = {
+                "box": np.asarray(box, dtype=np.float32),
+                "point_coords": np.asarray(points, dtype=np.float32) if points else None,
+                "point_labels": np.asarray(labels, dtype=np.int32) if labels else None,
+                # A box names one object. SAM2's dedicated single-mask token is
+                # distinct from the three ambiguity candidates returned by True.
+                "multimask_output": False,
+            }
+            prior = None
+            for step in range(MASK_REFINEMENT_PASSES + 1):
+                masks, scores, logits = predictor.predict(**prompts, mask_input=prior)
+                if step < MASK_REFINEMENT_PASSES:
+                    # Feed raw low-resolution logits back with the SAME prompts.
+                    # Never use a thresholded, cropped or resized preview as a prior.
+                    prior = np.asarray(logits, dtype=np.float32).copy()
+                    if prior.shape != (1, 256, 256) or not np.isfinite(prior).all():
+                        raise RuntimeError("主体精修的中间蒙版无效，请重新预览")
         return np.asarray(masks).copy(), np.asarray(scores).copy()
     finally:
         if predictor is not None:
@@ -210,6 +223,8 @@ def segment_target(image, selection):
         "checkpoint_revision": SAM2_CHECKPOINT_REVISION,
         "checkpoint_sha256": SAM2_CHECKPOINT_SHA256,
         "model_config": SAM2_CONFIG,
+        "mask_strategy": MASK_STRATEGY,
+        "refinement_passes": MASK_REFINEMENT_PASSES,
         "selection": selection,
         "image_size": [width, height],
         "candidate_index": index,
