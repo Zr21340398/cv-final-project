@@ -1,57 +1,194 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3D 模型工作台</title><link rel="stylesheet" href="/style.css"><script defer src="/vendor/babylon.js"></script><script defer src="/vendor/babylonjs.loaders.min.js"></script><script defer src="/target-selection.js"></script><script defer src="/foreground-preview.js"></script><script defer src="/app.js"></script></head>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7fb">
+  <title>Asset3D · 3D 资产工作台</title>
+  <link rel="stylesheet" href="/style.css">
+  <script defer src="/vendor/babylon.js"></script>
+  <script defer src="/vendor/babylonjs.loaders.min.js"></script>
+  <script defer src="/target-selection.js"></script>
+  <script defer src="/foreground-preview.js"></script>
+  <script defer src="/app.js"></script>
+</head>
 <body>
-  <header><div><span class="eyebrow">IMAGE TO 3D · MODEL WORKSPACE</span><h1>3D 模型工作台</h1><p>把模型放在一起查看，也可以载入实验结果进行对比。</p></div><span class="tag">本地运行</span></header>
-  <main>
-    <section class="toolbar"><button id="single-mode" type="button">单张图片输入</button><button id="batch-mode" type="button" style="margin-left:auto">批量导入</button></section>
-    <section id="single-form" class="toolbar" hidden aria-label="图片生成三维资产">
-      <label>选择物体照片 <input id="generate-image" type="file" accept="image/jpeg,image/png"></label>
-      <label>SSH 别名 <input id="generate-host" type="text" required></label>
-      <label>服务器项目绝对路径 <input id="generate-project" type="text" size="42" required></label>
-      <label>作业运行上限 (HH:MM:SS) <input id="generate-time" type="text" size="9" value="02:00:00" required></label>
-      <label><input id="generate-shape" type="checkbox"> 下载白模</label>
-      <button id="generate-prepare" class="primary" type="button" disabled>1. 预处理并预览</button>
-      <button id="generate-reselect" type="button">重新选图</button>
-      <span id="generate-message" role="status">先检查自动抠图结果，再提交 3D 生成。预处理需要等待学校 GPU 排队。</span>
-      <details id="target-selection" class="target-selection" hidden>
-        <summary>自动抠图不准确？选定主体（可选）</summary>
-        <p>先在原图上拖框圈出整个物体，再用<strong>保留点 ＋</strong>标记物体，用<strong>排除点 −</strong>标记手或杂物。没有选择时使用自动抠图；修改后需重新预处理。被手遮住的部分不能靠抠图恢复。</p>
-        <div class="target-tools" role="group" aria-label="主体选择工具">
-          <button id="target-box" type="button" aria-pressed="true">圈选主体</button>
-          <button id="target-include" type="button" aria-pressed="false">保留点 ＋</button>
-          <button id="target-exclude" type="button" aria-pressed="false">排除点 −</button>
-          <button id="target-undo" type="button" disabled>撤销上一个点</button>
-          <button id="target-clear" type="button" disabled>清除选择</button>
+  <aside class="sidebar" aria-label="工作台导航">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"><i class="cube"></i></span>
+      <div><strong>Asset3D</strong><span>3D 资产工作台</span></div>
+    </div>
+    <p class="nav-label">工作区</p>
+    <nav class="navigation" aria-label="工作区">
+      <button id="compare-mode" type="button" aria-controls="comparison" aria-current="page"><i class="icon split" aria-hidden="true"></i>模型对比</button>
+      <button id="single-mode" type="button" aria-controls="single-form"><i class="icon photo" aria-hidden="true"></i>单图生成</button>
+      <button id="batch-mode" type="button" aria-controls="batch-form"><i class="icon layers" aria-hidden="true"></i>批量导入</button>
+    </nav>
+    <div class="sidebar-footer">MAIE5421 <span>计算机视觉课程项目</span></div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar">
+      <div class="breadcrumb"><span>工作台</span><i class="chevron" aria-hidden="true"></i><strong id="current-view">模型对比</strong></div>
+      <span class="local-tag"><i aria-hidden="true"></i>本地运行</span>
+    </header>
+
+    <main>
+      <section id="comparison" aria-labelledby="comparison-title">
+        <div class="page-heading">
+          <div><h1 id="comparison-title">模型对比</h1><p>并排查看本地 GLB 模型，或载入同一物体的实验结果。</p></div>
+          <div class="action-group">
+            <button id="preset-toggle" type="button" aria-expanded="false" aria-controls="preset-bar">实验预设 <i class="chevron" aria-hidden="true"></i></button>
+            <button id="add-panel" class="primary" type="button"><i class="icon plus" aria-hidden="true"></i>添加窗口</button>
+          </div>
         </div>
-        <div class="target-stage"><canvas id="target-canvas" aria-label="原图主体选区：拖框圈选，切换保留点或排除点后点击标记" hidden></canvas></div>
-        <p id="target-status" role="status">选择原图后可以圈选主体。</p>
-      </details>
-      <section id="foreground-review" class="foreground-review" hidden aria-label="生成前检查前景" aria-busy="false">
-        <div class="review-heading"><h2>2. 检查前景</h2><span id="foreground-context"></span></div>
-        <p>对比原图检查主体、把手和细小边缘是否完整，桌面、杂物和阴影是否已去除。点击图片可放大查看；有问题可选定主体并重新预处理，或重新选图。</p>
-        <div class="review-images">
-          <figure><figcaption>原始照片</figcaption><a class="review-image original" target="_blank" rel="noopener" aria-label="放大原始照片"><img id="review-original" alt="本次上传的原始照片" hidden></a></figure>
-          <figure><figcaption>透明前景 · 检查抠图边界</figcaption><a class="review-image checkerboard" target="_blank" rel="noopener" aria-label="放大透明前景"><img id="review-foreground" alt="自动抠图后的透明前景" hidden></a></figure>
-          <figure><figcaption>模型实际输入 · 黑底</figcaption><a class="review-image model-input" target="_blank" rel="noopener" aria-label="放大模型实际输入"><img id="review-model-input" alt="将用于 3D 生成的实际输入图片" hidden></a></figure>
+
+        <section id="preset-bar" class="surface presets" hidden aria-labelledby="preset-title">
+          <div class="section-heading">
+            <div><h2 id="preset-title">实验预设</h2><p>批量对比会替换当前窗口。也可在每个窗口单独选择方案。</p></div>
+            <button id="refresh-catalog" type="button"><i class="icon refresh" aria-hidden="true">↻</i>刷新实验列表</button>
+          </div>
+          <p id="preset-message" class="message" role="status" hidden></p>
+          <div class="preset-content">
+            <div class="preset-fields">
+              <label class="wide-field">实验<select id="dataset"></select></label>
+              <label>对象<select id="object"></select></label>
+              <label>随机种子<select id="seed"></select></label>
+              <label>模型类型<select id="kind"></select></label>
+              <label>输入图片来源<select id="input-variant"></select></label>
+              <div class="wide-field"><button id="load-preset" class="primary" type="button">对比参考模型与所有方案</button></div>
+            </div>
+            <figure class="input-preview">
+              <figcaption>实验输入图片</figcaption>
+              <div class="input-image"><img id="input-image" alt="实验输入图片" hidden><span id="input-message">正在读取输入图片</span></div>
+            </figure>
+          </div>
+        </section>
+
+        <section class="surface comparison-board" aria-labelledby="windows-title">
+          <div class="section-heading board-heading">
+            <div class="window-heading"><h2 id="windows-title">对比窗口</h2><span id="window-count" class="count">0 个窗口</span></div>
+            <button id="reset" class="quiet" type="button" disabled><i class="icon refresh" aria-hidden="true">↻</i>重置所有视角</button>
+          </div>
+          <div id="viewers" class="viewers"></div>
+          <div id="empty-board" class="empty-board" hidden>
+            <p>当前没有对比窗口</p>
+            <button id="add-first-panel" class="primary" type="button"><i class="icon plus" aria-hidden="true"></i>添加窗口</button>
+          </div>
+          <div class="board-footer">
+            <div class="controls-hint pointer-hint" aria-label="鼠标操作">
+              <span><strong>左键拖动</strong>旋转</span><span><strong>滚轮</strong>缩放</span><span><strong>右键拖动</strong>平移</span>
+            </div>
+            <div class="controls-hint touch-hint" aria-label="触屏操作">
+              <span><strong>单指拖动</strong>旋转</span><span><strong>双指捏合</strong>缩放</span><span><strong>双指拖动</strong>平移</span>
+            </div>
+            <span>各窗口视角独立</span>
+          </div>
+        </section>
+        <p id="notice" class="notice" role="status" hidden></p>
+      </section>
+
+      <section id="single-form" hidden aria-labelledby="single-title">
+        <div class="page-heading">
+          <div><h1 id="single-title">单图生成</h1><p>上传物体照片，检查前景后提交 3D 生成。</p></div>
         </div>
-        <p>棋盘格仅用于显示透明区域。右侧是完成裁剪和背景合成后、实际送入生成流程的图片。</p>
-        <div class="review-actions">
-          <label class="review-confirm"><input id="foreground-confirm" type="checkbox" disabled> 我已检查主体完整、背景无明显残留</label>
-          <button id="generate-submit" class="primary" type="button" disabled>3. 确认前景并生成 3D</button>
+        <div class="surface workflow">
+          <div class="section-heading"><div><h2>照片与作业设置</h2><p>预处理在学校 GPU 上运行，作业提交后可能需要排队。</p></div></div>
+          <div class="form-grid">
+            <label class="wide-field">物体照片 <input id="generate-image" type="file" accept="image/jpeg,image/png" aria-describedby="image-format"><small id="image-format">JPG 或 PNG，最大 20 MiB</small></label>
+            <label>SSH 别名 <input id="generate-host" type="text" required placeholder="school" spellcheck="false"></label>
+            <label>作业运行上限 (HH:MM:SS) <input id="generate-time" type="text" value="02:00:00" required spellcheck="false"></label>
+            <label class="wide-field">服务器项目绝对路径 <input id="generate-project" type="text" required placeholder="/path/to/cv-final-project" spellcheck="false"></label>
+            <label class="checkbox wide-field"><input id="generate-shape" type="checkbox"> 同时下载白模</label>
+          </div>
+          <details id="target-selection" class="target-selection" hidden>
+            <summary>手动标记主体（可选）</summary>
+            <p>拖框圈出物体，再用保留点标记主体，用排除点标记手或杂物。修改标记后请重新预处理。被遮挡的部位无法通过抠图恢复。</p>
+            <div class="target-tools action-group" role="group" aria-label="主体选择工具">
+              <button id="target-box" type="button" aria-pressed="true">圈选主体</button>
+              <button id="target-include" type="button" aria-pressed="false">保留点 ＋</button>
+              <button id="target-exclude" type="button" aria-pressed="false">排除点 −</button>
+              <button id="target-undo" type="button" disabled>撤销上一个点</button>
+              <button id="target-clear" type="button" disabled>清除选择</button>
+            </div>
+            <div class="target-stage"><canvas id="target-canvas" aria-label="原图主体选区：拖框圈选，切换保留点或排除点后点击标记" hidden></canvas></div>
+            <p id="target-status" role="status">选择原图后可以圈选主体。</p>
+          </details>
+          <div class="action-group">
+            <button id="generate-prepare" class="primary" type="button" disabled>预处理并预览</button>
+            <button id="generate-reselect" type="button">重新选图</button>
+          </div>
+          <p id="generate-message" class="message" role="status">先检查自动抠图结果，再提交 3D 生成。</p>
+        </div>
+
+        <section id="foreground-review" class="surface workflow foreground-review" hidden aria-labelledby="review-title" aria-busy="false">
+          <div class="section-heading review-heading"><div><h2 id="review-title" tabindex="-1">检查前景</h2><p>检查物体边缘是否完整，以及手、桌面和阴影是否残留。点击图片可放大查看。</p></div><span id="foreground-context"></span></div>
+          <div class="review-images">
+            <figure><figcaption>原始照片</figcaption><a class="review-image original" target="_blank" rel="noopener" aria-label="放大原始照片"><img id="review-original" alt="本次上传的原始照片" hidden><span>等待选图</span></a></figure>
+            <figure><figcaption>透明前景</figcaption><a class="review-image checkerboard" target="_blank" rel="noopener" aria-label="放大透明前景"><img id="review-foreground" alt="自动抠图后的透明前景" hidden><span>等待预处理</span></a></figure>
+            <figure><figcaption>模型输入 · 黑底</figcaption><a class="review-image model-input" target="_blank" rel="noopener" aria-label="放大模型实际输入"><img id="review-model-input" alt="将用于 3D 生成的实际输入图片" hidden><span>等待预处理</span></a></figure>
+          </div>
+          <div class="review-actions action-group">
+            <label class="checkbox"><input id="foreground-confirm" type="checkbox" disabled> 我已检查主体完整、背景无明显残留</label>
+            <button id="generate-submit" class="primary" type="button" disabled>确认前景并生成 3D</button>
+          </div>
+        </section>
+      </section>
+
+      <section id="batch-form" hidden aria-labelledby="batch-title">
+        <div class="page-heading">
+          <div><h1 id="batch-title">批量导入</h1><p>从实验配置提交 GPU 作业，完成后可在实验预设中比较结果。</p></div>
+        </div>
+        <div class="surface workflow">
+          <div class="section-heading"><div><h2>实验文件</h2><p>配置中需包含连接设置、实验名、images、seeds 和 variants。</p></div></div>
+          <div class="form-grid">
+            <label>实验配置 <input id="batch-config" type="file" accept=".json" aria-describedby="config-format"><small id="config-format">JSON 文件</small></label>
+            <label>实验图片 <input id="batch-images" type="file" accept="image/png,image/jpeg" multiple aria-describedby="batch-format"><small id="batch-format">JPG 或 PNG，合计不超过 70 MiB。使用服务器数据集时留空。</small></label>
+          </div>
+          <button id="batch-submit" class="primary" type="button">上传并运行实验</button>
+          <p id="batch-message" class="message" role="status" hidden></p>
         </div>
       </section>
-    </section>
-    <section id="batch-form" class="toolbar" hidden>
-      <label>实验配置 JSON <input id="batch-config" type="file" accept=".json"></label>
-      <label>实验图片（服务器数据集留空） <input id="batch-images" type="file" accept="image/png,image/jpeg" multiple></label>
-      <button id="batch-submit" type="button">上传并运行实验</button>
-      <span id="batch-message">配置包含连接设置、实验名、images、seeds 和 variants。结果自动加入实验预设。</span>
-    </section>
-    <section id="generation-jobs" class="tips" aria-live="polite"></section>
-    <section class="toolbar" aria-label="工作台操作"><button type="button" id="add-panel" class="primary">＋ 添加对比窗口</button><button type="button" id="reset">重置所有视角</button><button type="button" id="preset-toggle" aria-expanded="false">实验预设 ▾</button><span id="notice" role="status">将 GLB 模型拖入窗口，或点击窗口中的加号。</span></section>
-    <section id="preset-bar" class="presets" hidden aria-label="实验预设设置"><p id="preset-message" role="status" hidden></p><label>实验<select id="dataset"></select></label><button type="button" id="refresh-catalog">刷新实验列表</button><label>对象<select id="object"></select></label><label>随机种子<select id="seed"></select></label><label>模型类型<select id="kind"></select></label><label>输入图片来源<select id="input-variant"></select></label><button type="button" id="load-preset">对比参考模型与所有方案</button><div class="input-preview"><div><strong>输入图片</strong><p>根据所选物体、种子和来源方案显示。</p></div><div class="input-image"><img id="input-image" alt="实验输入图片" hidden><span id="input-message">正在读取输入图片</span></div></div><p>预设用于快速加载实验结果；每个窗口也可以单独选择方案。加载预设会替换当前窗口。</p></section>
-    <section class="viewers" id="viewers" aria-label="模型对比"></section>
-    <section class="tips"><strong>操作提示</strong><span>左键拖动旋转 · 滚轮缩放 · 右键拖动平移 · 每个窗口独立操作</span><span>模型自动适配视野；不同结果的原始朝向可能不同，需要手动旋转查看同一面。</span></section>
-  </main>
-  <template id="panel-template"><article class="card"><div class="card-head"><div class="card-title"><strong>空窗口</strong><small></small></div><div class="card-actions"><button class="replace" type="button" title="选择本地 GLB" aria-label="选择本地 GLB">＋</button><button class="panel-reset" type="button" title="重置视角" aria-label="重置视角">↺</button><button class="remove" type="button" title="关闭窗口" aria-label="关闭窗口">×</button></div></div><div class="panel-presets" hidden><label>方案 <select class="variant"></select></label><button class="load-one" type="button">加载</button></div><div class="viewport"><canvas tabindex="0" aria-label="3D 模型视图"></canvas><div class="overlay"><button class="choose" type="button"><span>＋</span><b>选择 GLB 文件</b><small>或将文件拖入此处</small></button></div></div><input class="file" type="file" accept=".glb,model/gltf-binary" hidden></article></template>
-</body></html>
+
+      <section id="generation-jobs" class="surface jobs" aria-labelledby="jobs-title" hidden>
+        <div class="section-heading"><h2 id="jobs-title">生成任务</h2></div>
+        <p id="jobs-message" class="message" role="status" hidden></p>
+        <ul id="job-list" aria-label="生成任务列表"></ul>
+      </section>
+    </main>
+  </div>
+
+  <template id="job-template">
+    <li class="job-row">
+      <div><div class="job-heading"><strong></strong><span class="job-state"></span></div><p></p></div>
+      <button type="button" hidden></button>
+    </li>
+  </template>
+
+  <template id="panel-template">
+    <article class="card">
+      <div class="card-head">
+        <div class="card-title"><strong>对比窗口</strong><small>未加载模型</small></div>
+        <div class="card-actions">
+          <button class="replace icon-button" type="button" title="选择本地 GLB" aria-label="选择本地 GLB"><i class="icon plus" aria-hidden="true"></i></button>
+          <button class="panel-reset icon-button" type="button" title="重置视角" aria-label="重置视角" disabled><i class="icon refresh" aria-hidden="true">↻</i></button>
+          <button class="remove icon-button" type="button" title="关闭窗口" aria-label="关闭窗口"><i class="icon cross" aria-hidden="true">×</i></button>
+        </div>
+      </div>
+      <div class="panel-presets" hidden><label>方案<select class="variant"></select></label><button class="load-one" type="button">加载</button></div>
+      <div class="viewport">
+        <canvas tabindex="-1" aria-label="3D 模型视图"></canvas>
+        <div class="overlay">
+          <p class="overlay-message" role="status" hidden></p>
+          <button class="choose" type="button">
+            <span class="upload-icon" aria-hidden="true"><i class="cube"></i><i class="icon plus"></i></span>
+            <strong>选择 GLB 文件</strong>
+            <small>或拖放文件到这里</small>
+          </button>
+        </div>
+      </div>
+      <input class="file" type="file" accept=".glb,model/gltf-binary" hidden>
+    </article>
+  </template>
+</body>
+</html>

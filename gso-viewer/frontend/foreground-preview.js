@@ -1,7 +1,8 @@
 /* Single-image review: only a loaded, current server preview can be confirmed. */
 (() => {
   function createForegroundReview({document, fetch, URL, AbortController, setTimeout, clearTimeout,
-    createTargetSelection = typeof window !== 'undefined' ? window.createTargetSelection : null}) {
+    createTargetSelection = typeof window !== 'undefined' ? window.createTargetSelection : null,
+    showSingleView = () => {}}) {
     const $ = selector => document.querySelector(selector);
     const imageInput = $('#generate-image');
     const fields = ['host', 'project', 'time', 'shape'].map(name => $('#generate-' + name));
@@ -25,11 +26,13 @@
       if (selection) settings.foreground_selection = JSON.stringify(selection);
       return settings;
     }
+    function validPhoto(file) {
+      return file && file.size > 0 && file.size <= 20 * 1024 * 1024 && /\.(png|jpe?g)$/i.test(file.name);
+    }
     function refresh() {
       const settings = options();
       const file = imageInput.files[0];
-      const validFile = file && file.size > 0 && file.size <= 20 * 1024 * 1024 && /\.(png|jpe?g)$/i.test(file.name);
-      prepare.disabled = busy || submitting || Boolean(activeTask) || !validFile
+      prepare.disabled = busy || submitting || Boolean(activeTask) || !validPhoto(file)
         || !settings.host || !settings.project || !settings.time_limit || targetEditor?.canPrepare() === false;
       submit.disabled = submitting || !ready || !checked.checked;
       checked.disabled = submitting || !ready;
@@ -63,7 +66,7 @@
       const file = imageInput.files[0];
       targetEditor?.setFile(null);
       if (!file) return;
-      if (file.size === 0 || file.size > 20 * 1024 * 1024 || !/\.(png|jpe?g)$/i.test(file.name)) {
+      if (!validPhoto(file)) {
         message.textContent = '请选择 20 MiB 以内的 JPG 或 PNG 图片。';
         prepare.disabled = true;
         return;
@@ -74,9 +77,10 @@
     }
     function showOriginal() {
       const file = imageInput.files[0];
-      if (!file) return;
+      if (!validPhoto(file)) return;
       objectURL = URL.createObjectURL(file);
       pictures[0].src = objectURL;
+      pictures[0].parentElement.href = objectURL;
       pictures[0].hidden = false;
       review.hidden = false;
       $('#foreground-context').textContent = file.name;
@@ -150,7 +154,7 @@
       fields[0].value = task.host; fields[1].value = task.root;
       fields[2].value = task.time_limit; fields[3].checked = Boolean(task.download_shape);
       activeTask = task.id;
-      $('#single-form').hidden = false; $('#batch-form').hidden = true;
+      showSingleView();
       $('#foreground-context').textContent = '任务 ' + task.id.slice(0, 8) + ' · ' + task.host;
       await loadPreview(task);
     }
@@ -167,7 +171,11 @@
       }
     }
     imageInput.addEventListener('change', showSelection);
-    fields.forEach(field => field.addEventListener('input', () => { touched = true; invalidate(); }));
+    fields.forEach(field => field.addEventListener('input', () => {
+      touched = true;
+      invalidate();
+      showOriginal();
+    }));
     checked.addEventListener('change', refresh);
     reselect.addEventListener('click', () => {
       if (submitting) return;
